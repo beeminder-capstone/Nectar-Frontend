@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Create New Beeminder Goal</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-list>
+		<form #formData='ngForm' (ngSubmit)="onSubmit(formData.value)">
+			<ion-item>
+				<ion-label floating>Short Goal Name:</ion-label>
+				<ion-input type="text" [(ngModel)]="slug" name="slug" required="" value="nectar"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label floating>Long Goal Name:</ion-label>
+				<ion-input type="text" [(ngModel)]="goaltitle" name="goaltitle" value="Nectar"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label floating>Select one of the Beeminder goal types:</ion-label>
+				<ion-select [(ngModel)]="type" name="type">
+				<ion-option value="fatloser">fatloser</ion-option>
+				<ion-option value="hustler">hustler</ion-option>
+				<ion-option value="biker">biker</ion-option>
+				<ion-option value="inboxer">inboxer</ion-option>
+				<ion-option value="gainer">gainer</ion-option>
+				<ion-option value="drinker">drinker</ion-option>
+				</ion-select>
+			</ion-item>
+			<ion-item>
+				<ion-label floating>Pledge Value per Day:</ion-label>
+				<ion-input type="number" [(ngModel)]="rate" name="rate" required="" value="10000"></ion-input>
+				<p>E.g Number of steps per day.</p>
+			</ion-item>
+			<div padding>
+				<button ion-button type="submit" block>Create</button>
+			</div>
+		</form>
+	</ion-list>
+</ion-content>
