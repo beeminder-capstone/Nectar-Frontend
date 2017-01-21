@@ -11,21 +11,13 @@ declare var window: any;
   templateUrl: 'page2.html'
 })
 export class Page2 {
-  username: string;
-  access_token: string;
 
   constructor(public navCtrl: NavController, public storage: Storage) {
-    this.storage.get('username').then((value) => {
-		this.username = value;
-		
-		this.storage.get('access_token').then((value) => {
-			this.access_token = value;
-			
-			var url = "https://beemindernectar.herokuapp.com/auth/beeminder/callback?access_token=" + this.access_token + "&username=" + this.username;
-			
-			window.cordova.InAppBrowser.open(url, "_self", "location=no");
-		});
-	});
+
   }
+  
+    public open(url) {
+		window.cordova.InAppBrowser.open(url, "_self", "location=no");
+	}
 
 }

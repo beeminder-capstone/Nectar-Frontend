@@ -12,7 +12,6 @@
   <p>access token: {{access_token}}</p>
   
   <ion-list>
-    <div *ngIf="data">
     <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
       <ion-icon name="{{item.icon}}" item-left></ion-icon>
       {{item.title}}
@@ -20,6 +19,5 @@
         {{item.note}}
       </div>
     </button>
-	</div>`
   </ion-list>
 </ion-content>
