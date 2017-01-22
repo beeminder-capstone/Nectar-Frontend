@@ -1,39 +1,63 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
-import {Observable} from 'rxjs/Observable';
-
 import { InAppBrowser } from 'ionic-native';
+import { Storage } from '@ionic/storage';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
-/*
-  Generated class for the BeeminderApi provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class BeeminderApi {
-  const BASEURL:string = https://www.beeminder.com/apps/authorize?;
-  const client_id: string = '4nqs6w7oxdutqq0qg09gq72i8';
+  BaseUrl:string = '';
+  private client_id: string = '4nqs6w7oxdutqq0qg09gq72i8';
+  
   callback_uri: string = 'https://localhost/callback';
-  reponse_token: string = 'token';
-  url: string = this.BASEURL + this.client_id + this.callback_uri + 'token'
+  reponse_token: string;
+  loginUrl: string = this.loginUrl + this.client_id + this.callback_uri + 'token'
+  apiUrl: string = 'https://www.beeminder.com/api/v1/';
   access_token: string;
+  user_name: string;
 
-  constructor(public http: Http) {}
+  constructor(private http: Http, private storage: Storage) {
+    storage.get('access_token').then((token) => {
+      if (token) {
+        this.access_token = token;
+      } else {
+        this.access_token = this.login();
+      }
+    })
+    
+  }
 
- login(): Observable<any> {
-   let browser = new InAppBrowser(this.url, '_blank');
-		return new Observable((resolve, reject) => {
-			browser.on("loadstart", (event) => {
+ login(): string {
+      let browser = new InAppBrowser(this.loginUrl, '_blank');
+      browser.show();
+      let listener = browser.on("loadstart").subscribe((event) => {
 				if ((event.url).indexOf("http://localhost/callback") === 0) {
-					browserRef.close();
-					resolve(event.url);
-          this.access_token = event.url.split('&', '=');
+					listener.unsubscribe();
+          return event.url.split('&')[0].split('=')[1];
 				}
 			});
-		});
+      return "Error";
 	}
+
+  logout() {
+    this.storage.remove('access_token');
+    this.storage.remove('user_name');
+  }
+
+  fetchGoals() {
+    let url = this.callback_uri + 'users/me/goals.json?access_token=' + this.access_token;
+    return this.http.get(url)
+      .map(res => res.json());
+  }
+
+  updateGoals() {
+
+  }
+
+  createGoal() {
+    
+  }
 
 
 }
