@@ -17,7 +17,6 @@ export class Page1 {
   username: string;
   access_token: string;
 
-
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
@@ -28,7 +27,7 @@ export class Page1 {
 	
 	this.storage.get('access_token').then((value) => {
 		this.access_token = value;
-
+		
 		var xhrRequest = function (url, type, callback) {
 		var xhr = new XMLHttpRequest();
 		xhr.onload = function () {
