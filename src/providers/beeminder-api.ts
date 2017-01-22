@@ -48,18 +48,28 @@ export class BeeminderApi {
   }
 
   fetchGoals() {
-    let url = this.callback_uri + 'users/me/goals.json?access_token=' + this.access_token;
+    let url = this.baseUrl + '/users/me/goals.json?access_token=' + this.access_token;
     return this.http.get(url)
-      .map(res => res.json());
+      .map(res => res.json())
+      .catch(err => Observable.throw(err.json().error));
   }
 
-  updateGoals() {
-
+  updateGoal(goal) {
+    let url = `${this.baseUrl}/users/me/goals/${goal.slug}.json`;
+    this.http.put(url, goal)
+             .map(res => res.json())
+             .catch(err => Observable.throw(err.json().error));
   }
 
-  createGoal() {
-    
+  createGoal(goal) {
+    let url = this.baseUrl + '/users/me/goals.json?';
+    this.http.post(url, goal)
+             .map(res => res.json())
+             .catch(error => Observable.throw(error.json().error));
   }
 
+  removeGoal() {
+
+  }
 
 }
