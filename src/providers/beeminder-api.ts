@@ -1,44 +1,46 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { InAppBrowser } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import 'rxjs/Rx';
 
 @Injectable()
 export class BeeminderApi {
-  BaseUrl:string = '';
+  callback_uri: string = 'https://localhost/callback';
+  baseUrl: string = 'https://www.beeminder.com/api/v1';
+  access_token: string = '817a8xagha46ctr85ivwgjtkq';
+  user_name: string;
+ 
   private client_id: string = '4nqs6w7oxdutqq0qg09gq72i8';
   
-  callback_uri: string = 'https://localhost/callback';
-  reponse_token: string;
-  loginUrl: string = this.loginUrl + this.client_id + this.callback_uri + 'token'
-  apiUrl: string = 'https://www.beeminder.com/api/v1/';
-  access_token: string;
-  user_name: string;
-
   constructor(private http: Http, private storage: Storage) {
     storage.get('access_token').then((token) => {
       if (token) {
         this.access_token = token;
       } else {
-        this.access_token = this.login();
+        this.login();
       }
     })
-    
+
   }
 
- login(): string {
-      let browser = new InAppBrowser(this.loginUrl, '_blank');
-      browser.show();
-      let listener = browser.on("loadstart").subscribe((event) => {
-				if ((event.url).indexOf("http://localhost/callback") === 0) {
-					listener.unsubscribe();
-          return event.url.split('&')[0].split('=')[1];
-				}
-			});
-      return "Error";
-	}
+  login() {
+    let url = 'https://www.beeminder.com/apps/authorize?client_id=' + this.client_id + 
+      '&redirect_uri' + this.callback_uri + '&response_type=token'; 
+    let browser = new InAppBrowser(url, '_blank');
+
+    let listener = browser.on("loadstart").subscribe(event => {
+      if (event.url.indexOf("http://localhost/callback") > -1) {
+        listener.unsubscribe();
+        browser.close();
+        this.access_token = event.url.split('=')[1].split('&')[0];
+      }
+      else {
+        return console.error("Failed to authenticate");
+      }
+    });
+  }
 
   logout() {
     this.storage.remove('access_token');
