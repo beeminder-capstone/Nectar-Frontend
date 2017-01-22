@@ -9,34 +9,36 @@
 
 <ion-content>
   <ion-list>
+
     <ion-item>
       <ion-avatar item-left><img src="http://web.cecs.pdx.edu/~bart/bart.jpg"/></ion-avatar>
-      <ion-note item-right>
-        Bart_Massey
-      </ion-note>
+      <ion-note item-right>Bart_Massey</ion-note>
     </ion-item>
+
     <ion-item>
       E-mail
-      <ion-note item-right>
-        b_massey@pdx.edu
-      </ion-note>
+      <ion-note item-right>b_massey@pdx.edu</ion-note>
     </ion-item>
+
     <ion-item>
-      <ion-label>Time Zone</ion-label>
+      Time Zone
       <ion-select>
-        <ion-option value="e" selected="true">Eastern</ion-option>
-        <ion-option value="c">Central</ion-option>
-        <ion-option value="m">Mountain</ion-option>
-        <ion-option value="p">Pacific</ion-option>
+        <ion-option value="eastern" selected="true">Eastern</ion-option>
+        <ion-option value="central">Central</ion-option>
+        <ion-option value="mountain">Mountain</ion-option>
+        <ion-option value="pacific">Pacific</ion-option>
       </ion-select>
     </ion-item>
-    <ion-list-header>Notifications</ion-list-header>
+
+    <ion-list-header large>Notifications</ion-list-header>
+
     <ion-item>
       <ion-label>Enable</ion-label>
       <ion-toggle></ion-toggle>
     </ion-item>
+
     <ion-item>
-      <ion-label>Sound</ion-label>
+      Sound
       <ion-select>
         <ion-option value="a" selected="true">None</ion-option>
         <ion-option value="b">Beep</ion-option>
@@ -44,13 +46,18 @@
         <ion-option value="d">Alarm</ion-option>
       </ion-select>
     </ion-item>
+
     <ion-item>
       <ion-label>Vibration</ion-label>
       <ion-toggle></ion-toggle>
     </ion-item>
+
     <ion-list-header>Nectar App</ion-list-header>
-    <ion-item>About</ion-item>
-    <ion-item>Send Feedback</ion-item>
+
+    <button ion-item (click)="showAbout()">About</button>
+    <button ion-item (click)="showOpenSource()">Open Source Licenses</button>
+    <button ion-item (click)="showFeedback()">Send Feedback</button>
+
   </ion-list>
 </ion-content>
 
