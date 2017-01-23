@@ -1,0 +1,37 @@
+<!--
+  Generated template for the GoalDetails page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>goal-details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+
+  <ion-card-header>
+    Card Header
+  </ion-card-header>
+
+  <ion-card-content>
+    <h3>{{goal.title}}</h3>
+    <p>Goals End Date: {{goal.goaldate}}<p>
+    <p>GoalValue: {{goal.goalval}}<p>
+    <p>Update: {{goal.update_at}}<p>  
+    <p>Amount Pledged: {{goal.pledge}}<p>
+      <div *ngIf="showUpdate()">
+        <update-goal></update-goal>
+      </div>
+
+  </ion-card-content>
+
+</ion-card>
+
+</ion-content>
