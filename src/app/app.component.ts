@@ -27,7 +27,7 @@ export class MyApp {
       { title: 'Goals', component: Page1 },
       { title: 'Add New Integration', component: Page2 },
 	  { title: 'Create New Goal', component: Page3 },
-	  { title: 'Preferences', component: Page4 }
+	  { title: 'Settings', component: Page4 }
     ];
 
   }
