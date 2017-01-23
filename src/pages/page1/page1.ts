@@ -32,15 +32,6 @@ export class Page1 {
 	this.storage.get('access_token').then((value) => {
 		this.access_token = value;
 		
-		var xhrRequest = function (url, type, callback) {
-		var xhr = new XMLHttpRequest();
-		xhr.onload = function () {
-		callback(this.responseText);
-		};
-		xhr.open(type, url);
-		xhr.send();
-		};
-		
 		this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
 		'american-football', 'boat', 'bluetooth', 'build'];
 
