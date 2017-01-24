@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http } from '@angular/http';
 import { InAppBrowser } from 'ionic-native';
-import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
@@ -9,20 +8,10 @@ import 'rxjs/Rx';
 export class BeeminderApi {
   callback_uri: string = 'https://localhost/callback';
   baseUrl: string = 'https://www.beeminder.com/api/v1';
-  access_token: string = '817a8xagha46ctr85ivwgjtkq';
-  user_name: string;
- 
-  private client_id: string = '4nqs6w7oxdutqq0qg09gq72i8';
+  access_token: string = '';
+  client_id: string = '4nqs6w7oxdutqq0qg09gq72i8';
   
-  constructor(private http: Http, private storage: Storage) {
-    storage.get('access_token').then((token) => {
-      if (token) {
-        this.access_token = token;
-      } else {
-        this.login();
-      }
-    })
-
+  constructor(private http: Http) {
   }
 
   login() {
@@ -34,17 +23,12 @@ export class BeeminderApi {
       if (event.url.indexOf("http://localhost/callback") > -1) {
         listener.unsubscribe();
         browser.close();
-        this.access_token = event.url.split('=')[1].split('&')[0];
+        return event.url.split('=')[1].split('&')[0];
       }
       else {
         return console.error("Failed to authenticate");
       }
     });
-  }
-
-  logout() {
-    this.storage.remove('access_token');
-    this.storage.remove('user_name');
   }
 
   fetchGoals() {
