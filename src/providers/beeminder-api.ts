@@ -67,9 +67,4 @@ export class BeeminderApi {
              .map(res => res.json())
              .catch(error => Observable.throw(error.json().error));
   }
-
-  removeGoal() {
-
-  }
-
 }
