@@ -9,15 +9,15 @@
 
 <ion-content>
   <ion-list>
-
+	<form #formData='ngForm' (ngSubmit)="onSubmit(formData.value)">
     <ion-item>
-      <ion-avatar item-left><img src="http://web.cecs.pdx.edu/~bart/bart.jpg"/></ion-avatar>
-      <ion-note item-right>Bart_Massey</ion-note>
+      <ion-label floating>Username</ion-label>
+      <ion-input type="text" required="" value="{{username}}" readonly></ion-input>
     </ion-item>
-
-    <ion-item>
-      E-mail
-      <ion-note item-right>b_massey@pdx.edu</ion-note>
+	
+	<ion-item>
+      <ion-label floating>access token</ion-label>
+      <ion-input type="text" required="" value="{{access_token}}" readonly></ion-input>
     </ion-item>
 
     <ion-item>
@@ -51,13 +51,15 @@
       <ion-label>Vibration</ion-label>
       <ion-toggle></ion-toggle>
     </ion-item>
+	<div padding>
+		<button ion-button type="submit" block>Save</button>
+	</div>
+	</form>
 
     <ion-list-header>Nectar App</ion-list-header>
-
     <button ion-item (click)="showAbout()">About</button>
-    <button ion-item (click)="showOpenSource()">Open Source Licenses</button>
+    <button ion-item (click)="showOpenSource()">License</button>
     <button ion-item (click)="showFeedback()">Send Feedback</button>
-
   </ion-list>
 </ion-content>
 
