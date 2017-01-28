@@ -5,30 +5,39 @@ import { BeeminderApi } from './beeminder-api';
 
 @Injectable()
 export class User {
-  userSettings = [];
-  goals: any;
+  private userSettings = [];
+  private goals = [];
+  isLoggedIn: boolean;
 
-  constructor(public storage: Storage, public beeminder: BeeminderApi) {}
-
-
-
-  getUserName() {
-    return this.storage.get('username').then(value => {
-      return value;
-    })
+  constructor(public storage: Storage, public beeminder: BeeminderApi) {
+    storage.get('goals')
+      .then(goals => this.goals = goals)
+      .catch(() => beeminder.fetchGoals().subscribe(value => this.goals = value));
+    storage.get('userSettings')
+      .then(settings => this.userSettings = settings);
+    storage.get('isLoggedIn')
+      .then(value => this.isLoggedIn = value);
   }
 
-  getGoals() {
-    return this.storage.get('goals').then(value => {
-      if (value) {
-        return value;
-      } else {
-        return this.beeminder.fetchGoals();
-      }
-    });
+  getGoals() { 
+    return this.goals; 
   }
 
-  
+  addGoal(goal) {
+    this.beeminder.createGoal(goal)
+      .subscribe(() => this.goals.push(goal));
+  }
+
+  //TODO
+  updateGoal(goal) {
+    this.beeminder.updateGoal(goal)
+      .subscribe(() => this.goals[goal.slug] = goal);
+  }
+
+  getSettings() {
+    return this.userSettings;
+  }
+
   changeSetting(settingName: string, value: any) {
     this.userSettings[settingName] = value;
     this.storage.set('userSettings', this.userSettings);
@@ -44,6 +53,4 @@ export class User {
     let token = this.beeminder.login();
     this.storage.set('access_token', token);
   }
-
-
 }
