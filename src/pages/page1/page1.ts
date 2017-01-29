@@ -6,10 +6,6 @@ import { Storage } from '@ionic/storage';
 
 import { ItemDetailsPage } from '../item-details/item-details';
 
-import { Http } from '@angular/http';
-
-import 'rxjs/add/operator/map';
-
 @Component({
   selector: 'page-page1',
   templateUrl: 'page1.html'
@@ -21,7 +17,7 @@ export class Page1 {
   username: string;
   access_token: string;
 
-  constructor(public http: Http, public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
 	
@@ -31,6 +27,15 @@ export class Page1 {
 	
 	this.storage.get('access_token').then((value) => {
 		this.access_token = value;
+
+		var xhrRequest = function (url, type, callback) {
+			var xhr = new XMLHttpRequest();
+			xhr.onload = function () {
+				callback(this.responseText);
+			};
+			xhr.open(type, url);
+			xhr.send();
+		};
 		
 		this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
 		'american-football', 'boat', 'bluetooth', 'build'];
@@ -39,15 +44,24 @@ export class Page1 {
 
 		var url = "https://www.beeminder.com/api/v1/users/me.json?access_token=" + this.access_token;
 		
-	this.http.get(url).map(res => res.json()).subscribe(data => {
-for (var i = 0; i < data.goals.length; i++) {
-this.items.push({
-title: data.goals[i],
-note: 'This is Goal #' + i,
-icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-});
-}
-});
+		xhrRequest(url, 'GET', 
+		function(responseText) {
+		  var json = JSON.parse(responseText);
+		  
+		  var errors = json.errors;
+		  
+		  if(errors)
+			alert('An error occured getting goals: ' + errors.message + '.');
+		  else
+			for (var i = 0; i < json.goals.length; i++) {
+			  this.items.push({
+				title: json.goals[i],
+				note: 'This is Goal #' + i,
+				icon: this.icons[Math.floor(Math.random() * this.icons.length)]
+			  });
+			}
+		}
+		);
 	});
 	
   }
