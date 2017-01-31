@@ -1,3 +1,6 @@
+import { User } from './../providers/user';
+import { BeeminderApi } from './../providers/beeminder-api';
+import { GoalDetailsPage } from './../pages/goal-details/goal-details';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
@@ -12,12 +15,13 @@ import { ItemDetailsPage } from '../pages/item-details/item-details';
 @NgModule({
   declarations: [
     MyApp,
-	HomePage,
+    HomePage,
     Page1,
     Page2,
-	Page3,
-	Page4,
-	ItemDetailsPage
+    Page3,
+    Page4,
+    ItemDetailsPage,
+    GoalDetailsPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -25,13 +29,14 @@ import { ItemDetailsPage } from '../pages/item-details/item-details';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-	HomePage,
+    HomePage,
     Page1,
     Page2,
-	Page3,
-	Page4,
-	ItemDetailsPage
+    Page3,
+    Page4,
+    ItemDetailsPage,
+    GoalDetailsPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Storage]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, Storage, BeeminderApi, User]
 })
-export class AppModule {}
+export class AppModule { }
