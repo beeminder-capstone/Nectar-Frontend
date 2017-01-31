@@ -8,7 +8,7 @@ import 'rxjs/Rx';
 export class BeeminderApi {
   callback_uri: string = 'https://localhost/callback';
   baseUrl: string = 'https://www.beeminder.com/api/v1';
-  access_token: string = '';
+  access_token: string = 'cf755b1pzlzk4jo28jkwjusjn';
   client_id: string = '4nqs6w7oxdutqq0qg09gq72i8';
   
   constructor(private http: Http) {
@@ -38,15 +38,15 @@ export class BeeminderApi {
       .catch(err => Observable.throw(err.json().error));
   }
 
-  updateGoal(goal) {
-    let url = `${this.baseUrl}/users/me/goals/${goal.slug}.json`;
+  editGoal(goal) {
+    let url = `${this.baseUrl}/users/me/goals/${goal.slug}.json?access_token${this.access_token}`;
     return this.http.put(url, goal)
              .map(res => res.json())
              .catch(err => Observable.throw(err.json().error));
   }
 
   createGoal(goal) {
-    let url = this.baseUrl + '/users/me/goals.json?';
+    let url = this.baseUrl + '/users/me/goals.json?access_token=' + this.access_token;
     return this.http.post(url, goal)
              .map(res => res.json())
              .catch(error => Observable.throw(error.json().error));
