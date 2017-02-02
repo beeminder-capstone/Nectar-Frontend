@@ -1,34 +1,18 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
-import { BeeminderApi } from '../providers/beeminder-api';
-
-import { UpdateGoalComponent } from '../components/update-goal';
+import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'page-goal-details',
   templateUrl: 'goal-details.html'
 })
 export class GoalDetailsPage {
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalController: ModalController) { 
-    
-  }
+  goal = {};
+  showUpdateComponent: boolean = false;
 
-  goal: any;
-  showUpdate: boolean = false;
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
     this.navParams.data = this.goal;
   }
-
-  switchShowUpdateValue() {
-    this.showUpdate = !this.showUpdate;
-  }
-
-  updateGoalValues() {
-    this.modalController.create('update-goal');
-  }
-
-
-
 
 }
