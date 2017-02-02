@@ -12,22 +12,40 @@ let defaultSettings = {
 
 @Injectable()
 export class User {
-  private userSettings = [];
+  private userSettings = {};
   private goals = [];
   isLoggedIn: boolean;
 
   constructor(public storage: Storage, public beeminder: BeeminderApi) {
-    storage.get('goals')
-      .then(goals => this.goals = goals)
-      .catch(() => beeminder.fetchGoals().subscribe(value => this.goals = value));
-    storage.get('userSettings')
-      .then(settings => this.userSettings = settings);
-    storage.get('isLoggedIn')
-      .then(value => this.isLoggedIn = value);
+    storage.get('goals').then(goals => {
+      if (goals == null) {
+        beeminder.fetchGoals().subscribe(userGoals => this.goals = userGoals);
+        storage.set('goals', this.goals);
+      } else {
+        this.goals = goals;
+      }
+    });
+
+    storage.get('userSettings').then(settings => {
+      if (settings == null) {
+        this.userSettings = defaultSettings;
+        storage.set('userSettings', this.userSettings);
+      } else {
+        this.userSettings = settings;
+      }
+    });
+
+    storage.get('isLoggedIn').then(value => {
+      if (value == null) {
+        this.isLoggedIn = false;
+      } else {
+        this.isLoggedIn = value;
+      }
+    });
   }
 
-  getGoals() { 
-    return this.goals; 
+  getGoals() {
+    return this.beeminder.fetchGoals();
   }
 
   addGoal(goal) {
@@ -36,9 +54,10 @@ export class User {
   }
 
   //TODO
-  updateGoal(goal) {
-    this.beeminder.updateGoal(goal)
-      .subscribe(() => this.goals[goal.slug] = goal);
+  editGoal(goal) {
+    this.beeminder.editGoal(goal).subscribe(() => {
+      this.goals[goal.slug] = goal;
+    });
   }
 
   getSettings() {
