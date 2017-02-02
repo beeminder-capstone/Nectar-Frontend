@@ -3,6 +3,13 @@ import { Storage } from '@ionic/storage';
 
 import { BeeminderApi } from './beeminder-api';
 
+let defaultSettings = {
+  enableNotifications: true,
+  enableVibration: true,
+  updateTimer: '4',
+  autoUpdateGoals: true,
+}
+
 @Injectable()
 export class User {
   private userSettings = [];
