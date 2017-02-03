@@ -12,7 +12,8 @@ export class GoalDetailsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    this.navParams.data = this.goal;
+    this.goal = this.navParams.data;
+    console.log(this.goal);
   }
 
 }
