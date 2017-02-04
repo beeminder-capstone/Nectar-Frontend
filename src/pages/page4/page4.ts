@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
-import { NavController } from 'ionic-angular';
-
-import { AlertController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
+
+import { Vibration } from 'ionic-native';
 
 @Component({
   selector: 'page-page4',
@@ -19,14 +19,14 @@ export class Page4 {
 	this.storage.get('username').then((value) => {
 		this.username = value;
 	});
-	
+
 	this.storage.get('access_token').then((value) => {
 		this.access_token = value;
 	});
   }
-  
+
   onSubmit(formData) {
-	
+
   }
 
   showAbout() {
@@ -35,6 +35,7 @@ export class Page4 {
       message: 'Nectar adds support for more integrations on <a target="_blank" href="https://beeminder.com">Beeminder</a>.<br>Automatically gets data from supported integrations and adds it to Beeminder goals.',
       buttons: ['OK']
     });
+    Vibration.vibrate(3000);
     about.present();
   }
 
