@@ -34,7 +34,7 @@ export class Page3 {
 
 	var goaldate = t + decade;
 
-	var url = "https://www.beeminder.com/api/v1/users/me/goals.json?access_token=" + this.access_token + "&slug=" + formData.slug + "&title=" + formData.title + "&goal_type=" + formData.type + "&goaldate=" + goaldate + "&goalval=null&rate=" + formData.rate;
+	var url = "https://www.beeminder.com/api/v1/users/me/goals.json?access_token=" + this.access_token + "&slug=" + formData.slug + "&title=" + formData.title + "&goal_type=" + formData.type + "&goaldate=" + goaldate + "&goalval=null&rate=" + formData.rate + "&goalval=null&gunits=" + formData.gunits + "&goalval=null&runits=" + formData.runits;
 	
 	xhrRequest(url, 'POST', function(responseText) {
 		var json = JSON.parse(responseText);

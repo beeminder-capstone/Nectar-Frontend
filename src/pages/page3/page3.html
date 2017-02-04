@@ -32,7 +32,23 @@
 			<ion-item>
 				<ion-label floating>Pledge Value per Day:</ion-label>
 				<ion-input type="number" [(ngModel)]="rate" name="rate" required="" value="10000"></ion-input>
-				<p>E.g Number of steps per day.</p>
+				<p>E.g <strong>Number</strong> of steps per day.</p>
+			</ion-item>
+			<ion-item>
+				<ion-label floating>Pledge Units:</ion-label>
+				<ion-input type="text" [(ngModel)]="gunits" name="gunits" required="" value="steps"></ion-input>
+				<p>E.g Number of <strong>steps</strong> per day.</p>
+			</ion-item>
+			<ion-item>
+				<ion-label floating>Pledge Rate:</ion-label>
+				<ion-select [(ngModel)]="runits" name="runits">
+				<ion-option value="y">yearly</ion-option>
+				<ion-option value="m">monthly</ion-option>
+				<ion-option value="w">weekly</ion-option>
+				<ion-option value="d">daily</ion-option>
+				<ion-option value="h">hourly</ion-option>
+				</ion-select>
+				<p>E.g Number of steps <strong>per day</strong>.</p>
 			</ion-item>
 			<div padding>
 				<button ion-button type="submit" block>Create</button>
