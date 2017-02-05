@@ -16,17 +16,17 @@ export class Page4 {
   access_token: string;
 
   constructor(public navCtrl: NavController, public storage: Storage, public alertCtrl: AlertController) {
-	this.storage.get('username').then((value) => {
-		this.username = value;
-	});
-	
-	this.storage.get('access_token').then((value) => {
-		this.access_token = value;
-	});
+    this.storage.get('username').then((value) => {
+      this.username = value;
+    });
+
+    this.storage.get('access_token').then((value) => {
+      this.access_token = value;
+    });
   }
-  
+
   onSubmit(formData) {
-	
+
   }
 
   showAbout() {

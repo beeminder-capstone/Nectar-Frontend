@@ -15,9 +15,9 @@ export class Page2 {
   constructor(public navCtrl: NavController, public storage: Storage) {
 
   }
-  
-    public open(url) {
-		window.cordova.InAppBrowser.open(url, "_self", "location=no");
-	}
+
+  public open(url) {
+    window.cordova.InAppBrowser.open(url, "_self", "location=no");
+  }
 
 }

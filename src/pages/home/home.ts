@@ -1,25 +1,28 @@
 import { Component } from '@angular/core';
-
-import { NavController, Platform } from 'ionic-angular';
-
+import { NavController, Platform, MenuController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { Page1 } from '../page1/page1';
-
-import {MenuController} from 'ionic-angular';
+import { BeeminderApi } from '../../providers/beeminder-api';
 
 declare var window: any;
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+	selector: 'page-home',
+	templateUrl: 'home.html'
 })
 export class HomePage {
 
-	public constructor(public navCtrl: NavController, private platform: Platform, public menu: MenuController, public storage: Storage) {
+	public constructor(
+		public navCtrl: NavController,
+		private platform: Platform,
+		public menu: MenuController,
+		public storage: Storage,
+		private beeminder: BeeminderApi
+	) {
 		this.menu.swipeEnable(false);
 	}
-	
+
 	public getParameterByName(name, url) {
 		name = name.replace(/[\[\]]/g, "\\$&");
 		var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
