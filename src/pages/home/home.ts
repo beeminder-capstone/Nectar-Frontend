@@ -30,21 +30,17 @@ export class HomePage {
 	}
 
 	public login() {
-		this.platform.ready().then(() => {
-			this.BeeminderLogin().then(success => {
-				this.storage.set('access_token', this.getParameterByName('access_token', success)).then((value) => {
-					this.storage.set('username', this.getParameterByName('username', success)).then((value) => {
-						this.navCtrl.setRoot(Page1);
-					});
-				});
-			}, (error) => {
-				alert(error);
-			});
-		});
+		this.platform.ready()
+			.then(() => this.BeeminderLogin())
+			.then(token => this.storage.set('access_token', this.getParameterByName('access_token', token)))
+			.then(token => this.beeminder.access_token = token)
+			.then(username => this.storage.set('username', this.getParameterByName('username', username)))
+			.then(() => this.navCtrl.setRoot(Page1))
+			.catch(error => console.error(error))
 	}
 
 	public BeeminderLogin(): Promise<any> {
-		return new Promise(function(resolve, reject) {
+		return new Promise(function (resolve, reject) {
 			var browserRef = window.cordova.InAppBrowser.open("https://www.beeminder.com/apps/authorize?client_id=4nqs6w7oxdutqq0qg09gq72i8&redirect_uri=http://localhost/callback&response_type=token", "_blank", "location=no");
 			browserRef.addEventListener("loadstart", (event) => {
 				if ((event.url).indexOf("http://localhost/callback") === 0) {
