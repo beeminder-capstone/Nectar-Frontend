@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, MenuController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 
 import { User } from './../../providers/user';
@@ -15,7 +15,8 @@ export class Page1 {
   icons: string[];
   items: Array<{ title: string, note: string, icon: string, goal: {} }>;
 
-  constructor(public http: Http, public navCtrl: NavController, public navParams: NavParams, private user: User) {
+  constructor(public http: Http, public navCtrl: NavController, public navParams: NavParams, public menu: MenuController, private user: User) {
+    this.menu.swipeEnable(true);
     user.getGoals().subscribe((goals) => {
       this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
         'american-football', 'boat', 'bluetooth', 'build'];
