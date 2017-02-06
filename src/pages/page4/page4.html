@@ -34,22 +34,22 @@
 
     <ion-item>
       <ion-label>Enable</ion-label>
-      <ion-toggle></ion-toggle>
+      <ion-toggle [(ngModel)] = "notification_enabled" [ngModelOptions]="{standalone: true}" value="notification_enabled"></ion-toggle>
     </ion-item>
 
     <ion-item>
-      Sound
-      <ion-select>
-        <ion-option value="a" selected="true">None</ion-option>
-        <ion-option value="b">Beep</ion-option>
-        <ion-option value="c">Ring</ion-option>
-        <ion-option value="d">Alarm</ion-option>
+      <ion-label>Sound</ion-label>
+      <ion-select [(ngModel)]="sound" name="sound">
+        <ion-option value="silent">Silent</ion-option>
+        <ion-option value="beep">Beep</ion-option>
+        <ion-option value="ring">Ring</ion-option>
+        <ion-option value="alarm">Alarm</ion-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label>Vibration</ion-label>
-      <ion-toggle [(ngModel)] = "vibration" [ngModelOptions]="{standalone: true}" disabled="false"></ion-toggle>
+      <ion-toggle [(ngModel)] = "vibration_enabled" name="vibration_enabled"></ion-toggle>
     </ion-item>
 
 	  <div padding>
