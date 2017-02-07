@@ -34,7 +34,7 @@
 
     <ion-item>
       <ion-label>Enable</ion-label>
-      <ion-toggle [(ngModel)] = "notification_enabled" [ngModelOptions]="{standalone: true}" value="notification_enabled"></ion-toggle>
+      <ion-toggle [(ngModel)] = "notification_toggle" name="notification_toggle" value="notification_toggle" (ionChange)="toggleNotification()"></ion-toggle>
     </ion-item>
 
     <ion-item>
@@ -49,12 +49,8 @@
 
     <ion-item>
       <ion-label>Vibration</ion-label>
-      <ion-toggle [(ngModel)] = "vibration_enabled" name="vibration_enabled"></ion-toggle>
+      <ion-toggle [(ngModel)]="vibration_toggle" name="vibration_toggle" value="vibration_toggle" (ionChange)="toggleVibration()"></ion-toggle>
     </ion-item>
-
-	  <div padding>
-		  <button ion-button type="submit" block>Save</button>
-	  </div>
   </form>
 
     <ion-list-header>Nectar App</ion-list-header>

@@ -14,8 +14,8 @@ import { Vibration } from 'ionic-native';
 export class Page4 {
   username: string;
   access_token: string;
-  notification_enabled: boolean;
-  vibration_enabled: boolean;
+  notification_toggle: boolean;
+  vibration_toggle: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -31,12 +31,12 @@ export class Page4 {
 		  this.access_token = value;
 	  });
 
-    this.storage.get ('notification_enabled').then((value) => {
-	    this.notification_enabled = value;
+    this.storage.get ('notification_toggle').then((value) => {
+	    this.notification_toggle = value;
     });
 
-	  this.storage.get('vibration_enabled').then((value) => {
-	    this.vibration_enabled = value;
+	  this.storage.get('vibration_toggle').then((value) => {
+	    this.vibration_toggle = value;
     });
   }
 
@@ -44,26 +44,56 @@ export class Page4 {
     // the second parameter needs to get the actual value being set when the user changes it.
     // something like:
     // this.storage.set('notification_enabled', currentEnabledState('notification_enabled'));
-    this.storage.set('notification_enabled', false);
-    this.storage.set('vibration_enabled', true);
+    // this.storage.set('notification_enabled', this.notification_enabled);
+    // this.storage.set('vibration_enabled', this.vibration_enabled);
   }
 
-
-  currentEnabledState(name) {
-    // I'm thinking if we just use a function to pass in the variable we need to look up and return the boolean value
+  toggleNotification() {
+    this.storage.set('notification_toggle', this.notification_toggle);
+    // if (this.notification_toggle) {
+    //   let toast = this.toastCtrl.create({
+    //     message: 'Notifications Enabled',
+    //     duration: 3000,
+    //     position: 'bottom'
+    //   });
+    // }
+    // else {
+    //   let toast = this.toastCtrl.create({
+    //     message: 'Notifications Disabled',
+    //     duration: 3000,
+    //     position: 'bottom'
+    //   });
+    // }
+    // toast.onDidDismiss(() => {
+    //   console.log('Dismissed toast');
+    // });
+    // toast.present();
   }
 
-  // this function will be called when the state of the toggle changes and presents a toast to notify the change
-  vibrateToast() {
-    let toast = this.toastCtrl.create({
-      message: 'Vibrate Enabled',
-      duration: 3000,
-      position: 'bottom'
-    });
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-    toast.present();
+  toggleVibration() {
+    this.storage.set('vibration_toggle', this.vibration_toggle);
+    // if (this.vibration_toggle)
+    // {
+    //   let toast = this.toastCtrl.create({
+    //     message: 'Vibration Enabled',
+    //     duration: 3000,
+    //     position: 'bottom'
+    //   });
+    //   toast.onDidDismiss(() => {
+    //     console.log('Dismissed toast');
+    //   });
+    // }
+    // else {
+    //   let toast = this.toastCtrl.create({
+    //     message: 'Vibration Disabled',
+    //     duration: 3000,
+    //     position: 'bottom'
+    //   });
+    //   toast.onDidDismiss(() => {
+    //     console.log('Dismissed toast');
+    //   });
+    // }
+    // toast.present();
   }
 
   showAbout() {
@@ -88,7 +118,7 @@ export class Page4 {
   showFeedback() {
     let feedback = this.alertCtrl.create({
       title: 'Feedback',
-      message: 'Is this app better than Beeminder?',
+      message: 'Send Feedback',
       buttons: [
         {
           text: 'Duh!',
