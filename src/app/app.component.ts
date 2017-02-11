@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { HomePage } from '../pages/home/home';
@@ -20,7 +20,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform, public alertCtrl: AlertController) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -51,6 +51,27 @@ export class MyApp {
     this.nav.setRoot(page.component);
     this.activePage = page;
   }
+
+  logoutConfirm() {
+    let logout = this.alertCtrl.create({
+      title: 'Confirm',
+      message: 'Are you sure you want to log out?',
+      buttons: [
+        {
+          text: 'Cancel'
+        },
+        {
+          text: 'Confirm',
+          handler: () => {
+
+          }
+        }
+      ]
+    });
+    logout.present();
+  }
+
+
 
   checkActive(page) {
     return page == this.activePage;

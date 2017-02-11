@@ -14,7 +14,7 @@
       <ion-label floating>Username</ion-label>
       <ion-input type="text" required="" value="{{username}}" readonly></ion-input>
     </ion-item>
-	
+
 	<ion-item>
       <ion-label floating>access token</ion-label>
       <ion-input type="text" required="" value="{{access_token}}" readonly></ion-input>
@@ -30,31 +30,28 @@
       </ion-select>
     </ion-item>
 
-    <ion-list-header large>Notifications</ion-list-header>
+    <ion-list-header>Notifications</ion-list-header>
 
     <ion-item>
       <ion-label>Enable</ion-label>
-      <ion-toggle></ion-toggle>
+      <ion-toggle [(ngModel)] = "notification_toggle" name="notification_toggle" value="notification_toggle" (ionChange)="toggleNotification()"></ion-toggle>
     </ion-item>
 
     <ion-item>
-      Sound
-      <ion-select>
-        <ion-option value="a" selected="true">None</ion-option>
-        <ion-option value="b">Beep</ion-option>
-        <ion-option value="c">Ring</ion-option>
-        <ion-option value="d">Alarm</ion-option>
+      <ion-label>Sound</ion-label>
+      <ion-select [(ngModel)]="sound" name="sound">
+        <ion-option value="silent">Silent</ion-option>
+        <ion-option value="beep">Beep</ion-option>
+        <ion-option value="ring">Ring</ion-option>
+        <ion-option value="alarm">Alarm</ion-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label>Vibration</ion-label>
-      <ion-toggle></ion-toggle>
+      <ion-toggle [(ngModel)]="vibration_toggle" name="vibration_toggle" value="vibration_toggle" (ionChange)="toggleVibration()"></ion-toggle>
     </ion-item>
-	<div padding>
-		<button ion-button type="submit" block>Save</button>
-	</div>
-	</form>
+  </form>
 
     <ion-list-header>Nectar App</ion-list-header>
     <button ion-item (click)="showAbout()">About</button>
