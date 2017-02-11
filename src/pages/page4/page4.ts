@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, AlertController} from 'ionic-angular';
+import { NavController, AlertController, ToastController} from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
@@ -19,7 +19,8 @@ export class Page4 {
   constructor(
     public navCtrl: NavController,
     public storage: Storage,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public toastCtrl: ToastController) {
 
     this.storage.get('username').then((value) => {
 		  this.username = value;
@@ -29,7 +30,7 @@ export class Page4 {
 		  this.access_token = value;
 	  });
 
-    this.storage.get ('notification_toggle').then((value) => {
+    this.storage.get('notification_toggle').then((value) => {
 	    this.notification_toggle = value;
     });
 
@@ -73,25 +74,30 @@ export class Page4 {
   }
 
   showFeedback() {
-    let feedback = this.alertCtrl.create({
-      title: 'Feedback',
-      message: 'Send Feedback',
+    let prompt = this.alertCtrl.create({
+      title: 'Send Feedback',
+      inputs: [
+        {
+          name: 'Feedback',
+          placeholder: 'Message'
+        },
+      ],
       buttons: [
         {
-          text: 'Duh!',
-          // role: 'cancel',
-          // handler: () => {
-          //   console.log('Cancel clicked');
-          // }
+          text: 'Cancel'
         },
         {
-          text: 'Chyeah!',
-          // handler: () => {
-          //   console.log('Buy clicked');
-          // }
+          text: 'Send',
+          handler: () => {
+            let toast = this.toastCtrl.create({
+              message: 'Feedback Message Sent',
+              duration: 3000
+            });
+            toast.present();
+          }
         }
       ]
     });
-    feedback.present();
+    prompt.present();
   }
 }
