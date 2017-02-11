@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/beeminder-capstone/Nectar-Frontend.svg?branch=develop)](https://travis-ci.org/beeminder-capstone/Nectar-Frontend)
 # Nectar Frontend
 Frontend for Nectar app
 
