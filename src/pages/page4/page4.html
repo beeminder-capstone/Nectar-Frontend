@@ -8,8 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-	<form #formData='ngForm' (ngSubmit)="onSubmit(formData.value)">
+  <ion-item-group>
     <ion-item>
       <ion-label floating>Username</ion-label>
       <ion-input type="text" required="" value="{{username}}" readonly></ion-input>
@@ -19,8 +18,10 @@
       <ion-label floating>access token</ion-label>
       <ion-input type="text" required="" value="{{access_token}}" readonly></ion-input>
     </ion-item>
+  </ion-item-group>
 
-    <ion-list-header>Notifications</ion-list-header>
+  <ion-item-group>
+    <ion-item-divider color="light">Notifications</ion-item-divider>
 
     <ion-item>
       <ion-label>Enable</ion-label>
@@ -36,12 +37,13 @@
       <ion-label>Vibration</ion-label>
       <ion-toggle [(ngModel)]="vibration_toggle" name="vibration_toggle" value="vibration_toggle" (ionChange)="toggleVibration()" [disabled]="!notification_toggle"></ion-toggle>
     </ion-item>
-  </form>
+  </ion-item-group>
 
-    <ion-list-header>Nectar App</ion-list-header>
+  <ion-item-group>
+    <ion-item-divider color="light">Nectar App</ion-item-divider>
     <button ion-item (click)="showAbout()">About</button>
     <button ion-item (click)="showOpenSource()">License</button>
     <button ion-item (click)="showFeedback()">Send Feedback</button>
-  </ion-list>
+  </ion-item-group>
 </ion-content>
 
