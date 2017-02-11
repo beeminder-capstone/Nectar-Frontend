@@ -20,16 +20,6 @@
       <ion-input type="text" required="" value="{{access_token}}" readonly></ion-input>
     </ion-item>
 
-    <ion-item>
-      Time Zone
-      <ion-select>
-        <ion-option value="eastern" selected="true">Eastern</ion-option>
-        <ion-option value="central">Central</ion-option>
-        <ion-option value="mountain">Mountain</ion-option>
-        <ion-option value="pacific">Pacific</ion-option>
-      </ion-select>
-    </ion-item>
-
     <ion-list-header>Notifications</ion-list-header>
 
     <ion-item>
@@ -39,17 +29,12 @@
 
     <ion-item>
       <ion-label>Sound</ion-label>
-      <ion-select [(ngModel)]="sound" name="sound">
-        <ion-option value="silent">Silent</ion-option>
-        <ion-option value="beep">Beep</ion-option>
-        <ion-option value="ring">Ring</ion-option>
-        <ion-option value="alarm">Alarm</ion-option>
-      </ion-select>
+      <ion-toggle [(ngModel)] = "sound_toggle" name="sound_toggle" value="sound_toggle" (ionChange)="toggleSound()" [disabled]="!notification_toggle"></ion-toggle>
     </ion-item>
 
     <ion-item>
       <ion-label>Vibration</ion-label>
-      <ion-toggle [(ngModel)]="vibration_toggle" name="vibration_toggle" value="vibration_toggle" (ionChange)="toggleVibration()"></ion-toggle>
+      <ion-toggle [(ngModel)]="vibration_toggle" name="vibration_toggle" value="vibration_toggle" (ionChange)="toggleVibration()" [disabled]="!notification_toggle"></ion-toggle>
     </ion-item>
   </form>
 
