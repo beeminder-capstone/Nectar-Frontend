@@ -4,6 +4,8 @@ import { NavController, AlertController, ToastController} from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
+import { User } from '../../providers/user';
+
 @Component({
   selector: 'page-page4',
   templateUrl: 'page4.html'
@@ -20,7 +22,8 @@ export class Page4 {
     public navCtrl: NavController,
     public storage: Storage,
     public alertCtrl: AlertController,
-    public toastCtrl: ToastController) {
+    public toastCtrl: ToastController,
+    public user: User) {
 
     this.storage.get('username').then((value) => {
 		  this.username = value;
@@ -30,29 +33,21 @@ export class Page4 {
 		  this.access_token = value;
 	  });
 
-    this.storage.get('notification_toggle').then((value) => {
-	    this.notification_toggle = value;
-    });
-
-    this.storage.get('sound_toggle').then((value) => {
-      this.sound_toggle = value;
-    });
-
-	  this.storage.get('vibration_toggle').then((value) => {
-	    this.vibration_toggle = value;
-    });
+    this.notification_toggle = this.user.getSettings().enableNotifications;
+    this.sound_toggle = this.user.getSettings().enableSound;
+    this.vibration_toggle = this.user.getSettings().enableVibration;
   }
 
   toggleNotification() {
-    this.storage.set('notification_toggle', this.notification_toggle);
+    user.changeSetting('enableNotifications', this.notification_toggle);
   }
 
   toggleSound() {
-    this.storage.set('sound_toggle', this.sound_toggle);
+    user.changeSetting('enableSounds', this.sound_toggle);
   }
 
   toggleVibration() {
-    this.storage.set('vibration_toggle', this.vibration_toggle);
+    user.changeSetting('enableVibration', this.vibration_toggle);
   }
 
   showAbout() {
@@ -89,6 +84,7 @@ export class Page4 {
         {
           text: 'Send',
           handler: () => {
+            // temp handler(), working on sending to email
             let toast = this.toastCtrl.create({
               message: 'Feedback Message Sent',
               duration: 3000

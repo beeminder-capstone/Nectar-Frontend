@@ -5,6 +5,7 @@ import { BeeminderApi } from './beeminder-api';
 
 let defaultSettings = {
   enableNotifications: true,
+  enableSound: true,
   enableVibration: true,
   updateTimer: '4',
   autoUpdateGoals: true,
