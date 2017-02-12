@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { NavController, AlertController, ToastController} from 'ionic-angular';
 
+import { SocialSharing } from 'ionic-native';
+
 import { Storage } from '@ionic/storage';
 
 import { User } from '../../providers/user';
@@ -39,15 +41,15 @@ export class Page4 {
   }
 
   toggleNotification() {
-    user.changeSetting('enableNotifications', this.notification_toggle);
+    this.user.changeSetting('enableNotifications', this.notification_toggle);
   }
 
   toggleSound() {
-    user.changeSetting('enableSounds', this.sound_toggle);
+    this.user.changeSetting('enableSound', this.sound_toggle);
   }
 
   toggleVibration() {
-    user.changeSetting('enableVibration', this.vibration_toggle);
+    this.user.changeSetting('enableVibration', this.vibration_toggle);
   }
 
   showAbout() {
@@ -73,7 +75,7 @@ export class Page4 {
       title: 'Send Feedback',
       inputs: [
         {
-          name: 'Feedback',
+          name: this.username,
           placeholder: 'Message'
         },
       ],
@@ -83,17 +85,28 @@ export class Page4 {
         },
         {
           text: 'Send',
-          handler: () => {
-            // temp handler(), working on sending to email
-            let toast = this.toastCtrl.create({
-              message: 'Feedback Message Sent',
-              duration: 3000
+          handler: data => {
+            SocialSharing.canShareViaEmail().then(() => {
+              SocialSharing.shareViaEmail(data, 'User Feedback:' + this.username, ['nectarapp.feedback@gmail.com']).then(() => {
+                this.toast('Thank you for your feedback!');
+              }).catch(() => {
+                this.toast('Failed to send message!');
+              });
+            }).catch(() => {
+              this.toast('Error connecting to e-mail app');
             });
-            toast.present();
           }
         }
       ]
     });
     prompt.present();
+  }
+
+  toast(message: string) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 4000
+    });
+    toast.present();
   }
 }
