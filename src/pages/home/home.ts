@@ -37,6 +37,7 @@ export class HomePage {
 			.then(() => this.BeeminderLogin())
 			.then(token => this.storage.set('access_token', this.getParameterByName('access_token', token)))
 			.then(token => this.beeminder.access_token = token)
+			.then(() => this.user.setLoginStatus())			
 			.then(username => this.storage.set('username', this.getParameterByName('username', username)))
 			.then(() => this.navCtrl.setRoot(Page1))
 			.catch(error => console.error(error))

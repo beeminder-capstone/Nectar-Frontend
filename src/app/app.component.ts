@@ -8,6 +8,7 @@ import { Page2 } from '../pages/page2/page2';
 import { Page3 } from '../pages/page3/page3';
 import { Page4 } from '../pages/page4/page4';
 
+import { User } from '../providers/user';
 
 @Component({
   templateUrl: 'app.html'
@@ -15,12 +16,20 @@ import { Page4 } from '../pages/page4/page4';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage = HomePage;
+  rootPage;
   activePage : any;
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public alertCtrl: AlertController) {
+  constructor(public platform: Platform, public alertCtrl: AlertController, public user: User) {
+    this.user.getLoginStatus().then(isLoggedIn  => {
+      if (isLoggedIn == true) {
+        this.rootPage = Page1
+      } else {
+        this.rootPage = HomePage;
+      }
+    });
+
     this.initializeApp();
 
     // used for an example of ngFor and navigation
