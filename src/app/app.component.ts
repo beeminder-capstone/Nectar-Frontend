@@ -23,11 +23,8 @@ export class MyApp {
 
   constructor(public platform: Platform, public alertCtrl: AlertController, public user: User) {
     this.user.getLoginStatus().then(isLoggedIn  => {
-      if (isLoggedIn == true) {
-        this.rootPage = Page1
-      } else {
-        this.rootPage = HomePage;
-      }
+      //If true then go page1 else go into login page
+      isLoggedIn ? this.rootPage = Page1 : this.rootPage = HomePage;
     });
 
     this.initializeApp();
