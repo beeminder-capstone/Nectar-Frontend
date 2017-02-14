@@ -3,7 +3,9 @@ import { NavController, Platform, MenuController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { Page1 } from '../page1/page1';
+
 import { BeeminderApi } from '../../providers/beeminder-api';
+import { User } from '../../providers/user';
 
 declare var window: any;
 
@@ -18,10 +20,9 @@ export class HomePage {
 		private platform: Platform,
 		public menu: MenuController,
 		public storage: Storage,
-		private beeminder: BeeminderApi
-	) {
-		this.menu.swipeEnable(false);
-	}
+		public beeminder: BeeminderApi,
+		public user: User
+	) {}
 
 	public getParameterByName(name, url) {
 		name = name.replace(/[\[\]]/g, "\\$&");
@@ -37,6 +38,7 @@ export class HomePage {
 			.then(() => this.BeeminderLogin())
 			.then(token => this.storage.set('access_token', this.getParameterByName('access_token', token)))
 			.then(token => this.beeminder.access_token = token)
+			.then(() => this.user.setLoginStatus())			
 			.then(username => this.storage.set('username', this.getParameterByName('username', username)))
 			.then(() => this.navCtrl.setRoot(Page1))
 			.catch(error => console.error(error))

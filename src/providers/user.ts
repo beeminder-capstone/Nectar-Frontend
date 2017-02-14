@@ -14,7 +14,7 @@ let defaultSettings = {
 export class User {
   private userSettings = {};
   private goals = [];
-  isLoggedIn: boolean;
+  private isLoggedIn: boolean;
 
   constructor(public storage: Storage, public beeminder: BeeminderApi) {
     storage.get('goals').then(goals => {
@@ -67,6 +67,16 @@ export class User {
   changeSetting(settingName: string, value: any) {
     this.userSettings[settingName] = value;
     this.storage.set('userSettings', this.userSettings);
+  }
+
+  getLoginStatus() {
+    return this.storage.get('isLoggedIn')
+      .then(status => { return status })
+      .catch(() => { return false })
+  }
+
+  setLoginStatus() {
+    this.storage.set('isLoggedIn', true);
   }
 
   logout() {
