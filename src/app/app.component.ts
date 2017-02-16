@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
+import { Storage } from '@ionic/storage';
+import { User } from '../providers/user';
 
 import { HomePage } from '../pages/home/home';
 import { Page1 } from '../pages/page1/page1';
@@ -19,7 +21,10 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public alertCtrl: AlertController) {
+  constructor(public platform: Platform,
+              public alertCtrl: AlertController,
+              public storage: Storage,
+              public user: User) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -58,7 +63,8 @@ export class MyApp {
         {
           text: 'Confirm',
           handler: () => {
-
+            this.user.logout();
+            this.openPage(HomePage);
           }
         }
       ]

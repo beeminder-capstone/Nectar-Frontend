@@ -73,12 +73,7 @@ export class Page4 {
   showFeedback() {
     let prompt = this.alertCtrl.create({
       title: 'Send Feedback',
-      inputs: [
-        {
-          name: this.username,
-          placeholder: 'Message'
-        },
-      ],
+      message: 'Help us improve Nectar!',
       buttons: [
         {
           text: 'Cancel'
@@ -87,7 +82,7 @@ export class Page4 {
           text: 'Send',
           handler: data => {
             SocialSharing.canShareViaEmail().then(() => {
-              SocialSharing.shareViaEmail(data, 'User Feedback:' + this.username, ['nectarapp.feedback@gmail.com']).then(() => {
+              SocialSharing.shareViaEmail("", 'User Feedback: ' + this.username, ['nectarapp.feedback@gmail.com']).then(() => {
                 this.toast('Thank you for your feedback!');
               }).catch(() => {
                 this.toast('Failed to send message!');
