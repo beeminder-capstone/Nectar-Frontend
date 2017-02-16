@@ -24,12 +24,12 @@ export class Page3 {
 
 		let goal = {
 			slug: formData.slug,
-			title: formData.title,
-			type: formData.type,
+			title: formData.goaltitle,
+			goal_type: formData.type,
+			goaldate: goaldate,			
 			rate: formData.rate,
-			gunit: formData.gunit,
-			runit: formData.runit,
-			goaldate: d,
+			gunit: formData.gunits,
+			runit: formData.runits,
 		}
 		this.user.addGoal(goal);
 	}
