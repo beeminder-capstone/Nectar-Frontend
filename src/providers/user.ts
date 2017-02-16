@@ -4,21 +4,22 @@ import { Storage } from '@ionic/storage';
 
 import { BeeminderApi } from './beeminder-api';
 
-@Injectable()
-export class User {
-  defaultSettings = {
+let defaultSettings = {
   enableNotifications: true,
   enableSound: true,
   enableVibration: true,
   updateTimer: '4',
   autoUpdateGoals: true,
-  };
-  private userSettings = this.defaultSettings;
+}
+
+@Injectable()
+export class User {
+  private userSettings = {};
   private goals = [];
-  isLoggedIn: boolean;
+  private isLoggedIn: boolean;
 
   constructor(public storage: Storage, public beeminder: BeeminderApi) {
-    storage.get('goals').then((goals) => {
+    storage.get('goals').then(goals => {
       if (goals == null) {
         beeminder.fetchGoals().subscribe(userGoals => this.goals = userGoals);
         storage.set('goals', this.goals);
@@ -27,16 +28,16 @@ export class User {
       }
     });
 
-    storage.get('userSettings').then((settings) => {
+    storage.get('userSettings').then(settings => {
       if (settings == null) {
-        this.userSettings = this.defaultSettings;
+        this.userSettings = defaultSettings;
         storage.set('userSettings', this.userSettings);
       } else {
         this.userSettings = settings;
       }
     });
 
-    storage.get('isLoggedIn').then((value) => {
+    storage.get('isLoggedIn').then(value => {
       if (value == null) {
         this.isLoggedIn = false;
       } else {
@@ -68,6 +69,16 @@ export class User {
   changeSetting(settingName: string, value: any) {
     this.userSettings[settingName] = value;
     this.storage.set('userSettings', this.userSettings);
+  }
+
+  getLoginStatus() {
+    return this.storage.get('isLoggedIn')
+      .then(status => { return status })
+      .catch(() => { return false })
+  }
+
+  setLoginStatus() {
+    this.storage.set('isLoggedIn', true);
   }
 
   logout() {

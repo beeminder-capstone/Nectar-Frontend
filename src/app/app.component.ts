@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
-import { Storage } from '@ionic/storage';
 import { User } from '../providers/user';
 
 import { HomePage } from '../pages/home/home';
@@ -23,7 +22,6 @@ export class MyApp {
 
   constructor(public platform: Platform,
               public alertCtrl: AlertController,
-              public storage: Storage,
               public user: User) {
     this.initializeApp();
 
@@ -64,7 +62,7 @@ export class MyApp {
           text: 'Confirm',
           handler: () => {
             this.user.logout();
-            this.openPage(HomePage);
+            this.nav.setRoot(HomePage);
           }
         }
       ]

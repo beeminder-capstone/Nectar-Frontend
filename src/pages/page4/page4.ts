@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, AlertController, ToastController} from 'ionic-angular';
+import { AlertController, ToastController} from 'ionic-angular';
 
 import { SocialSharing } from 'ionic-native';
 
@@ -21,7 +21,6 @@ export class Page4 {
   vibration_toggle: boolean;
 
   constructor(
-    public navCtrl: NavController,
     public storage: Storage,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
@@ -79,7 +78,7 @@ export class Page4 {
           text: 'Cancel'
         },
         {
-          text: 'Send',
+          text: 'Next',
           handler: data => {
             SocialSharing.canShareViaEmail().then(() => {
               SocialSharing.shareViaEmail("", 'User Feedback: ' + this.username, ['nectarapp.feedback@gmail.com']).then(() => {
