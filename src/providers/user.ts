@@ -14,7 +14,7 @@ let defaultSettings = {
 
 @Injectable()
 export class User {
-  private userSettings = {};
+  private userSettings;
   private goals = [];
   private isLoggedIn: boolean;
 

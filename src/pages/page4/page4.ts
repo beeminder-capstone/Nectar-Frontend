@@ -34,10 +34,14 @@ export class Page4 {
 		  this.access_token = value;
 	  });
 
-    this.notification_toggle = this.user.getSettings().enableNotifications;
+    
+  }
+
+ ionViewWillEnter(){
+	this.notification_toggle = this.user.getSettings().enableNotifications;
     this.sound_toggle = this.user.getSettings().enableSound;
     this.vibration_toggle = this.user.getSettings().enableVibration;
-  }
+ }
 
   toggleNotification() {
     this.user.changeSetting('enableNotifications', this.notification_toggle);
