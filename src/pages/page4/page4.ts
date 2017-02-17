@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 
-import { AlertController, ToastController} from 'ionic-angular';
-
-import { SocialSharing } from 'ionic-native';
-
+import { AlertController, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { SocialSharing } from 'ionic-native';
 
 import { User } from '../../providers/user';
 
@@ -24,24 +22,24 @@ export class Page4 {
     public storage: Storage,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
-    public user: User) {
-
+    public user: User
+  ) {
     this.storage.get('username').then((value) => {
-		  this.username = value;
-	  });
+      this.username = value;
+    });
 
     this.storage.get('access_token').then((value) => {
-		  this.access_token = value;
-	  });
+      this.access_token = value;
+    });
 
-    
+
   }
 
- ionViewWillEnter(){
-	this.notification_toggle = this.user.getSettings().enableNotifications;
+  ionViewWillEnter() {
+    this.notification_toggle = this.user.getSettings().enableNotifications;
     this.sound_toggle = this.user.getSettings().enableSound;
     this.vibration_toggle = this.user.getSettings().enableVibration;
- }
+  }
 
   toggleNotification() {
     this.user.changeSetting('enableNotifications', this.notification_toggle);
@@ -85,13 +83,11 @@ export class Page4 {
           text: 'Next',
           handler: data => {
             SocialSharing.canShareViaEmail().then(() => {
-              SocialSharing.shareViaEmail("", 'User Feedback: ' + this.username, ['nectarapp.feedback@gmail.com']).then(() => {
-                this.toast('Thank you for your feedback!');
-              }).catch(() => {
-                this.toast('Failed to send message!');
-              });
+              SocialSharing.shareViaEmail("", 'User Feedback: ' + this.username, ['nectarapp.feedback@gmail.com'])
+                .then(() => { this.createToast('Thank you for your feedback!'); })
+                .catch(() => { this.createToast('Failed to send message!'); });
             }).catch(() => {
-              this.toast('Error connecting to e-mail app');
+              this.createToast('Error connecting to e-mail app');
             });
           }
         }
@@ -100,7 +96,7 @@ export class Page4 {
     prompt.present();
   }
 
-  toast(message: string) {
+  createToast(message: string) {
     let toast = this.toastCtrl.create({
       message: message,
       duration: 4000
