@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
+
 import { Storage } from '@ionic/storage';
 
 import { BeeminderApi } from './beeminder-api';
 
 let defaultSettings = {
   enableNotifications: true,
+  enableSound: true,
   enableVibration: true,
   updateTimer: '4',
   autoUpdateGoals: true,
@@ -12,7 +14,7 @@ let defaultSettings = {
 
 @Injectable()
 export class User {
-  private userSettings = {};
+  private userSettings;
   private goals = [];
   private isLoggedIn: boolean;
 

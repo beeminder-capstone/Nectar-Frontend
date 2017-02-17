@@ -10,6 +10,7 @@ import { Page4 } from '../pages/page4/page4';
 
 import { User } from '../providers/user';
 
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -69,7 +70,8 @@ export class MyApp {
         {
           text: 'Confirm',
           handler: () => {
-
+            this.user.logout();
+            this.nav.setRoot(HomePage);
           }
         }
       ]

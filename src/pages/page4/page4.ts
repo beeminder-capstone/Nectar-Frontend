@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
-import { NavController, AlertController, ToastController } from 'ionic-angular';
-
+import { AlertController, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { SocialSharing } from 'ionic-native';
 
-import { Vibration } from 'ionic-native';
+import { User } from '../../providers/user';
 
 @Component({
   selector: 'page-page4',
@@ -15,85 +15,42 @@ export class Page4 {
   username: string;
   access_token: string;
   notification_toggle: boolean;
+  sound_toggle: boolean;
   vibration_toggle: boolean;
 
   constructor(
-    public navCtrl: NavController,
     public storage: Storage,
     public alertCtrl: AlertController,
-    public toastCtrl: ToastController) {
-
+    public toastCtrl: ToastController,
+    public user: User
+  ) {
     this.storage.get('username').then((value) => {
-		  this.username = value;
-	  });
+      this.username = value;
+    });
 
     this.storage.get('access_token').then((value) => {
-		  this.access_token = value;
-	  });
-
-    this.storage.get ('notification_toggle').then((value) => {
-	    this.notification_toggle = value;
+      this.access_token = value;
     });
 
-	  this.storage.get('vibration_toggle').then((value) => {
-	    this.vibration_toggle = value;
-    });
+
   }
 
-  onSubmit(formData) {
-    // the second parameter needs to get the actual value being set when the user changes it.
-    // something like:
-    // this.storage.set('notification_enabled', currentEnabledState('notification_enabled'));
-    // this.storage.set('notification_enabled', this.notification_enabled);
-    // this.storage.set('vibration_enabled', this.vibration_enabled);
+  ionViewWillEnter() {
+    this.notification_toggle = this.user.getSettings().enableNotifications;
+    this.sound_toggle = this.user.getSettings().enableSound;
+    this.vibration_toggle = this.user.getSettings().enableVibration;
   }
 
   toggleNotification() {
-    this.storage.set('notification_toggle', this.notification_toggle);
-    // if (this.notification_toggle) {
-    //   let toast = this.toastCtrl.create({
-    //     message: 'Notifications Enabled',
-    //     duration: 3000,
-    //     position: 'bottom'
-    //   });
-    // }
-    // else {
-    //   let toast = this.toastCtrl.create({
-    //     message: 'Notifications Disabled',
-    //     duration: 3000,
-    //     position: 'bottom'
-    //   });
-    // }
-    // toast.onDidDismiss(() => {
-    //   console.log('Dismissed toast');
-    // });
-    // toast.present();
+    this.user.changeSetting('enableNotifications', this.notification_toggle);
+  }
+
+  toggleSound() {
+    this.user.changeSetting('enableSound', this.sound_toggle);
   }
 
   toggleVibration() {
-    this.storage.set('vibration_toggle', this.vibration_toggle);
-    // if (this.vibration_toggle)
-    // {
-    //   let toast = this.toastCtrl.create({
-    //     message: 'Vibration Enabled',
-    //     duration: 3000,
-    //     position: 'bottom'
-    //   });
-    //   toast.onDidDismiss(() => {
-    //     console.log('Dismissed toast');
-    //   });
-    // }
-    // else {
-    //   let toast = this.toastCtrl.create({
-    //     message: 'Vibration Disabled',
-    //     duration: 3000,
-    //     position: 'bottom'
-    //   });
-    //   toast.onDidDismiss(() => {
-    //     console.log('Dismissed toast');
-    //   });
-    // }
-    // toast.present();
+    this.user.changeSetting('enableVibration', this.vibration_toggle);
   }
 
   showAbout() {
@@ -102,7 +59,6 @@ export class Page4 {
       message: 'Nectar adds support for more integrations on <a target="_blank" href="https://beeminder.com">Beeminder</a>.<br>Automatically gets data from supported integrations and adds it to Beeminder goals.',
       buttons: ['OK']
     });
-    Vibration.vibrate(3000);
     about.present();
   }
 
@@ -116,25 +72,35 @@ export class Page4 {
   }
 
   showFeedback() {
-    let feedback = this.alertCtrl.create({
-      title: 'Feedback',
-      message: 'Send Feedback',
+    let prompt = this.alertCtrl.create({
+      title: 'Send Feedback',
+      message: 'Help us improve Nectar!',
       buttons: [
         {
-          text: 'Duh!',
-          // role: 'cancel',
-          // handler: () => {
-          //   console.log('Cancel clicked');
-          // }
+          text: 'Cancel'
         },
         {
-          text: 'Chyeah!',
-          // handler: () => {
-          //   console.log('Buy clicked');
-          // }
+          text: 'Next',
+          handler: data => {
+            SocialSharing.canShareViaEmail().then(() => {
+              SocialSharing.shareViaEmail("", 'User Feedback: ' + this.username, ['nectarapp.feedback@gmail.com'])
+                .then(() => { this.createToast('Thank you for your feedback!'); })
+                .catch(() => { this.createToast('Failed to send message!'); });
+            }).catch(() => {
+              this.createToast('Error connecting to e-mail app');
+            });
+          }
         }
       ]
     });
-    feedback.present();
+    prompt.present();
+  }
+
+  createToast(message: string) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 4000
+    });
+    toast.present();
   }
 }
