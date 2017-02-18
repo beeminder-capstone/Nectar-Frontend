@@ -59,6 +59,10 @@ export class MyApp {
     this.activePage = page;
   }
 
+  /* logoutConfirm
+     Button called when logout button on side menu is pressed
+	 calls logout() function in user.ts 
+	 sets current page to the home page */ 
   logoutConfirm() {
     let logout = this.alertCtrl.create({
       title: 'Confirm',
