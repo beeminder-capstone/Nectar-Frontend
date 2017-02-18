@@ -3,10 +3,10 @@ import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { HomePage } from '../pages/home/home';
-import { Page1 } from '../pages/page1/page1';
-import { Page2 } from '../pages/page2/page2';
-import { Page3 } from '../pages/page3/page3';
-import { Page4 } from '../pages/page4/page4';
+import { AddGoalPage } from '../pages/add-goal/add-goal';
+import { IntegrationsPage } from '../pages/integrations/integrations'
+import { LoginPage} from '../pages/login/login'
+import { SettingsPage} from '../pages/settings/settings';
 
 import { User } from '../providers/user';
 
@@ -25,17 +25,17 @@ export class MyApp {
   constructor(public platform: Platform, public alertCtrl: AlertController, public user: User) {
     this.user.getLoginStatus().then(isLoggedIn  => {
       //If true then go page1 else go into login page
-      isLoggedIn ? this.rootPage = Page1 : this.rootPage = HomePage;
+      isLoggedIn ? this.rootPage = HomePage : this.rootPage = LoginPage;
     });
 
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Goals', component: Page1 },
-      { title: 'Add New Integration', component: Page2 },
-	    { title: 'Create New Goal', component: Page3 },
-	    { title: 'Settings', component: Page4 }
+      { title: 'Home', component: HomePage },
+      { title: 'Add New Integration', component: IntegrationsPage },
+	    { title: 'Create New Goal', component: AddGoalPage },
+	    { title: 'Settings', component: SettingsPage }
     ];
 
     this.activePage = this.pages[0];

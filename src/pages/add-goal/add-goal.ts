@@ -5,10 +5,10 @@ import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 @Component({
-	selector: 'page-page3',
-	templateUrl: 'page3.html'
+	selector: 'page-add-goal',
+	templateUrl: 'add-goal.html'
 })
-export class Page3 {
+export class AddGoalPage {
 	access_token: string;
 
 	constructor(public navCtrl: NavController, public storage: Storage) {

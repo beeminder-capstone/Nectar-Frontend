@@ -7,10 +7,10 @@ import { Storage } from '@ionic/storage';
 declare var window: any;
 
 @Component({
-  selector: 'page-page2',
-  templateUrl: 'page2.html'
+  selector: 'page-integrations',
+  templateUrl: 'integrations.html'
 })
-export class Page2 {
+export class IntegrationsPage {
 
   constructor(public navCtrl: NavController, public storage: Storage) {
 

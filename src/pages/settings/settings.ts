@@ -7,11 +7,11 @@ import { SocialSharing } from 'ionic-native';
 import { User } from '../../providers/user';
 
 @Component({
-  selector: 'page-page4',
-  templateUrl: 'page4.html'
+  selector: 'page-settings',
+  templateUrl: 'settings.html'
 })
 
-export class Page4 {
+export class SettingsPage {
   username: string;
   access_token: string;
   notification_toggle: boolean;
