@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, AlertController } from 'ionic-angular';
+import { Nav, Platform, AlertController, MenuController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { HomePage } from '../pages/home/home';
@@ -22,7 +22,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public alertCtrl: AlertController, public user: User) {
+  constructor(public platform: Platform, public alertCtrl: AlertController, public menu: MenuController, public user: User) {
     this.user.getLoginStatus().then(isLoggedIn  => {
       //If true then go page1 else go into login page
       isLoggedIn ? this.rootPage = HomePage : this.rootPage = LoginPage;
@@ -71,7 +71,8 @@ export class MyApp {
           text: 'Confirm',
           handler: () => {
             this.user.logout();
-            this.nav.setRoot(HomePage);
+            this.nav.setRoot(LoginPage);
+            this.menu.toggle();
           }
         }
       ]
