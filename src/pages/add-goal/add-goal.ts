@@ -4,6 +4,8 @@ import { NavController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
+import { User } from '../../providers/user';
+
 @Component({
 	selector: 'page-add-goal',
 	templateUrl: 'add-goal.html'
@@ -11,41 +13,25 @@ import { Storage } from '@ionic/storage';
 export class AddGoalPage {
 	access_token: string;
 
-	constructor(public navCtrl: NavController, public storage: Storage) {
-		this.storage.get('access_token').then((value) => {
-			this.access_token = value;
-		});
-	}
+	constructor(public navCtrl: NavController, public storage: Storage, public user: User) {}
 
 	onSubmit(formData) {
-		var xhrRequest = function (url, type, callback) {
-			var xhr = new XMLHttpRequest();
-			xhr.onload = function () {
-				callback(this.responseText);
-			};
-			xhr.open(type, url);
-			xhr.send();
-		};
-
-		var decade = 60 * 60 * 24 * 365 * 10;
-
-		var d = new Date();
-		var t = Math.floor(d.getTime() / 1000);
+		let decade = 60 * 60 * 24 * 365 * 10;
+		let d = new Date();
+		let t = Math.floor(d.getTime() / 1000);
 
 		var goaldate = t + decade;
 
-		var url = "https://www.beeminder.com/api/v1/users/me/goals.json?access_token=" + this.access_token + "&slug=" + formData.slug + "&title=" + formData.title + "&goal_type=" + formData.type + "&goaldate=" + goaldate + "&goalval=null&rate=" + formData.rate + "&goalval=null&gunits=" + formData.gunits + "&goalval=null&runits=" + formData.runits;
-
-		xhrRequest(url, 'POST', function (responseText) {
-			var json = JSON.parse(responseText);
-
-			var errors = json.errors;
-
-			if (errors)
-				alert('An error occured creating goal ' + formData.slug + ': ' + errors.message + '.');
-			else
-				alert('The goal ' + formData.slug + ' was successfully created.');
-		});
+		let goal = {
+			slug: formData.slug,
+			title: formData.goaltitle,
+			goal_type: formData.type,
+			goaldate: goaldate,			
+			rate: formData.rate,
+			gunit: formData.gunits,
+			runit: formData.runits,
+		}
+		this.user.addGoal(goal);
 	}
 
 }
