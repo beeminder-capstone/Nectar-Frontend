@@ -13,15 +13,15 @@ export class GoalDetailsPage {
   datapoints = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private user: User) {
-    user.getDatapoints(this.goal).subscribe((data) =>{
-      this.datapoints = data;
-    });
+
 
   }
 
-  ionViewDidLoad() {
+ionViewDidLoad() {
     this.goal = this.navParams.data;
     console.log(this.goal);
+    this.user.getDatapoints(this.goal).subscribe((data) =>{
+      this.datapoints = data;
+    });
   }
-
 }
