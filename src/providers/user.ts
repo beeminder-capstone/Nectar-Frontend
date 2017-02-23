@@ -10,7 +10,7 @@ let defaultSettings = {
   enableVibration: true,
   updateTimer: '4',
   autoUpdateGoals: true,
-}
+};
 
 @Injectable()
 export class User {
@@ -62,6 +62,10 @@ export class User {
     });
   }
 
+  getDatapoints(goal){
+    return this.beeminder.fetchDatapoints(goal.slug);
+  }
+
   getSettings() {
     return this.userSettings;
   }
@@ -82,8 +86,6 @@ export class User {
   }
 
   logout() {
-    //This function is labed hot??? 
-    //I have no clue what that means
     this.storage.clear();
   }
 

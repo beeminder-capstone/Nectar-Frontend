@@ -8,10 +8,21 @@
 
 
 <ion-content padding>
+
+  <ion-card>
+    <ion-card-header>
+      <h3>{{goal.title}}</h3>
+    </ion-card-header>
+
+    <ion-card-content>
+
+    </ion-card-content>
+  </ion-card>
+
   <ion-card>
 
     <ion-card-header>
-      <h3>{{goal.title}}</h3>
+      <h3>Settings</h3>
     </ion-card-header>
 
     <ion-card-content>
@@ -21,6 +32,22 @@
       <p>Update: {{goal.update_at}}</p>
       <p>Amount Pledged: {{goal.pledge}}</p>
     </ion-card-content>
+
+  </ion-card>
+
+
+  <ion-card>
+
+    <ion-card-header>
+      <h3>Datapoints</h3>
+    </ion-card-header>
+
+    <ion-list>
+      <ion-item *ngFor="let datapoint of datapoints">
+        {{datapoint.timestamp}}
+      </ion-item>
+
+    </ion-list>
 
   </ion-card>
 
