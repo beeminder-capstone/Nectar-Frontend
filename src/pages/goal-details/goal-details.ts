@@ -10,19 +10,11 @@ import { User } from '../../providers/user';
 export class GoalDetailsPage {
   goal = {};
   showUpdateComponent: boolean = false;
-  datapoints: Array<{timestamp: string, updated: string, value: string, datapoint: {} }>;
+  datapoints = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private user: User) {
     user.getDatapoints(this.goal).subscribe((data) =>{
-      this.datapoints = [];
-      for (let datapoint of data){
-        this.datapoints.push({
-          timestamp: datapoint.timestamp,
-          updated: datapoint.updated,
-          value: datapoint.value,
-          datapoint: datapoint
-        });
-      }
+      this.datapoints = data;
     });
 
   }

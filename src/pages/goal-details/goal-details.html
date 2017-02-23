@@ -15,7 +15,7 @@
     </ion-card-header>
 
     <ion-card-content>
-
+    <!--This will contain the d3 graph of the users datapoints-->
     </ion-card-content>
   </ion-card>
 
@@ -26,6 +26,7 @@
     </ion-card-header>
 
     <ion-card-content>
+      <!--Shows users goal settings, should have an "edit settings" button later?-->
       <p>Goals End Date: {{goal.goaldate}}</p>
       <p>GoalValue: {{goal.goalval}}</p>
       <p>Goal Current Value: {{goal.curval}}</p>
@@ -43,6 +44,7 @@
     </ion-card-header>
 
     <ion-list>
+      <!--Contains list of datapoints for user to view-->
       <ion-item *ngFor="let datapoint of datapoints">
         {{datapoint.timestamp}}
       </ion-item>
