@@ -61,7 +61,7 @@ export class BeeminderApi {
   }
 
   fetchDatapoints(slug) {
-    let url = `${this.baseUrl}/users/me/goals/${slug}/datapoints.json?access_token${this.access_token}`;
+    let url = '${this.baseUrl}/users/me/goals/${slug}/datapoints.json?access_token=$' + this.access_token;
     return this.http.get(url)
       .map(res => res.json())
       .catch(err => Observable.throw(err.json().error));
