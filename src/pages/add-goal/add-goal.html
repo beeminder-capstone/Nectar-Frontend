@@ -40,12 +40,12 @@
 			</ion-item>
 			<p>E.g Number of <strong>steps</strong> per day.</p>
 			<ion-item>
-				<ion-label floating>Pledge Rate:</ion-label>
+				<ion-label floating>Select one of the Pledge Rates:</ion-label>
 				<ion-select [(ngModel)]="runits" name="runits">
 				<ion-option value="y">yearly</ion-option>
 				<ion-option value="m">monthly</ion-option>
 				<ion-option value="w">weekly</ion-option>
-				<ion-option value="d">daily</ion-option>
+				<ion-option value="d" selected>daily</ion-option>
 				<ion-option value="h">hourly</ion-option>
 				</ion-select>
 			</ion-item>

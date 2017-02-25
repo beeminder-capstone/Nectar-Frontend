@@ -2,16 +2,24 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { InAppBrowser } from 'ionic-native';
 import { Observable } from 'rxjs/Observable';
+import { Storage } from '@ionic/storage';
 import 'rxjs/Rx';
 
 @Injectable()
 export class BeeminderApi {
   callback_uri: string = 'https://localhost/callback';
   baseUrl: string = 'https://www.beeminder.com/api/v1';
-  access_token: string = 'cf755b1pzlzk4jo28jkwjusjn';
+  access_token: string;
   client_id: string = '4nqs6w7oxdutqq0qg09gq72i8';
   
-  constructor(private http: Http) {
+  constructor(private http: Http, storage: Storage) {
+    storage.get('access_token').then(token => {
+      if (token == null) {
+        // Intial startup will always output a error until dependency in login.ts is removed
+      } else {
+        this.access_token = token;
+      }
+    });
   }
 
   login() {

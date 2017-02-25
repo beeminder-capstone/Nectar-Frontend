@@ -82,8 +82,9 @@ export class User {
   }
 
   logout() {
-    this.storage.remove('loggedIn');
-    this.storage.remove('access_token')
+    //This function is labed hot??? 
+    //I have no clue what that means
+    this.storage.clear();
   }
 
   login() {

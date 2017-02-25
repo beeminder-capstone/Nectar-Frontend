@@ -1,26 +1,28 @@
-import { User } from './../providers/user';
-import { BeeminderApi } from './../providers/beeminder-api';
-import { GoalDetailsPage } from './../pages/goal-details/goal-details';
+
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { MyApp } from './app.component';
+
 import { HomePage } from '../pages/home/home';
-import { Page1 } from '../pages/page1/page1';
-import { Page2 } from '../pages/page2/page2';
-import { Page3 } from '../pages/page3/page3';
-import { Page4 } from '../pages/page4/page4';
-import { ItemDetailsPage } from '../pages/item-details/item-details';
+import { AddGoalPage } from '../pages/add-goal/add-goal';
+import { GoalDetailsPage } from '../pages/goal-details/goal-details'
+import { IntegrationsPage } from '../pages/integrations/integrations'
+import { LoginPage} from '../pages/login/login'
+import { SettingsPage} from '../pages/settings/settings';
+
+import { User } from './../providers/user';
+import { BeeminderApi } from './../providers/beeminder-api';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    Page1,
-    Page2,
-    Page3,
-    Page4,
-    ItemDetailsPage,
+    AddGoalPage,
+    GoalDetailsPage,
+    IntegrationsPage,
+    LoginPage,
+    SettingsPage,
     GoalDetailsPage
   ],
   imports: [
@@ -30,11 +32,11 @@ import { ItemDetailsPage } from '../pages/item-details/item-details';
   entryComponents: [
     MyApp,
     HomePage,
-    Page1,
-    Page2,
-    Page3,
-    Page4,
-    ItemDetailsPage,
+    AddGoalPage,
+    GoalDetailsPage,
+    IntegrationsPage,
+    LoginPage,
+    SettingsPage,
     GoalDetailsPage
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, Storage, BeeminderApi, User]
