@@ -8,12 +8,16 @@
 </ion-header>
 
 <ion-content>
-<ion-row wrap>
-<ion-col width-33 *ngFor="let provider of providers">
-<div class='provider'>
-<a target="_blank" href="{{provider.url}}"><h3>{{provider.longname}}</h3>
-</a><img alt="{{provider.longname}} Logo" class="logo" src="assets/logos/{{provider.shortname}}.png" (click)="open('{{provider.shortname}}')" />
-</div>
-</ion-col>
-</ion-row>
+  <ion-row wrap>
+    <ion-col width-33 *ngFor="let provider of providers">
+
+      <div class='provider'>
+        <a target="_blank" href="{{provider.url}}">
+          <h3>{{provider.longname}}</h3>
+        </a>
+        <img alt="{{provider.longname}} Logo" class="logo" src="assets/logos/{{provider.shortname}}.png" (click)="open(provider.shortname)"/>
+      </div>
+      
+    </ion-col>
+  </ion-row>
 </ion-content>
