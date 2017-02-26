@@ -11,7 +11,7 @@
 
   <ion-card>
     <ion-card-header>
-      <h3>{{goal.title}}</h3>
+      <h1>{{goal.title}}</h1>
     </ion-card-header>
 
     <ion-card-content>
@@ -23,17 +23,16 @@
   <ion-card>
 
     <ion-card-header>
-      <h3>Settings</h3>
+      <h1>Settings</h1>
     </ion-card-header>
 
-    <ion-card-content>
-      <!--Shows users goal settings, should have an "edit settings" button later?-->
-      <p>Goals End Date: {{goal.goaldate  | date:'M/d/yyyy HH:mm:ss'}}</p>
-      <p>GoalValue: {{goal.goalval  | number:0}}</p>
-      <p>Goal Current Value: {{goal.curval  | number:0}}</p>
-      <p>Update: {{goal.update_at}}</p>
-      <p>Amount Pledged: {{goal.pledge}}</p>
-    </ion-card-content>
+    <ion-list>
+      <ion-item>Goals End Date: {{goal.goaldate  | date:'M/d/yyyy HH:mm:ss'}}</ion-item>
+      <ion-item>GoalValue: {{goal.goalval  | number:0}}</ion-item>
+      <ion-item>Goal Current Value: {{goal.curval  | number:0}}</ion-item>
+      <ion-item>Update: {{goal.update_at}}</ion-item>
+      <ion-item>Amount Pledged: {{goal.pledge}}</ion-item>
+    </ion-list>
 
     <button ion-button full (click)="editSettingsTapped($event)">Edit Settings</button>
   </ion-card>
@@ -42,11 +41,10 @@
   <ion-card>
 
     <ion-card-header>
-      <h3>Datapoints</h3>
+      <h1>Datapoints</h1>
     </ion-card-header>
 
     <ion-list>
-      <!--Contains list of datapoints for user to view-->
       <ion-item *ngFor="let datapoint of datapoints">
         {{datapoint.timestamp  |  date:'M/d/yyyy HH:mm:ss'}}
         {{datapoint.value  |  number:0}}
