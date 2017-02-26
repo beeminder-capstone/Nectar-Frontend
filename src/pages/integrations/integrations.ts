@@ -38,11 +38,14 @@ export class IntegrationsPage {
 		{ url: "https://www.rememberthemilk.com/", longname: "Remember The Milk", shortname: "rememberthemilk" },
 		{ url: "https://runkeeper.com/", longname: "RunKeeper", shortname: "runkeeper" },
 		{ url: "https://slack.com/", longname: "Slack", shortname: "slack" },
+		{ url: "https://stackoverflow.com/", longname: "Stack Overflow", shortname: "stackoverflow" },
 		{ url: "https://www.strava.com/", longname: "Strava", shortname: "strava" },
 		{ url: "https://trello.com", longname: "Trello", shortname: "trello" },
 		{ url: "https://www.tumblr.com/", longname: "Tumblr", shortname: "tumblr" },
 		{ url: "https://twitter.com/", longname: "Twitter", shortname: "twitter" },
 		{ url: "http://typeracer.com", longname: "Typeracer", shortname: "typeracer" },
+		{ url: "https://en.wikipedia.org/wiki/Main_Page", longname: "Wikipedia", shortname: "wikipedia" },
+		{ url: "https://join.worldcommunitygrid.org?recruiterId=734146", longname: "World Community Grid", shortname: "worldcommunitygrid" },
 		{ url: "https://www.wunderlist.com/", longname: "Wunderlist", shortname: "wunderlist" },
 		{ url: "https://www.youtube.com/", longname: "Youtube", shortname: "youtube" }
 	];
