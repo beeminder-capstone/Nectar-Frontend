@@ -1,23 +1,22 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>
-      Nectar
-    </ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Beeminder Goals</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-<img alt="Nectar Logo" border="0" src="assets/Nectar Logo/Bee Emoji.svg" width="50px" style="float: left;"/>
-<h3>
-&nbsp;Nectar
-</h3>
-<p>
-Nectar adds support for more integrations on <a target="_blank" href="https://beeminder.com">Beeminder</a>.
-<br>
-Automatically gets data from supported integrations and adds it to Beeminder goals.
-</p>
-<p>
-Please, Log in with your Beeminder account.
-</p>
-  <button  ion-button (click)="login()">Log in</button>
+  <p>Username: {{username}}</p>
+  
+  <ion-list>
+    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
+      <ion-icon name="{{item.icon}}" item-left></ion-icon>
+      {{item.title}}
+      <div class="item-note" item-right>
+        {{item.note}}
+      </div>
+    </button>
+  </ion-list>
 </ion-content>
