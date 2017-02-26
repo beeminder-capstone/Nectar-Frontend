@@ -12,6 +12,10 @@
   <ion-card>
     <ion-card-header>
       <h3>{{goal.title}}</h3>
+      <ion-card-content>
+        <ion-img src={{goal.graph_url}}> </ion-img>
+
+      </ion-card-content>
     </ion-card-header>
 
     <ion-card-content>
@@ -47,6 +51,7 @@
       <!--Contains list of datapoints for user to view-->
       <ion-item *ngFor="let datapoint of datapoints">
         {{datapoint.timestamp}}
+        {{datapoint.value}}
       </ion-item>
 
     </ion-list>
