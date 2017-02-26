@@ -24,4 +24,8 @@ ionViewDidLoad() {
       this.datapoints = data;
     });
   }
+
+  editSettingsTapped(event) {
+    // this.navCtrl.push(EditGoalDetailsPage)
+  }
 }

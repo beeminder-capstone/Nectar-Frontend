@@ -12,14 +12,11 @@
   <ion-card>
     <ion-card-header>
       <h3>{{goal.title}}</h3>
-      <ion-card-content>
-        <ion-img src={{goal.graph_url}}> </ion-img>
-
-      </ion-card-content>
     </ion-card-header>
 
     <ion-card-content>
-    <!--This will contain the d3 graph of the users datapoints-->
+      <!--This will contain the d3 graph of the users datapoints-->
+      <ion-img width="300" height="200" src={{goal.graph_url}}> </ion-img>
     </ion-card-content>
   </ion-card>
 
@@ -31,13 +28,14 @@
 
     <ion-card-content>
       <!--Shows users goal settings, should have an "edit settings" button later?-->
-      <p>Goals End Date: {{goal.goaldate}}</p>
-      <p>GoalValue: {{goal.goalval}}</p>
-      <p>Goal Current Value: {{goal.curval}}</p>
+      <p>Goals End Date: {{goal.goaldate  | date:'M/d/yyyy HH:mm:ss'}}</p>
+      <p>GoalValue: {{goal.goalval  | number:0}}</p>
+      <p>Goal Current Value: {{goal.curval  | number:0}}</p>
       <p>Update: {{goal.update_at}}</p>
       <p>Amount Pledged: {{goal.pledge}}</p>
     </ion-card-content>
 
+    <button ion-button full (click)="editSettingsTapped($event)">Edit Settings</button>
   </ion-card>
 
 
@@ -50,8 +48,8 @@
     <ion-list>
       <!--Contains list of datapoints for user to view-->
       <ion-item *ngFor="let datapoint of datapoints">
-        {{datapoint.timestamp}}
-        {{datapoint.value}}
+        {{datapoint.timestamp  |  date:'M/d/yyyy HH:mm:ss'}}
+        {{datapoint.value  |  number:0}}
       </ion-item>
 
     </ion-list>
