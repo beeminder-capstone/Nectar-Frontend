@@ -29,8 +29,12 @@
 
     <ion-list>
       <ion-item>
-        <span item-left>Goal Value</span>
+        <span item-left>Target Goal Value</span>
         <span item-right>{{goal.goalval  | number:0}} </span>
+      </ion-item>
+      <ion-item>
+        <span item-left>Rate</span>
+        <span item-right>{{goal.rate  | number:0}} </span>
       </ion-item>
       <ion-item>
         <span item-left>Current Value</span>
@@ -38,7 +42,7 @@
       </ion-item>
       <ion-item>
         <span item-left>Updated</span>
-        <span item-right> {{goal.update_at  | date:'M/d/yyyy HH:mm:ss'}}</span>
+        <span item-right> {{goal.updated_at  | date:'M/d/yyyy HH:mm:ss'}}</span>
       </ion-item>
       <ion-item>
         <span item-left>Amount Pledged</span>
