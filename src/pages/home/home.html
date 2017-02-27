@@ -12,11 +12,20 @@
   
   <ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon name="{{item.icon}}" item-left></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-right>
-        {{item.note}}
+<!--      <div class="item-title" item-left>
+        Goal: {{item.title}}
       </div>
+        Last Updated: {{item.lastUpdate}}
+      <div class="item-note" item-right>
+     <!-- <div class="item-note" item-right style="color:{{item.panic_color}}">
+        Panic Level: {{item.panic}}
+      </div> -->
+      
+      <h2> Goal: {{item.title}} </h2>
+      <h2> Last Updated: {{item.lastUpdate}} </h2>
+      <h2> Panic Level: {{item.panic}} </h2>
+        
+        
     </button>
   </ion-list>
 </ion-content>
