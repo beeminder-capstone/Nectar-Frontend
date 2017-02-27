@@ -8,7 +8,7 @@ import { IntegrationsPage } from '../pages/integrations/integrations'
 import { LoginPage} from '../pages/login/login'
 import { SettingsPage} from '../pages/settings/settings';
 import { GoalWizardPage } from '../pages/goal-wizard/goal-wizard';
-import { CreateGoalSettingsPage } from '../pages/goal-details-form/create-goal-settings';
+import { CreateGoalSettingsPage } from '../pages/create-goal-settings/create-goal-settings';
 
 import { User } from '../providers/user';
 

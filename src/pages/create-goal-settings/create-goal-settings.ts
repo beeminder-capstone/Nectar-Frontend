@@ -4,7 +4,7 @@ import { NavController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
-// import { BeeminderApi } from '../../providers/beeminder-api';
+import { BeeminderApi } from '../../providers/beeminder-api';
 
 @Component({
 	selector: 'page-create-goal-settings',
