@@ -1,11 +1,12 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Select Metric</ion-title>
+    <ion-title>Metric</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
+    <ion-list-header class="metrics-header">Select a metric for {{integration}}:</ion-list-header>
     <button ion-item *ngFor="let m of metrics" (click)="selectMetric(m)">{{m.toString()}}</button>
   </ion-list>
 </ion-content>
