@@ -4,34 +4,30 @@ import { NavController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
-import { User } from '../../providers/user';
+import { IntegrationsPage } from '../integrations/integrations';
+
+// temp import till Create Goal Settings path is known
+import { GoalDetailsPage } from '../goal-details/goal-details';
 
 @Component({
 	selector: 'page-add-goal',
 	templateUrl: 'add-goal.html'
 })
+
 export class AddGoalPage {
-	access_token: string;
 
-	constructor(public navCtrl: NavController, public storage: Storage, public user: User) {}
+	constructor(public navCtrl: NavController,
+              public storage: Storage) {
+	  this.storage.set('isManualGoal', false);
+  }
 
-	onSubmit(formData) {
-		let decade = 60 * 60 * 24 * 365 * 10;
-		let d = new Date();
-		let t = Math.floor(d.getTime() / 1000);
+  // linking to Goal Details Page temporarily till path is known for Create Goal Settings
+	goToCreateManualGoal() {
+	  this.storage.set('isManualGoal', true);
+    this.navCtrl.push(GoalDetailsPage);
+  }
 
-		var goaldate = t + decade;
-
-		let goal = {
-			slug: formData.slug,
-			title: formData.goaltitle,
-			goal_type: formData.type,
-			goaldate: goaldate,			
-			rate: formData.rate,
-			gunit: formData.gunits,
-			runit: formData.runits,
-		}
-		this.user.addGoal(goal);
-	}
-
+  goToIntegrations() {
+    this.navCtrl.push(IntegrationsPage);
+  }
 }
