@@ -61,10 +61,9 @@
 
     <ion-list>
       <ion-item *ngFor="let datapoint of datapoints">
-        {{datapoint.timestamp*1000  |  date:'M/d/yyyy HH:mm:ss'}}
+        <ion-label stacked>Updated: {{datapoint.timestamp*1000  |  date:'M/d/yyyy HH:mm:ss'}} </ion-label>
         {{datapoint.value  |  number:0}}
       </ion-item>
-
     </ion-list>
 
   </ion-card>
