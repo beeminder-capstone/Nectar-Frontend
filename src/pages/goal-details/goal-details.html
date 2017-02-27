@@ -2,6 +2,7 @@
 
   <ion-navbar>
     <ion-title>Goal Details</ion-title>
+
   </ion-navbar>
 
 </ion-header>
@@ -28,28 +29,28 @@
 
     <ion-list>
       <ion-item>
-        <ion-label>Goal End Date</ion-label>
-        {{goal.goaldate*1000  | date:'M/d/yyyy HH:mm:ss'}}
+        <span item-left>Goal Value</span>
+        <span item-right>{{goal.goalval  | number:0}} </span>
       </ion-item>
       <ion-item>
-        <ion-label>Goal Value</ion-label>
-        {{goal.goalval  | number:0}}
+        <span item-left>Current Value</span>
+        <span item-right>{{goal.curval  | number:0}}</span>
       </ion-item>
       <ion-item>
-        <ion-label>Current Value</ion-label>
-        {{goal.curval  | number:0}}
+        <span item-left>Updated</span>
+        <span item-right> {{goal.update_at  | date:'M/d/yyyy HH:mm:ss'}}</span>
       </ion-item>
       <ion-item>
-        <ion-label>Updated</ion-label>
-        {{goal.update_at*1000}}
+        <span item-left>Amount Pledged</span>
+        <span item-right>{{goal.pledge}}</span>
       </ion-item>
       <ion-item>
-        <ion-label>Amount Pledged</ion-label>
-        {{goal.pledge}}
+        <span item-left>Goal End Date:</span>
+        <span item-right>{{goal.goaldate  | date:'M/d/yyyy HH:mm:ss'}}</span>
       </ion-item>
     </ion-list>
 
-    <button ion-button full (click)="editSettingsTapped($event)">Edit Settings</button>
+    <button ion-button round block (click)="editSettingsTapped($event)">Edit Settings</button>
   </ion-card>
 
 
@@ -60,9 +61,14 @@
     </ion-card-header>
 
     <ion-list>
+      <ion-item>
+        <span item-left>Value</span>
+        <span item-right>Updated</span>
+      </ion-item>
+
       <ion-item *ngFor="let datapoint of datapoints">
-        <ion-label stacked>Updated: {{datapoint.timestamp*1000  |  date:'M/d/yyyy HH:mm:ss'}} </ion-label>
-        {{datapoint.value  |  number:0}}
+        <span>{{datapoint.value  |  number:0}}</span>
+        <span item-right style="font-style: italic">{{datapoint.timestamp*1000  |  date:'M/d/yyyy HH:mm:ss'}} </span>
       </ion-item>
     </ion-list>
 
