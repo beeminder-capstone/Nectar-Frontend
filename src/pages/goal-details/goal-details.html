@@ -31,10 +31,22 @@
         <ion-label>Goal End Date</ion-label>
         {{goal.goaldate*1000  | date:'M/d/yyyy HH:mm:ss'}}
       </ion-item>
-      <ion-item>Goal Value: {{goal.goalval  | number:0}}</ion-item>
-      <ion-item>Goal Current Value: {{goal.curval  | number:0}}</ion-item>
-      <ion-item>Updated: {{goal.update_at*1000}}</ion-item>
-      <ion-item>Amount Pledged: {{goal.pledge}}</ion-item>
+      <ion-item>
+        <ion-label>Goal Value</ion-label>
+        {{goal.goalval  | number:0}}
+      </ion-item>
+      <ion-item>
+        <ion-label>Current Value</ion-label>
+        {{goal.curval  | number:0}}
+      </ion-item>
+      <ion-item>
+        <ion-label>Updated</ion-label>
+        {{goal.update_at*1000}}
+      </ion-item>
+      <ion-item>
+        <ion-label>Amount Pledged</ion-label>
+        {{goal.pledge}}
+      </ion-item>
     </ion-list>
 
     <button ion-button full (click)="editSettingsTapped($event)">Edit Settings</button>
