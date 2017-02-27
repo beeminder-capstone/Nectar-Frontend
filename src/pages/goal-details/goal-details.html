@@ -27,10 +27,13 @@
     </ion-card-header>
 
     <ion-list>
-      <ion-item>Goals End Date: {{goal.goaldate  | date:'M/d/yyyy HH:mm:ss'}}</ion-item>
-      <ion-item>GoalValue: {{goal.goalval  | number:0}}</ion-item>
+      <ion-item>
+        <ion-label>Goal End Date</ion-label>
+        {{goal.goaldate*1000  | date:'M/d/yyyy HH:mm:ss'}}
+      </ion-item>
+      <ion-item>Goal Value: {{goal.goalval  | number:0}}</ion-item>
       <ion-item>Goal Current Value: {{goal.curval  | number:0}}</ion-item>
-      <ion-item>Update: {{goal.update_at}}</ion-item>
+      <ion-item>Updated: {{goal.update_at*1000}}</ion-item>
       <ion-item>Amount Pledged: {{goal.pledge}}</ion-item>
     </ion-list>
 
@@ -46,7 +49,7 @@
 
     <ion-list>
       <ion-item *ngFor="let datapoint of datapoints">
-        {{datapoint.timestamp  |  date:'M/d/yyyy HH:mm:ss'}}
+        {{datapoint.timestamp*1000  |  date:'M/d/yyyy HH:mm:ss'}}
         {{datapoint.value  |  number:0}}
       </ion-item>
 
