@@ -8,7 +8,7 @@ import { IntegrationsPage } from '../pages/integrations/integrations'
 import { LoginPage} from '../pages/login/login'
 import { SettingsPage} from '../pages/settings/settings';
 import { GoalWizardPage } from '../pages/goal-wizard/goal-wizard';
-import { GoalDetailsFormPage } from '../pages/goal-details-form/goal-details-form';
+import { CreateGoalSettingsPage } from '../pages/goal-details-form/create-goal-settings';
 
 import { User } from '../providers/user';
 
@@ -39,7 +39,7 @@ export class MyApp {
 	    { title: 'Create New Goal', component: AddGoalPage },
 	    { title: 'Settings', component: SettingsPage },
       { title: 'Goal Wizard', component: GoalWizardPage },
-      { title: 'Goal Details Form', component: GoalDetailsFormPage }
+      { title: 'Goal Settings', component: CreateGoalSettingsPage }
     ];
 
     this.activePage = this.pages[0];
