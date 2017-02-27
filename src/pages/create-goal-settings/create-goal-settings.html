@@ -38,12 +38,10 @@
 				<ion-label floating>Pledge:</ion-label>
 				<ion-input type="number" [(ngModel)]="pledge" name="pledge" required="true" value="Pledge"></ion-input>
 			</ion-item>
-
-
 			
 			<div padding>
         <button ion-button type="submit" block>Go Back</button>
-				<button ion-button type="addGoal()" block>Confirm</button>
+				<button ion-button type="presentToast()" block>Confirm</button>
 			</div>
 		</form>
 	</ion-list>
