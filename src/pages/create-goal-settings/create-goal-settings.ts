@@ -7,8 +7,8 @@ import { Storage } from '@ionic/storage';
 import { BeeminderApi } from '../../providers/beeminder-api';
 
 @Component({
-	selector: 'page-create-goal-settings',
-	templateUrl: 'goal-create-goal-settings.html'
+	selector: 'create-goal-settings',
+	templateUrl: 'create-goal-settings.html'
 })
 export class CreateGoalSettingsPage {
 	access_token: string;
