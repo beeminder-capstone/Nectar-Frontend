@@ -11,6 +11,7 @@ import { IntegrationsPage } from '../pages/integrations/integrations'
 import { LoginPage} from '../pages/login/login'
 import { SettingsPage} from '../pages/settings/settings';
 import { GoalWizardPage } from '../pages/goal-wizard/goal-wizard';
+import { SelectMetricPage } from  '../pages/select-metric/select-metric';
 
 import { User } from './../providers/user';
 import { BeeminderApi } from '../providers/beeminder-api';
@@ -26,7 +27,8 @@ import { NectarApi } from '../providers/nectar-api';
     LoginPage,
     SettingsPage,
     GoalDetailsPage,
-    GoalWizardPage
+    GoalWizardPage,
+    SelectMetricPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -41,13 +43,14 @@ import { NectarApi } from '../providers/nectar-api';
     LoginPage,
     SettingsPage,
     GoalDetailsPage,
-    GoalWizardPage
+    GoalWizardPage,
+    SelectMetricPage
   ],
   providers: [
-    { provide: ErrorHandler, useClass: IonicErrorHandler }, 
-    Storage, 
-    BeeminderApi, 
-    User, 
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    Storage,
+    BeeminderApi,
+    User,
     NectarApi
   ]
 })

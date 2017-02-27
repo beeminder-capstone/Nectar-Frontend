@@ -8,8 +8,16 @@
 </ion-header>
 
 <ion-content>
-	<ion-list padding-top="12">
-    <button ion-button large block (click)="goToCreateManualGoal()">Add progress manually</button>
-    <button ion-button large block (click)="goToIntegrations()">Connect to a service</button>
-	</ion-list>
+  <ion-card>
+    <button ion-item (click)="goToCreateManualGoal()">
+      <ion-card-header color="primary" text-center>Manual Goal</ion-card-header>
+      <ion-card-content text-center>Add progress to your Beeminder goal manually</ion-card-content>
+    </button>
+  </ion-card>
+  <ion-card>
+    <button ion-item (click)="goToIntegrations()">
+      <ion-card-header color="primary" text-center>Integration Goal</ion-card-header>
+      <ion-card-content text-center>Connect a service to your Beeminder goal</ion-card-content>
+    </button>
+  </ion-card>
 </ion-content>
