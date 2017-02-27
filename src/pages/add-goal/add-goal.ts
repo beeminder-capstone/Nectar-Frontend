@@ -16,10 +16,7 @@ import { GoalDetailsPage } from '../goal-details/goal-details';
 
 export class AddGoalPage {
 
-	constructor(public navCtrl: NavController,
-              public storage: Storage) {
-	  this.storage.set('isManualGoal', false);
-  }
+	constructor(public navCtrl: NavController, public storage: Storage) {}
 
   // linking to Goal Details Page temporarily till path is known for Create Goal Settings
 	goToCreateManualGoal() {
@@ -28,6 +25,7 @@ export class AddGoalPage {
   }
 
   goToIntegrations() {
+	  this.storage.set('isManualGoal', false);
     this.navCtrl.push(IntegrationsPage);
   }
 }
