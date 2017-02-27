@@ -10,7 +10,7 @@ import { BeeminderApi } from '../../providers/beeminder-api';
 	selector: 'page-create-goal-settings',
 	templateUrl: 'goal-create-goal-settings.html'
 })
-export class GoalDetailsFormPage {
+export class CreateGoalSettingsPage {
 	access_token: string;
 	private goals = [];
 
