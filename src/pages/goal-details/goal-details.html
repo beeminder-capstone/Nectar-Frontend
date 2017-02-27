@@ -8,19 +8,63 @@
 
 
 <ion-content padding>
-  <ion-card>
 
+  <ion-card>
     <ion-card-header>
-      <h3>{{goal.title}}</h3>
+      <h1>{{goal.title}}</h1>
     </ion-card-header>
 
     <ion-card-content>
-      <p>Goals End Date: {{goal.goaldate}}</p>
-      <p>GoalValue: {{goal.goalval}}</p>
-      <p>Goal Current Value: {{goal.curval}}</p>
-      <p>Update: {{goal.update_at}}</p>
-      <p>Amount Pledged: {{goal.pledge}}</p>
+      <!--This will contain the d3 graph of the users datapoints-->
+      <ion-img width="300" height="200" src={{goal.graph_url}}> </ion-img>
     </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+
+    <ion-card-header>
+      <h1>Settings</h1>
+    </ion-card-header>
+
+    <ion-list>
+      <ion-item>
+        <ion-label>Goal End Date</ion-label>
+        {{goal.goaldate*1000  | date:'M/d/yyyy HH:mm:ss'}}
+      </ion-item>
+      <ion-item>
+        <ion-label>Goal Value</ion-label>
+        {{goal.goalval  | number:0}}
+      </ion-item>
+      <ion-item>
+        <ion-label>Current Value</ion-label>
+        {{goal.curval  | number:0}}
+      </ion-item>
+      <ion-item>
+        <ion-label>Updated</ion-label>
+        {{goal.update_at*1000}}
+      </ion-item>
+      <ion-item>
+        <ion-label>Amount Pledged</ion-label>
+        {{goal.pledge}}
+      </ion-item>
+    </ion-list>
+
+    <button ion-button full (click)="editSettingsTapped($event)">Edit Settings</button>
+  </ion-card>
+
+
+  <ion-card>
+
+    <ion-card-header>
+      <h1>Datapoints</h1>
+    </ion-card-header>
+
+    <ion-list>
+      <ion-item *ngFor="let datapoint of datapoints">
+        <ion-label stacked>Updated: {{datapoint.timestamp*1000  |  date:'M/d/yyyy HH:mm:ss'}} </ion-label>
+        {{datapoint.value  |  number:0}}
+      </ion-item>
+    </ion-list>
 
   </ion-card>
 
