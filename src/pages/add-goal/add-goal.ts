@@ -7,7 +7,7 @@ import { Storage } from '@ionic/storage';
 import { IntegrationsPage } from '../integrations/integrations';
 
 // temp import till Create Goal Settings path is known
-import { GoalDetailsPage } from '../goal-details/goal-details';
+import { SelectMetricPage } from '../select-metric/select-metric';
 
 @Component({
 	selector: 'page-add-goal',
@@ -21,7 +21,7 @@ export class AddGoalPage {
   // linking to Goal Details Page temporarily till path is known for Create Goal Settings
 	goToCreateManualGoal() {
 	  this.storage.set('isManualGoal', true);
-    this.navCtrl.push(GoalDetailsPage);
+    this.navCtrl.push(SelectMetricPage);
   }
 
   goToIntegrations() {
