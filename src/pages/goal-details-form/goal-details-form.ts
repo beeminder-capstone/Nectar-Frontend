@@ -7,7 +7,7 @@ import { Storage } from '@ionic/storage';
 import { User } from '../../providers/user';
 
 @Component({
-	selector: 'page-add-goal',
+	selector: 'page-goal-details-form',
 	templateUrl: 'goal-details-form.html'
 })
 export class GoalDetailsFormPage {
