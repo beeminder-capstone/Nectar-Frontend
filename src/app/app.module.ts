@@ -6,9 +6,10 @@ import { MyApp } from './app.component';
 
 import { HomePage } from '../pages/home/home';
 import { AddGoalPage } from '../pages/add-goal/add-goal';
-import { GoalDetailsPage } from '../pages/goal-details/goal-details'
-import { IntegrationsPage } from '../pages/integrations/integrations'
-import { LoginPage} from '../pages/login/login'
+import { GoalDetailsPage } from '../pages/goal-details/goal-details';
+import { EditGoalPage } from '../pages/edit-goal/edit-goal';
+import { IntegrationsPage } from '../pages/integrations/integrations';
+import { LoginPage} from '../pages/login/login';
 import { SettingsPage} from '../pages/settings/settings';
 import { GoalWizardPage } from '../pages/goal-wizard/goal-wizard';
 
@@ -26,7 +27,8 @@ import { NectarApi } from '../providers/nectar-api';
     LoginPage,
     SettingsPage,
     GoalDetailsPage,
-    GoalWizardPage
+    GoalWizardPage,
+    EditGoalPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -41,7 +43,8 @@ import { NectarApi } from '../providers/nectar-api';
     LoginPage,
     SettingsPage,
     GoalDetailsPage,
-    GoalWizardPage
+    GoalWizardPage,
+    EditGoalPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler }, 
