@@ -10,9 +10,11 @@ import { GoalDetailsPage } from '../pages/goal-details/goal-details'
 import { IntegrationsPage } from '../pages/integrations/integrations'
 import { LoginPage} from '../pages/login/login'
 import { SettingsPage} from '../pages/settings/settings';
+import { GoalWizardPage } from '../pages/goal-wizard/goal-wizard';
 
 import { User } from './../providers/user';
-import { BeeminderApi } from './../providers/beeminder-api';
+import { BeeminderApi } from '../providers/beeminder-api';
+import { NectarApi } from '../providers/nectar-api';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { BeeminderApi } from './../providers/beeminder-api';
     IntegrationsPage,
     LoginPage,
     SettingsPage,
-    GoalDetailsPage
+    GoalDetailsPage,
+    GoalWizardPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -37,8 +40,15 @@ import { BeeminderApi } from './../providers/beeminder-api';
     IntegrationsPage,
     LoginPage,
     SettingsPage,
-    GoalDetailsPage
+    GoalDetailsPage,
+    GoalWizardPage
   ],
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, Storage, BeeminderApi, User]
+  providers: [
+    { provide: ErrorHandler, useClass: IonicErrorHandler }, 
+    Storage, 
+    BeeminderApi, 
+    User, 
+    NectarApi
+  ]
 })
 export class AppModule { }

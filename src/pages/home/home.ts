@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
-import { NavController, NavParams, MenuController } from 'ionic-angular';
+import { NavController, NavParams, MenuController, ToastController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 
 import { User } from './../../providers/user';
@@ -15,7 +15,7 @@ export class HomePage {
   icons: string[];
   items: Array<{ title: string, note: string, icon: string, goal: {} }>;
 
-  constructor(public http: Http, public navCtrl: NavController, public navParams: NavParams, public menu: MenuController, private user: User) {
+  constructor(public http: Http, public navCtrl: NavController, private toastCtrl: ToastController, public navParams: NavParams, public menu: MenuController, private user: User) {
     this.menu.swipeEnable(true);
     user.getGoals().subscribe((goals) => {
       this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
@@ -35,6 +35,20 @@ export class HomePage {
     });
 
   }
+
+  presentToast() {
+  let toast = this.toastCtrl.create({
+    message: 'User was added successfully',
+    duration: 3000,
+    position: 'top'
+  });
+
+  toast.onDidDismiss(() => {
+    console.log('Dismissed toast');
+  });
+
+  toast.present();
+}
 
   itemTapped(event, item) {
     this.navCtrl.push(GoalDetailsPage, item.goal)
