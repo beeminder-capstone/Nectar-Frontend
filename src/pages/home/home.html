@@ -9,23 +9,15 @@
 
 <ion-content padding>
   <p>Username: {{username}}</p>
-  
-  <ion-list>
+
+<ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-<!--      <div class="item-title" item-left>
-        Goal: {{item.title}}
-      </div>
-        Last Updated: {{item.lastUpdate}}
-      <div class="item-note" item-right>
-     <!-- <div class="item-note" item-right style="color:{{item.panic_color}}">
-        Panic Level: {{item.panic}}
-      </div> -->
-      
-      <h2> Goal: {{item.title}} </h2>
-      <h2> Last Updated: {{item.lastUpdate}} </h2>
-      <h2> Panic Level: {{item.panic}} </h2>
-        
-        
+        <ion-avatar item-left>
+            <img src= {{item.icon}}>
+        </ion-avatar> 
+        <h4 align="center"> Updated: {{item.lastUpdate | date:'M/dd/yyyy HH:mm:ss'}} </h4>
+        <button class='large_button' ion-button item-right color={{item.lane}}></button>
+      <!--  <h4 item-right> {{item.lane}} </h4> -->
     </button>
-  </ion-list>
+</ion-list>
 </ion-content>

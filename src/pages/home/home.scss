@@ -1,28 +1,12 @@
 page-home {
-
-    .item{
-      overflow: initial ;
-      text-overflow: initial ;
-      white-space: initial ;
-    }
     
-    .panicBox {
-      float: right;
-      width: 20px;
-      height: 20px;
-      margin: 5px;
-      border: 1px solid rgba(0, 0, 0, .2);
+    .large_button {
+        line-height: 20vh !important;
+        width: 10%;
     }
-
-    .onTrack {
-      color: green;
-    }
-
-    .danger {
-      color: orange;
-    }
-
-    .offTrack {
-      color: red;
-    }
+    $colors: ( 
+        ontrack: #008000, 
+        trouble: #FFA500, 
+        danger: #008000, );
 }
+
