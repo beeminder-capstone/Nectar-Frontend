@@ -12,7 +12,7 @@ import { User } from '../../providers/user';
 })
 
 export class EditGoalPage {
-    public goal: any;
+    goal: any
 
    constructor( 
        public storage: Storage,
@@ -21,22 +21,22 @@ export class EditGoalPage {
        public navcontroller: NavController
    ){}
 
-   ionViewDidEnter() {
+   ngOnInit() {
        this.goal = this.navParams.data;
-       console.log(this.goal);
    }
 
-   confirm(formData){
-    console.log(formData)
+   confirm(){
+    console.log(this.goal)
 
     let goal = {
-        slug: formData.slug,
-		title: formData.goaltitle,
-		gunit: formData.gunits,
-		goalval: formData.goalval,
+        slug: this.goal.slug,
+		title: this.goal.title,
+		gunit: this.goal.runits, //There isn't a gunit variable?
+		goalval: this.goal.goalval,
     }
 
     this.user.editGoal(goal);
+    this.navcontroller.pop();
    }
 
    cancel(){
