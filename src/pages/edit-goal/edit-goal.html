@@ -9,15 +9,15 @@
 
 <ion-content>
     <ion-list>
-        <form #formData='ngForm' (ngSubmit)="confirm(formData.value)">
+        <form (ngSubmit)="confirm()">
             <ion-item>
                 <ion-label floating>Name</ion-label>
-                <ion-input type="text" name="slug" required value="{{goal?.slug}}"></ion-input>
+                <ion-input type="text" [(ngModel)]="goal.slug" name="slug" value="{{goal?.slug}}" required></ion-input>
             </ion-item>
 
             <ion-item>
                 <ion-label floating>Goal Name</ion-label>
-                <ion-input type="text" placeholder="full name" value="{{goal?.title}}"></ion-input>
+                <ion-input type="text" [(ngModel)]="goal.title" name="title" value="{{goal?.title}}" required></ion-input>
             </ion-item>
 
             <ion-item>
@@ -26,12 +26,13 @@
             </ion-item>
 
             <ion-item>
-                <ion-label floating>Commitment:</ion-label>
-                <ion-input type="number" [(ngModel)]="goalval" name="goalval" required="" value="{{goal?.goalval | number: 0}}"></ion-input>
+                <ion-label floating>Commitment</ion-label>
+                <ion-input type="number" [(ngModel)]="goal.goalval" name="goalval" value="{{goal?.goalval | number:0}}"></ion-input>
             </ion-item>
+            
+            <button type="submit" ion-button block>Submit</button>
         </form>
-        <button type="submit" (click)="confirm(formData)" ion-button block>Submit</button>
-        <button ion-button color="dark" (click)="cancel()">Cancel</button> 
+        <button ion-button color="dark" (click)="cancel()">Cancel</button>
     </ion-list>
 
 </ion-content>
