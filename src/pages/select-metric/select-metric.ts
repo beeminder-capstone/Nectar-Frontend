@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
 
-// currently using Goal Details page as a stub page till Create Goal Settings is sorted out.
-import { GoalDetailsPage } from '../goal-details/goal-details';
+import { BeeminderApi } from '../../providers/beeminder-api';
+
+import { CreateGoalSettingsPage } from '../create-goal-settings/create-goal-settings';
 
 @Component({
   selector: 'page-select-metric',
@@ -15,23 +16,27 @@ export class SelectMetricPage {
   metric: string;
   metrics: string[];
 
-  constructor(public navCtrl: NavController, private params: NavParams) {
+  constructor(public navCtrl: NavController, private params: NavParams, public beeminder: BeeminderApi) {
     // this.integration = this.params.get('integration');
 
-    // dummy variables till Integration is figured out
+    // dummy variable till Integration from Goal Wizard is figured out
     this.integration = "Facebook";
-    this.metrics = ['Posts Per Day', 'Likes Per Day', 'Login Per Week'];
+    this.metrics = this.getIntegrationMetrics();
   }
 
+  getIntegrationMetrics() {
+    /* assuming that this function from Beeminder API returns a string array of metrics
+    return this.beeminder.getMetrics(this.integration);
+     */
+    return ['Posts Per Day', 'Likes Per Day', 'Login Per Week'];
+  }
   selectMetric(metric) {
     this.metric = metric;
     this.goToCreateGoal();
   }
 
-  // being sent to Goal Details Page (needs to be changed to Create Goal Settings Page
-  // passes in the integration and metric types
   goToCreateGoal() {
-    this.navCtrl.push(GoalDetailsPage, {
+    this.navCtrl.push(CreateGoalSettingsPage, {
       integration: this.integration,
       metric: this.metric
     })

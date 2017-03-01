@@ -4,8 +4,7 @@ import { NavController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
-// temp import till Create Goal Settings path is known
-import { SelectMetricPage } from '../select-metric/select-metric';
+import { CreateGoalSettingsPage } from '../create-goal-settings/create-goal-settings';
 
 import { GoalWizardPage } from '../goal-wizard/goal-wizard';
 
@@ -18,10 +17,9 @@ export class AddGoalPage {
 
 	constructor(public navCtrl: NavController, public storage: Storage) {}
 
-  // linking to Goal Details Page temporarily till path is known for Create Goal Settings
 	goToCreateManualGoal() {
 	  this.storage.set('isManualGoal', true);
-    this.navCtrl.push(SelectMetricPage);
+    this.navCtrl.push(CreateGoalSettingsPage);
   }
 
   goToIntegrations() {

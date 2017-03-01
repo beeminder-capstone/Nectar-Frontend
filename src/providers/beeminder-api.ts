@@ -11,7 +11,7 @@ export class BeeminderApi {
   baseUrl: string = 'https://www.beeminder.com/api/v1';
   access_token: string;
   client_id: string = '4nqs6w7oxdutqq0qg09gq72i8';
-  
+
   constructor(private http: Http, storage: Storage) {
     storage.get('access_token').then(token => {
       if (token == null) {
@@ -23,8 +23,8 @@ export class BeeminderApi {
   }
 
   login() {
-    let url = 'https://www.beeminder.com/apps/authorize?client_id=' + this.client_id + 
-      '&redirect_uri' + this.callback_uri + '&response_type=token'; 
+    let url = 'https://www.beeminder.com/apps/authorize?client_id=' + this.client_id +
+      '&redirect_uri' + this.callback_uri + '&response_type=token';
     let browser = new InAppBrowser(url, '_blank');
 
     let listener = browser.on("loadstart").subscribe(event => {
@@ -59,4 +59,10 @@ export class BeeminderApi {
              .map(res => res.json())
              .catch(error => Observable.throw(error.json().error));
   }
+  
+  /* function needed
+  getMetrics(integration) {
+    returns a string array of the metrics of an integration
+  }
+   */
 }
