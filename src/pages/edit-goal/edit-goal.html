@@ -29,10 +29,18 @@
                 <ion-label floating>Commitment</ion-label>
                 <ion-input type="number" [(ngModel)]="goal.goalval" name="goalval" value="{{goal?.goalval | number:0}}"></ion-input>
             </ion-item>
-            
-            <button type="submit" ion-button>Submit</button>
+
+            <ion-row>
+                <ion-col width-50 style="text-align: right">
+                    <button type="submit" ion-button>Submit</button>
+                </ion-col>
+
+                <ion-col width-50 style="text-align: left">
+                  <button ion-button color="dark" (click)="cancel()">Cancel</button>
+                </ion-col>
+            </ion-row>
+
         </form>
-        <button ion-button color="dark" (click)="cancel()">Cancel</button>
     </ion-list>
 
 </ion-content>
