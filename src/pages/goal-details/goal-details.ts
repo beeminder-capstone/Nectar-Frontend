@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { User } from '../../providers/user';
 
+import { EditGoalPage } from '../edit-goal/edit-goal';
+
 @Component({
   selector: 'page-goal-details',
   templateUrl: 'goal-details.html'
@@ -26,6 +28,6 @@ ionViewDidLoad() {
   }
 
   editSettingsTapped(event) {
-    // this.navCtrl.push(EditGoalDetailsPage)
+    this.navCtrl.push(EditGoalPage, this.goal);
   }
 }

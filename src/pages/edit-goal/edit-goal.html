@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        <ion-title>Edit Goal</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <form (ngSubmit)="confirm()">
+            <ion-item>
+                <ion-label floating>Name</ion-label>
+                <ion-input type="text" [(ngModel)]="goal.slug" name="slug" value="{{goal?.slug}}" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>Goal Name</ion-label>
+                <ion-input type="text" [(ngModel)]="goal.title" name="title" value="{{goal?.title}}" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>Metric</ion-label>
+                <ion-input type="text" required="" value="{{goal?.gunit}}" readonly></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>Commitment</ion-label>
+                <ion-input type="number" [(ngModel)]="goal.goalval" name="goalval" value="{{goal?.goalval | number:0}}"></ion-input>
+            </ion-item>
+
+            <ion-row>
+                <ion-col width-50 style="text-align: right">
+                    <button type="submit" ion-button>Submit</button>
+                </ion-col>
+
+                <ion-col width-50 style="text-align: left">
+                  <button ion-button color="dark" (click)="cancel()">Cancel</button>
+                </ion-col>
+            </ion-row>
+
+        </form>
+    </ion-list>
+
+</ion-content>
