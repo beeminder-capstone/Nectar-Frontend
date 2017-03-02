@@ -1,12 +1,23 @@
 page-home {
     
     .large_button {
-        line-height: 20vh !important;
-        width: 10%;
+        line-height: 15vh !important;
+        width: 20%;
     }
-    $colors: ( 
-        ontrack: #008000, 
-        trouble: #FFA500, 
-        danger: #008000, );
+    
+    #justify  {
+        display:inline-flex;    
+        text-align:justify;
+    }
+    
+    .name {
+        margin-top: auto;
+        font-size: 20px;
+    }
+    
+    .iconp{
+        height: 15px;
+        padding-bottom: 1px;
+    }
+    
 }
-

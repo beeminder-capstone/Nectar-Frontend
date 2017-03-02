@@ -13,7 +13,7 @@ import { GoalDetailsPage } from '../goal-details/goal-details';
 export class HomePage {
   selectedItem: any;
   icons: string[];
-  items: Array<{ lastUpdate: Date, lane: string, icon: any, goal: {} }>;
+  items: Array<{ lastUpdate: Date, name: string, lane: string, icon: any, goal: {} }>;
   
   constructor(public http: Http, public navCtrl: NavController, public navParams: NavParams, public menu: MenuController, private user: User) {
     this.menu.swipeEnable(true);
@@ -22,9 +22,10 @@ export class HomePage {
       this.items = new Array();
       for (let goal of goals) {
         this.items.push({
+          name: goal.slug,
           lastUpdate: new Date(goal.updated_at * 1000),
           lane: this.laneColor(goal.lane),
-          icon: this.getIcon(goal.autodata),
+          icon: goal.autodata==null? "assets/logos/beeminder.png" : "assets/logos/" + goal.autodata + ".png",
           goal: goal,
         });
       }
@@ -38,11 +39,13 @@ export class HomePage {
   }
 
   laneColor(laneLevel) {
-    console.log(laneLevel);
     if(laneLevel >= 2){
         return "ontrack";     
     }
-    else if(laneLevel == 1){
+    if(laneLevel == 1){
+        return "good";
+    }
+    else if(laneLevel == -1){
         return "trouble";
     }
     else{

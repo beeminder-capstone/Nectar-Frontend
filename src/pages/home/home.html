@@ -12,12 +12,34 @@
 
 <ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-        <ion-avatar item-left>
-            <img src= {{item.icon}}>
-        </ion-avatar> 
-        <h4 align="center"> Updated: {{item.lastUpdate | date:'M/dd/yyyy HH:mm:ss'}} </h4>
-        <button class='large_button' ion-button item-right color={{item.lane}}></button>
-      <!--  <h4 item-right> {{item.lane}} </h4> -->
+    <ion-card>
+        <ion-grid>
+            <ion-row>
+               <ion-col>
+                    <ion-avatar>
+                        <span class='iconp'><img src= {{item.icon}}></span>
+                         <i>Updated: {{item.lastUpdate | date:'M/dd/yyyy HH:mm:ss'}}</i>
+                    </ion-avatar>
+                </ion-col>
+                <ion-col>
+                    <span class="name">{{item.name}}</span>
+                </ion-col>
+                <ion-col>
+                    <ion-card-content text-right>
+                    <button class='large_button' ion-button color={{item.lane}}></button>
+                    </ion-card-content>
+                </ion-col>
+            </ion-row>
+<!--            <ion-row>
+                <ion-col>
+                <ion-card-content>
+                    <i>Updated: {{item.lastUpdate | date:'M/dd/yyyy HH:mm:ss'}}</i>
+                </ion-card-content>
+                </ion-col>
+            </ion-row> -->
+        </ion-grid>
+    </ion-card>
+
     </button>
 </ion-list>
 </ion-content>
