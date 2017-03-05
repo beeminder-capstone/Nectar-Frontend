@@ -2,17 +2,19 @@
 
   <ion-navbar>
     <ion-title>Goal Details</ion-title>
-
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
+<ion-content>
 
   <ion-card>
     <ion-card-header>
-      <h1>{{goal.title}}</h1>
+      <ion-icon ></ion-icon><h1>{{goal.title}}</h1>
     </ion-card-header>
 
     <ion-card-content>
@@ -54,7 +56,6 @@
       </ion-item>
     </ion-list>
 
-    <button ion-button round block (click)="editSettingsTapped($event)">Edit Settings</button>
   </ion-card>
 
 
