@@ -35,7 +35,7 @@ export class HomePage {
   }
 
   itemTapped(event, item) {
-    this.navCtrl.push(GoalDetailsPage, item.goal)
+    this.navCtrl.push(GoalDetailsPage, item)
   }
 
   laneColor(laneLevel) {
@@ -53,18 +53,4 @@ export class HomePage {
     }
   }
 
-/*   laneColor(laneLevel) {
-    var lane;
-    if(laneLevel < 2000 ){
-       return "ontrack";     
-    }
-    else if(laneLevel < 4000 ){
-        return "trouble";
-    }
-    else{
-        return "offtrack";
-    }
-  }
-*/
-   
 }
