@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
-
 import { Storage } from '@ionic/storage';
 
 import { User } from '../../providers/user';
@@ -16,6 +15,8 @@ export class AddGoalPage {
 	constructor(public navCtrl: NavController, public storage: Storage, public user: User) {}
 
 	onSubmit(formData) {
+		console.log(formData);
+		
 		let decade = 60 * 60 * 24 * 365 * 10;
 		let d = new Date();
 		let t = Math.floor(d.getTime() / 1000);

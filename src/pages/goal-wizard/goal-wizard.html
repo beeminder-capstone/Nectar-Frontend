@@ -1,0 +1,27 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Creating goal</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-slides #Slides>
+
+    <ion-slide>
+        <ion-list>
+          <button ion-item *ngFor="let integration of nectar.getIntergrations()" (click)="toMetricSlide(integration)">
+            {{ integration.title }}
+          </button>
+        </ion-list>
+    </ion-slide>
+
+    <ion-slide>
+      Hi
+    </ion-slide>
+
+  </ion-slides>
+
+</ion-content>

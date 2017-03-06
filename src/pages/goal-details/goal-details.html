@@ -1,26 +1,89 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>Goal Details</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
+<ion-content>
 
-<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <ion-item>
+        <h1>{{goal.title}}</h1>
+        <ion-thumbnail item-left>
+          <img src={{icon}}>
+        </ion-thumbnail>
+      </ion-item>
+    </ion-card-header>
+
+
+
+    <ion-card-content>
+      <!--This will contain the d3 graph of the users datapoints-->
+      <ion-img width="300" height="200" src={{goal.graph_url}}> </ion-img>
+      <button ion-button block color={{goalItem.lane}}>{{goalItem.lane}}</button>
+    </ion-card-content>
+  </ion-card>
+
   <ion-card>
 
     <ion-card-header>
-      <h3>{{goal.title}}</h3>
+      <h1>Settings</h1>
     </ion-card-header>
 
-    <ion-card-content>
-      <p>Goals End Date: {{goal.goaldate}}</p>
-      <p>GoalValue: {{goal.goalval}}</p>
-      <p>Goal Current Value: {{goal.curval}}</p>
-      <p>Update: {{goal.update_at}}</p>
-      <p>Amount Pledged: {{goal.pledge}}</p>
-    </ion-card-content>
+    <ion-list>
+      <ion-item>
+        <span item-left>Target Goal Value</span>
+        <span item-right>{{goal.goalval  | number:0}} </span>
+      </ion-item>
+      <ion-item>
+        <span item-left>Rate</span>
+        <span item-right>{{goal.rate  | number:0}} </span>
+      </ion-item>
+      <ion-item>
+        <span item-left>Current Value</span>
+        <span item-right>{{goal.curval  | number:0}}</span>
+      </ion-item>
+      <ion-item>
+        <span item-left>Updated</span>
+        <span item-right> {{itemGoal.lastUpdate}}</span>
+      </ion-item>
+      <ion-item>
+        <span item-left>Amount Pledged</span>
+        <span item-right>{{goal.pledge}}</span>
+      </ion-item>
+      <ion-item>
+        <span item-left>Goal End Date:</span>
+        <span item-right>{{goal.goaldate  | date:'M/d/yyyy HH:mm:ss'}}</span>
+      </ion-item>
+    </ion-list>
+
+  </ion-card>
+
+
+  <ion-card>
+
+    <ion-card-header>
+      <h1>Datapoints</h1>
+    </ion-card-header>
+
+    <ion-list>
+      <ion-item>
+        <span item-left>Value</span>
+        <span item-right>Updated</span>
+      </ion-item>
+
+      <ion-item *ngFor="let datapoint of datapoints">
+        <span>{{datapoint.value  |  number:0}}</span>
+        <span item-right style="font-style: italic">{{datapoint.timestamp*1000  |  date:'M/d/yyyy HH:mm:ss'}} </span>
+      </ion-item>
+    </ion-list>
 
   </ion-card>
 
