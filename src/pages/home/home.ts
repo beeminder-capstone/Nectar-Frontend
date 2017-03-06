@@ -14,11 +14,11 @@ export class HomePage {
   selectedItem: any;
   icons: string[];
   items: Array<{ lastUpdate: Date, name: string, lane: string, icon: any, goal: {} }>;
-  
+
   constructor(public http: Http, public navCtrl: NavController, public navParams: NavParams, public menu: MenuController, private user: User) {
     this.menu.swipeEnable(true);
     user.getGoals().subscribe((goals) => {
-  
+
       this.items = new Array();
       for (let goal of goals) {
         this.items.push({
@@ -34,19 +34,19 @@ export class HomePage {
 
   }
 
-  presentToast() {
-  let toast = this.toastCtrl.create({
-    message: 'User was added successfully',
-    duration: 3000,
-    position: 'top'
-  });
-
-  toast.onDidDismiss(() => {
-    console.log('Dismissed toast');
-  });
-
-  toast.present();
-}
+//   presentToast() {
+//   let toast = this.toastCtrl.create({
+//     message: 'User was added successfully',
+//     duration: 3000,
+//     position: 'top'
+//   });
+//
+//   toast.onDidDismiss(() => {
+//     console.log('Dismissed toast');
+//   });
+//
+//   toast.present();
+// }
 
   itemTapped(event, item) {
     this.navCtrl.push(GoalDetailsPage, item)
@@ -54,7 +54,7 @@ export class HomePage {
 
   laneColor(laneLevel) {
     if(laneLevel >= 2){
-        return "ontrack";     
+        return "ontrack";
     }
     if(laneLevel == 1){
         return "good";

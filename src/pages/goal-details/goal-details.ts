@@ -30,8 +30,8 @@ export class PopoverPage {
 
 export class GoalDetailsPage {
   goal = {};
+  // itemGoal: {lastUpdate: Date, name: string, lane: string, icon: any, goal: {}};
   itemGoal = {};
-  icon = "";
   showUpdateComponent: boolean = false;
   datapoints = [];
 
@@ -42,11 +42,9 @@ export class GoalDetailsPage {
 
   ionViewDidLoad() {
     this.itemGoal = this.navParams.data;
-    this.goal = this.itemGoal.goal;
-    console.log(this.goal);
-    this.user.getDatapoints(this.goal).subscribe((data) =>{
-      this.datapoints = data;
-    });
+    // this.user.getDatapoints(this.itemGoal.goal).subscribe((data) =>{
+    //   this.datapoints = data;
+    // });
   }
 
   editSettingsTapped(event) {
