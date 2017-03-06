@@ -8,35 +8,26 @@
 </ion-header>
 
 <ion-content padding>
-  <p>Username: {{username}}</p>
+  <span>{{username}}</span>
 
 <ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-    <ion-card>
         <ion-grid>
             <ion-row>
-               <ion-col>
-                    <ion-avatar>
-                        <span class='center'><img src= {{item.icon}}></span>
-                    </ion-avatar>
-                </ion-col>
                 <ion-col>
-                    <span class="name">{{item.name}}</span>
+                    <ion-avatar> <span class='center'><img src= {{item.icon}}></span> </ion-avatar>
                 </ion-col>
+                <ion-col> <span class="name">{{item.name}}</span> </ion-col>
                 <ion-col>
                     <ion-card-content text-right>
-                    <button class='large_button' ion-button color={{item.lane}}></button>
+                        <button class='large_button' ion-button color={{item.lane}}></button>
                     </ion-card-content>
                 </ion-col>
             </ion-row>
             <ion-row>
-                <ion-col>
-                    <i>Updated: {{item.lastUpdate | date:'M/dd/yyyy HH:mm:ss'}}</i>
-                </ion-col>
+                <ion-col> <i>Updated: {{item.lastUpdate | date:'M/dd/yyyy HH:mm:ss'}}</i> </ion-col>
             </ion-row>
         </ion-grid>
-    </ion-card>
-
     </button>
 </ion-list>
 </ion-content>
