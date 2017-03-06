@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
-import { NavController, NavParams, MenuController } from 'ionic-angular';
+import { NavController, NavParams, MenuController, ToastController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 
 import { User } from './../../providers/user';
@@ -33,6 +33,20 @@ export class HomePage {
     });
 
   }
+
+  presentToast() {
+  let toast = this.toastCtrl.create({
+    message: 'User was added successfully',
+    duration: 3000,
+    position: 'top'
+  });
+
+  toast.onDidDismiss(() => {
+    console.log('Dismissed toast');
+  });
+
+  toast.present();
+}
 
   itemTapped(event, item) {
     this.navCtrl.push(GoalDetailsPage, item)
