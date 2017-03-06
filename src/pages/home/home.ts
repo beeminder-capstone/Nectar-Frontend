@@ -13,22 +13,20 @@ import { GoalDetailsPage } from '../goal-details/goal-details';
 export class HomePage {
   selectedItem: any;
   icons: string[];
-  items: Array<{ title: string, note: string, icon: string, goal: {} }>;
-
-  constructor(public http: Http, public navCtrl: NavController, private toastCtrl: ToastController, public navParams: NavParams, public menu: MenuController, private user: User) {
+  items: Array<{ lastUpdate: Date, name: string, lane: string, icon: any, goal: {} }>;
+  
+  constructor(public http: Http, public navCtrl: NavController, public navParams: NavParams, public menu: MenuController, private user: User) {
     this.menu.swipeEnable(true);
     user.getGoals().subscribe((goals) => {
-      this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-        'american-football', 'boat', 'bluetooth', 'build'];
-      
+  
       this.items = new Array();
-      let counter = 0;
       for (let goal of goals) {
         this.items.push({
-          title: goal.slug,
-          note: 'This is Goal #' + counter++,
+          name: goal.slug,
+          lastUpdate: new Date(goal.updated_at * 1000),
+          lane: this.laneColor(goal.lane),
+          icon: goal.autodata==null? "assets/logos/beeminder.png" : "assets/logos/" + goal.autodata + ".png",
           goal: goal,
-          icon: this.icons[Math.floor(Math.random() * this.icons.length)]
         });
       }
 
@@ -51,6 +49,22 @@ export class HomePage {
 }
 
   itemTapped(event, item) {
-    this.navCtrl.push(GoalDetailsPage, item.goal)
+    this.navCtrl.push(GoalDetailsPage, item)
   }
+
+  laneColor(laneLevel) {
+    if(laneLevel >= 2){
+        return "ontrack";     
+    }
+    if(laneLevel == 1){
+        return "good";
+    }
+    else if(laneLevel == -1){
+        return "trouble";
+    }
+    else{
+        return "offtrack";
+    }
+  }
+
 }
