@@ -11,6 +11,7 @@ import { EditGoalPage } from '../edit-goal/edit-goal';
 
 export class GoalDetailsPage {
   goal = {};
+  datapoint: any;
   showUpdateComponent: boolean = false;
   datapoints = [];
 
@@ -21,6 +22,7 @@ export class GoalDetailsPage {
 
 ionViewDidLoad() {
     this.goal = this.navParams.data;
+    this.datapoint = [];
     console.log(this.goal);
     this.user.getDatapoints(this.goal).subscribe((data) =>{
       this.datapoints = data;
@@ -29,5 +31,23 @@ ionViewDidLoad() {
 
   editSettingsTapped(event) {
     this.navCtrl.push(EditGoalPage, this.goal);
+  }
+
+  //datapoints have a timestamp, daystamp, value, comment, and requestid
+  addDataPoint(goal){
+    //create timestamp for goal
+    let decade = 60 * 60 * 24 * 365 * 10;
+		let d = new Date();
+		let t = Math.floor(d.getTime() / 1000);
+
+		var goaldate = t + decade;
+
+    let datapoint = {
+      timestamp: goaldate,
+      value: datapoint.value,
+      comment: datapoint.comment,
+    }
+
+    this.user.addDataPoint(goal, datapoint);
   }
 }
