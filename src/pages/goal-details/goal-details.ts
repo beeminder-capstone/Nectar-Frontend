@@ -44,8 +44,8 @@ ionViewDidLoad() {
 
     let datapoint = {
       timestamp: goaldate,
-      value: datapoint.value,
-      comment: datapoint.comment,
+      value: this.datapoint.value,
+      comment: this.datapoint.comment,
     }
 
     this.user.addDataPoint(goal, datapoint);
