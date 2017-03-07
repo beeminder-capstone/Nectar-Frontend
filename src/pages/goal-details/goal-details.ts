@@ -20,7 +20,7 @@ export class GoalDetailsPage {
 
   }
 
-ionViewDidLoad() {
+  ngOnInit() {
     this.goal = this.navParams.data;
     this.datapoint = [];
     console.log(this.goal);
