@@ -30,7 +30,7 @@ export class PopoverPage {
 
 export class GoalDetailsPage {
   goal = {};
-  itemGoal = {};
+  itemGoal: any;
   icon = "";
   showUpdateComponent: boolean = false;
   datapoints = [];

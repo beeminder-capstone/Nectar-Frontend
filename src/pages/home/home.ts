@@ -34,19 +34,19 @@ export class HomePage {
 
   }
 
-  presentToast() {
-  let toast = this.toastCtrl.create({
-    message: 'User was added successfully',
-    duration: 3000,
-    position: 'top'
-  });
+//   presentToast() {
+//   let toast = this.toastCtrl.create({
+//     message: 'User was added successfully',
+//     duration: 3000,
+//     position: 'top'
+//   });
 
-  toast.onDidDismiss(() => {
-    console.log('Dismissed toast');
-  });
+//   toast.onDidDismiss(() => {
+//     console.log('Dismissed toast');
+//   });
 
-  toast.present();
-}
+//   toast.present();
+// }
 
   itemTapped(event, item) {
     this.navCtrl.push(GoalDetailsPage, item)
