@@ -16,6 +16,7 @@ export class CreateGoalSettingsPage {
     this.isManualGoal = this.params.get('manualGoal');
 
     if (this.isManualGoal) {
+      this.integration = "Manual";
       this.manualGoal();
     }
     else {

@@ -4,14 +4,9 @@
   </ion-navbar>
 </ion-header>
 
-<!--<ion-content>-->
-  <!--<ion-list>-->
-    <!--<ion-list-header>Select an Integration to connect:</ion-list-header>-->
-    <!--<button ion-item *ngFor="let i of integrations" (click)="selectIntegration(i)">{{i}}</button>-->
-  <!--</ion-list>-->
-<!--</ion-content>-->
-
 <ion-content>
+  <ion-list>
+  <ion-list-header>Select an Integration to connect:</ion-list-header>
   <ion-row wrap>
     <ion-col width-33 *ngFor="let i of integrations">
       <div class='integration-list'>
@@ -19,4 +14,5 @@
       </div>
     </ion-col>
   </ion-row>
+  </ion-list>
 </ion-content>

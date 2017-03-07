@@ -8,7 +8,7 @@ import { SelectMetricPage } from '../select-metric/select-metric';
 
 @Component({
   selector: 'page-connect-integration',
-  templateUrl: 'connect-integration'
+  templateUrl: 'connect-integration.html'
 })
 
 export class ConnectIntegrationPage {
