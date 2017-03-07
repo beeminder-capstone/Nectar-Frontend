@@ -15,7 +15,7 @@ export class HomePage {
   icons: string[];
   items: Array<{ lastUpdate: Date, name: string, lane: string, icon: any, goal: {} }>;
   
-  constructor(public http: Http, public navCtrl: NavController, public navParams: NavParams, public menu: MenuController, private user: User) {
+  constructor(public http: Http, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController, public menu: MenuController, private user: User) {
     this.menu.swipeEnable(true);
     user.getGoals().subscribe((goals) => {
   

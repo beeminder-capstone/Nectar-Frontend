@@ -3,7 +3,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { MyApp } from './app.component';
-
+import { CreateGoalSettingsPage } from '../pages/create-goal-settings/create-goal-settings';
 import { HomePage } from '../pages/home/home';
 import { AddGoalPage } from '../pages/add-goal/add-goal';
 import { GoalDetailsPage } from '../pages/goal-details/goal-details';
@@ -28,7 +28,8 @@ import { NectarApi } from '../providers/nectar-api';
     SettingsPage,
     GoalDetailsPage,
     GoalWizardPage,
-    EditGoalPage
+    EditGoalPage,
+    CreateGoalSettingsPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -44,7 +45,8 @@ import { NectarApi } from '../providers/nectar-api';
     SettingsPage,
     GoalDetailsPage,
     GoalWizardPage,
-    EditGoalPage
+    EditGoalPage,
+    CreateGoalSettingsPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler }, 
