@@ -6,14 +6,15 @@ import { MyApp } from './app.component';
 
 import { HomePage } from '../pages/home/home';
 import { AddGoalPage } from '../pages/add-goal/add-goal';
-import { GoalDetailsPage } from '../pages/goal-details/goal-details'
-import { IntegrationsPage } from '../pages/integrations/integrations'
-import { LoginPage} from '../pages/login/login'
+import { ConnectIntegrationPage } from '../pages/connect-integration/connect-integration';
+import { CreateGoalSettingsPage } from '../pages/create-goal-settings/create-goal-settings';
+import { GoalDetailsPage } from '../pages/goal-details/goal-details';
+import { IntegrationsPage } from '../pages/integrations/integrations';
+import { LoginPage} from '../pages/login/login';
 import { SettingsPage} from '../pages/settings/settings';
-import { GoalWizardPage } from '../pages/goal-wizard/goal-wizard';
 import { SelectMetricPage } from  '../pages/select-metric/select-metric';
 
-import { User } from './../providers/user';
+import { User } from '../providers/user';
 import { BeeminderApi } from '../providers/beeminder-api';
 import { NectarApi } from '../providers/nectar-api';
 
@@ -22,12 +23,12 @@ import { NectarApi } from '../providers/nectar-api';
     MyApp,
     HomePage,
     AddGoalPage,
+    ConnectIntegrationPage,
+    CreateGoalSettingsPage,
     GoalDetailsPage,
     IntegrationsPage,
     LoginPage,
     SettingsPage,
-    GoalDetailsPage,
-    GoalWizardPage,
     SelectMetricPage
   ],
   imports: [
@@ -38,12 +39,12 @@ import { NectarApi } from '../providers/nectar-api';
     MyApp,
     HomePage,
     AddGoalPage,
+    ConnectIntegrationPage,
+    CreateGoalSettingsPage,
     GoalDetailsPage,
     IntegrationsPage,
     LoginPage,
     SettingsPage,
-    GoalDetailsPage,
-    GoalWizardPage,
     SelectMetricPage
   ],
   providers: [

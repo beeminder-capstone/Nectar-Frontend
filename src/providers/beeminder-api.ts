@@ -59,10 +59,4 @@ export class BeeminderApi {
              .map(res => res.json())
              .catch(error => Observable.throw(error.json().error));
   }
-  
-  /* function needed
-  getMetrics(integration) {
-    returns a string array of the metrics of an integration
-  }
-   */
 }

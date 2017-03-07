@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 
-import { Storage } from '@ionic/storage';
+import { ConnectIntegrationPage } from '../connect-integration/connect-integration';
 
 import { CreateGoalSettingsPage } from '../create-goal-settings/create-goal-settings';
-
-import { GoalWizardPage } from '../goal-wizard/goal-wizard';
 
 @Component({
 	selector: 'page-add-goal',
@@ -15,15 +13,13 @@ import { GoalWizardPage } from '../goal-wizard/goal-wizard';
 
 export class AddGoalPage {
 
-	constructor(public navCtrl: NavController, public storage: Storage) {}
+	constructor(public navCtrl: NavController) {}
 
 	goToCreateManualGoal() {
-	  this.storage.set('isManualGoal', true);
-    this.navCtrl.push(CreateGoalSettingsPage);
+    this.navCtrl.push(CreateGoalSettingsPage, {manualGoal: true});
   }
 
-  goToIntegrations() {
-	  this.storage.set('isManualGoal', false);
-    this.navCtrl.push(GoalWizardPage);
+  goToConnectIntegration() {
+    this.navCtrl.push(ConnectIntegrationPage);
   }
 }
