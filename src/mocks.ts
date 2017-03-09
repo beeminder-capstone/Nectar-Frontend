@@ -145,6 +145,21 @@ export class PlatformMock {
   }
 }
 
+export class NavParamsMock {
+  static returnParam = [
+    {title: 'Commits per day', slug: 'commits'}
+  ];
+  public get(key): any {
+    if (NavParamsMock.returnParam) {
+       return NavParamsMock.returnParam
+    }
+    return 'default';
+  }
+  static setParams(value){
+    NavParamsMock.returnParam = value;
+  }
+}
+
 export class StorageMock {
 
   public get(key: string): Promise<{}> {
@@ -190,5 +205,14 @@ export class AppMock {
     return new NavMock();
   }
 }
+
+export class UserMock {
+  public goals = [
+    { title: "Commits per day", slug: "commit" },
+    { title: "Walk a mile everyday", slug: "walk" }
+  ]
+
+}
+
 
 /* tslint:enable */
