@@ -1,7 +1,7 @@
 
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 
 import { HomePage } from '../pages/home/home';
@@ -31,7 +31,8 @@ import { NectarApi } from '../providers/nectar-api';
     EditGoalPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -48,7 +49,6 @@ import { NectarApi } from '../providers/nectar-api';
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler }, 
-    Storage, 
     BeeminderApi, 
     User, 
     NectarApi
