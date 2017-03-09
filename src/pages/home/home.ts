@@ -13,21 +13,18 @@ import { GoalDetailsPage } from '../goal-details/goal-details';
 export class HomePage {
   selectedItem: any;
   icons: string[];
-  items: Array<{ lastUpdate: Date, name: string, lane: string, icon: any, goal: {} }>;
+    public goals: {}; 
+  items: Array<{ lastUpdate: Date, name: string, laneColor: string, icon: any, }>;
 
   constructor(public http: Http, public navCtrl: NavController, public navParams: NavParams, public menu: MenuController, private user: User) {
     this.menu.swipeEnable(true);
     user.getGoals().subscribe((goals) => {
-
       this.items = new Array();
+        this.goals = goals;
       for (let goal of goals) {
-        this.items.push({
-          name: goal.slug,
-          lastUpdate: new Date(goal.updated_at * 1000),
-          lane: this.laneColor(goal.lane),
-          icon: goal.autodata==null? "assets/logos/beeminder.png" : "assets/logos/" + goal.autodata + ".png",
-          goal: goal,
-        });
+          goal.lastUpdated = new Date(goal.updated_at * 1000), 
+          goal.laneColor = this.laneColorFunc(goal.lane),
+          goal.icon = goal.autodata==null? "assets/logos/beeminder.png" : "assets/logos/" + goal.autodata + ".png"
       }
 
     });
@@ -48,11 +45,12 @@ export class HomePage {
 //   toast.present();
 // }
 
-  itemTapped(event, item) {
-    this.navCtrl.push(GoalDetailsPage, item.goal)
+  itemTapped(goal) {
+    console.log(goal);
+    this.navCtrl.push(GoalDetailsPage, goal)
   }
 
-  laneColor(laneLevel) {
+  laneColorFunc(laneLevel) {
     if(laneLevel >= 2){
         return "ontrack";
     }

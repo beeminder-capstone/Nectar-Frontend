@@ -5,9 +5,9 @@ import { EditGoalPage } from '../edit-goal/edit-goal';
 
 @Component({
   template: `
-    <ion-list>
+    <ion-tab>
       <button ion-button (click)="editSettingsTapped($event)">Edit Settings</button>
-    </ion-list>
+    </ion-tab>
   `
 })
 
@@ -17,6 +17,7 @@ export class PopoverPage {
   close() {
     this.viewCtrl.dismiss();
   }
+  
   editSettingsTapped(event) {
     this.navCtrl.push(EditGoalPage, this.goal);
   }
@@ -30,7 +31,6 @@ export class PopoverPage {
 
 export class GoalDetailsPage {
   goal={};
-  itemGoal: {lastUpdate: Date, name: string, lane: string, icon: any};
   showUpdateComponent: boolean = false;
   datapoints = [];
 
@@ -41,6 +41,7 @@ export class GoalDetailsPage {
 
   ionViewDidLoad() {
     this.goal = this.navParams.data;
+      console.log(this.navParams.data);
     this.user.getDatapoints(this.goal).subscribe((data) =>{
       this.datapoints = data;
     });

@@ -15,9 +15,9 @@
   <ion-card>
     <ion-card-header>
       <ion-item>
-        <h1>{{goal.title}}</h1>
+        <h1>{{goal.slug}}</h1>
         <ion-thumbnail item-left>
-          <img src="assets/logos/{{goal.autodata}}.png">
+          <img src={{goal.icon}}>
         </ion-thumbnail>
       </ion-item>
     </ion-card-header>
@@ -27,7 +27,7 @@
     <ion-card-content>
       <!--This will contain the d3 graph of the users datapoints-->
       <ion-img width="300" height="200" src={{goal.graph_url}}> </ion-img>
-      <button ion-button block color={{lane}}>{{goal.lane}}</button>
+      <button ion-button block color={{goal.laneColor}}></button>
     </ion-card-content>
   </ion-card>
 
@@ -53,6 +53,10 @@
       <ion-item>
         <span item-left>Amount Pledged</span>
         <span item-right>{{goal.pledge}}</span>
+      </ion-item>
+      <ion-item>
+        <span item-left>Last Updated</span>
+        <span item-right>{{goal.lastUpdated | date:'M/dd/yyyy HH:mm:ss'}}</span>
       </ion-item>
     </ion-list>
 
