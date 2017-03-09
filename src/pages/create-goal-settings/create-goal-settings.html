@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Create Goal</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Goal Name</ion-label>
+      <ion-input type="text" required="" value="Nectarrr"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Goal Type</ion-label>
+      <ion-input type="text" required="" value="{{integration}}" readonly></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Metric</ion-label>
+      <ion-input type="text" required="" value="{{metric}}" readonly></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+
