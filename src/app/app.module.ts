@@ -12,6 +12,7 @@ import { GoalDetailsPage } from '../pages/goal-details/goal-details';
 import { IntegrationsPage } from '../pages/integrations/integrations';
 import { LoginPage} from '../pages/login/login';
 import { SettingsPage} from '../pages/settings/settings';
+import { CreateGoalSettingsPage } from '../pages/create-goal-settings/create-goal-settings';
 import { SelectMetricPage } from  '../pages/select-metric/select-metric';
 
 import { User } from '../providers/user';
@@ -30,6 +31,7 @@ import { NectarApi } from '../providers/nectar-api';
     LoginPage,
     SettingsPage,
     SelectMetricPage
+    CreateGoalSettingsPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
