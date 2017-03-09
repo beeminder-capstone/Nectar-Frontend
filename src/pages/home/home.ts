@@ -49,7 +49,7 @@ export class HomePage {
 // }
 
   itemTapped(event, item) {
-    this.navCtrl.push(GoalDetailsPage, item)
+    this.navCtrl.push(GoalDetailsPage, item.goal)
   }
 
   laneColor(laneLevel) {
