@@ -42,7 +42,7 @@ export class GoalDetailsPage {
 
   ionViewDidLoad() {
     this.itemGoal = this.navParams.data;
-    this.goal = this.itemGoal.goal;
+    // this.goal = this.itemGoal.goal;
     console.log(this.goal);
     this.user.getDatapoints(this.goal).subscribe((data) =>{
       this.datapoints = data;

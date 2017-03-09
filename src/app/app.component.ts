@@ -7,6 +7,7 @@ import { AddGoalPage } from '../pages/add-goal/add-goal';
 import { IntegrationsPage } from '../pages/integrations/integrations';
 import { LoginPage} from '../pages/login/login';
 import { SettingsPage} from '../pages/settings/settings';
+import { CreateGoalSettingsPage } from '../pages/create-goal-settings/create-goal-settings';
 
 import { User } from '../providers/user';
 
@@ -35,7 +36,7 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'Add New Integration', component: IntegrationsPage },
 	    { title: 'Create New Goal', component: AddGoalPage },
-	    { title: 'Settings', component: SettingsPage }
+	    { title: 'Settings', component: SettingsPage },
     ];
 
     this.activePage = this.pages[0];
