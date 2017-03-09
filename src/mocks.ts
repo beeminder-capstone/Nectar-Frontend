@@ -1,7 +1,9 @@
-/* tslint:disable */ 
+/* tslint:disable */
 // IONIC:
-import { EventEmitter}      from '@angular/core';
-import { FormBuilder }      from '@angular/forms';
+import { EventEmitter } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs/Rx';
+
 
 export class AlertMock {
 
@@ -13,7 +15,7 @@ export class AlertMock {
 
   // function actually on the AlertClass (not AlertController), but using these interchangably for now
   public dismiss(): Promise<{}> {
-    return new Promise(function(resolve: Function): void {
+    return new Promise(function (resolve: Function): void {
       resolve();
     });
   }
@@ -56,13 +58,13 @@ export class FormMock {
 export class NavMock {
 
   public pop(): any {
-    return new Promise(function(resolve: Function): void {
+    return new Promise(function (resolve: Function): void {
       resolve();
     });
   }
 
   public push(): any {
-    return new Promise(function(resolve: Function): void {
+    return new Promise(function (resolve: Function): void {
       resolve();
     });
   }
@@ -85,7 +87,7 @@ export class NavMock {
 }
 
 export class PlatformMock {
-  public ready(): Promise<{String}> {
+  public ready(): Promise<{ String }> {
     return new Promise((resolve) => {
       resolve('READY');
     });
@@ -146,17 +148,11 @@ export class PlatformMock {
 }
 
 export class NavParamsMock {
-  static returnParam = [
-    {title: 'Commits per day', slug: 'commits'}
-  ];
-  public get(key): any {
-    if (NavParamsMock.returnParam) {
-       return NavParamsMock.returnParam
-    }
-    return 'default';
-  }
-  static setParams(value){
-    NavParamsMock.returnParam = value;
+  data = {
+  };
+
+  get(param) {
+    return this.data[param];
   }
 }
 
@@ -170,17 +166,17 @@ export class StorageMock {
 
   public set(key: string, value: string): Promise<{}> {
     return new Promise((resolve: Function) => {
-      resolve({key: key, value: value});
+      resolve({ key: key, value: value });
     });
   }
 
   public remove(key: string): Promise<{}> {
     return new Promise((resolve: Function) => {
-      resolve({key: key});
+      resolve({ key: key });
     });
   }
 
-  public query(): Promise<{ res: { rows: Array<{}> }}> {
+  public query(): Promise<{ res: { rows: Array<{}> } }> {
     return new Promise((resolve) => {
       resolve({
         res: {
@@ -206,11 +202,19 @@ export class AppMock {
   }
 }
 
+export class BeeminderApiMock {
+
+}
+
 export class UserMock {
   public goals = [
     { title: "Commits per day", slug: "commit" },
     { title: "Walk a mile everyday", slug: "walk" }
   ]
+
+  getGoals() {
+    return Observable.of(this.goals);
+  }
 
 }
 

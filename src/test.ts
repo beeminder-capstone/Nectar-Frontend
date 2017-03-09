@@ -10,11 +10,13 @@ import 'zone.js/dist/fake-async-test';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { getTestBed, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { App, Config, Form, IonicModule, Keyboard, DomController, MenuController, NavController, Platform, GestureController, ToastController } from 'ionic-angular';
+import { App, Config, Form, IonicModule, Keyboard, Haptic, DomController, MenuController, NavController, Platform, GestureController, ToastController, NavParams, AlertController } from 'ionic-angular';
+import { IonicStorageModule } from '@ionic/storage'
 
-import { ConfigMock, PlatformMock, UserMock, StorageMock, NavParamsMock } from './mocks';
+import { ConfigMock, PlatformMock, AlertMock, UserMock, StorageMock, NavParamsMock, BeeminderApiMock } from './mocks';
 import { Storage } from '@ionic/storage';
 import { User } from './providers/user';
+import { BeeminderApi } from './providers/beeminder-api';
 
 // Unfortunately there's no typing for the `__karma__` variable. Just declare it as any.
 declare var __karma__: any;
@@ -56,17 +58,20 @@ export class TestUtils {
         ...components,
       ],
       providers: [
-        App, Form, Keyboard, DomController, MenuController, NavController, GestureController, ToastController, 
+        App, Form, Keyboard, Haptic, DomController, MenuController, NavController, GestureController, ToastController,
+        {provide: AlertController, useClass: AlertMock},
         {provide: Platform, useClass: PlatformMock},
         {provide: Config, useClass: ConfigMock},
         {provide: Storage, useClass: StorageMock},
         {provide: NavParams, useClass: NavParamsMock},
+        {provide: BeeminderApi, useClass: BeeminderApiMock},
         {provide: User, useClass: UserMock}
       ],
       imports: [
         FormsModule,
         IonicModule,
         ReactiveFormsModule,
+        IonicStorageModule
       ],
     });
   }
