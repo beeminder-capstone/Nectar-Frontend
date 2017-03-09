@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
+//import { Storage } from '@ionic/storage';
 
 import { User } from '../../providers/user';
 
 @Component({
 	selector: 'page-add-goal',
-	templateUrl: 'add-goal.html'
+	templateUrl: './add-goal.html'
 })
 export class AddGoalPage {
 	access_token: string;
 
-	constructor(public navCtrl: NavController, public storage: Storage, public user: User) {}
+	constructor(public navCtrl: NavController, public user: User) {}
 
 	onSubmit(formData) {
 		console.log(formData);
