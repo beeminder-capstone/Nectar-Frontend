@@ -3,11 +3,9 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { MyApp } from './app.component';
-import { CreateGoalSettingsPage } from '../pages/create-goal-settings/create-goal-settings';
 import { HomePage } from '../pages/home/home';
 import { AddGoalPage } from '../pages/add-goal/add-goal';
 import { ConnectIntegrationPage } from '../pages/connect-integration/connect-integration';
-import { CreateGoalSettingsPage } from '../pages/create-goal-settings/create-goal-settings';
 import { GoalDetailsPage } from '../pages/goal-details/goal-details';
 import { IntegrationsPage } from '../pages/integrations/integrations';
 import { LoginPage} from '../pages/login/login';
@@ -18,6 +16,7 @@ import { SelectMetricPage } from  '../pages/select-metric/select-metric';
 import { User } from '../providers/user';
 import { BeeminderApi } from '../providers/beeminder-api';
 import { NectarApi } from '../providers/nectar-api';
+import {EditGoalPage} from "../pages/edit-goal/edit-goal";
 
 @NgModule({
   declarations: [
@@ -30,8 +29,8 @@ import { NectarApi } from '../providers/nectar-api';
     IntegrationsPage,
     LoginPage,
     SettingsPage,
-    SelectMetricPage
-    CreateGoalSettingsPage
+    SelectMetricPage,
+    CreateGoalSettingsPage,
     EditGoalPage,
     CreateGoalSettingsPage
   ],
@@ -50,7 +49,6 @@ import { NectarApi } from '../providers/nectar-api';
     LoginPage,
     SettingsPage,
     GoalDetailsPage,
-    GoalWizardPage,
     EditGoalPage
   ],
   providers: [
