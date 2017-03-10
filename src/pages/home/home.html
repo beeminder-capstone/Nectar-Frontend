@@ -8,9 +8,10 @@
 </ion-header>
 
 <ion-content padding>
-  <p>Username: {{username}}</p>
+  <span>{{username}}</span>
 
 <ion-list>
+
     <button ion-item *ngFor="let goal of goals" (click)="itemTapped(goal)">
     <ion-card>
         <ion-grid>
@@ -22,10 +23,14 @@
                 </ion-col>
                 <ion-col>
                     <span class="name">{{goal.slug}}</span>
+
                 </ion-col>
+                <ion-col> <span class="name">{{item.name}}</span> </ion-col>
                 <ion-col>
                     <ion-card-content text-right>
+
                     <button class='large_button' ion-button color={{goal.laneColor}}></button>
+
                     </ion-card-content>
                 </ion-col>
             </ion-row>
@@ -35,8 +40,6 @@
                 </ion-col>
             </ion-row>
         </ion-grid>
-    </ion-card>
-
     </button>
 </ion-list>
 </ion-content>

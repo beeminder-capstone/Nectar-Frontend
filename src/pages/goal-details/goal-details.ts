@@ -30,6 +30,7 @@ export class PopoverPage {
 })
 
 export class GoalDetailsPage {
+
   goal={};
   showUpdateComponent: boolean = false;
   datapoints = [];
@@ -40,8 +41,10 @@ export class GoalDetailsPage {
   }
 
   ionViewDidLoad() {
+
     this.goal = this.navParams.data;
       console.log(this.navParams.data);
+
     this.user.getDatapoints(this.goal).subscribe((data) =>{
       this.datapoints = data;
     });

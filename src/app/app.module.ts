@@ -3,32 +3,36 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { MyApp } from './app.component';
-
 import { HomePage } from '../pages/home/home';
 import { AddGoalPage } from '../pages/add-goal/add-goal';
+import { ConnectIntegrationPage } from '../pages/connect-integration/connect-integration';
 import { GoalDetailsPage } from '../pages/goal-details/goal-details';
-import { EditGoalPage } from '../pages/edit-goal/edit-goal';
 import { IntegrationsPage } from '../pages/integrations/integrations';
 import { LoginPage} from '../pages/login/login';
 import { SettingsPage} from '../pages/settings/settings';
-import { GoalWizardPage } from '../pages/goal-wizard/goal-wizard';
+import { CreateGoalSettingsPage } from '../pages/create-goal-settings/create-goal-settings';
+import { SelectMetricPage } from  '../pages/select-metric/select-metric';
 
-import { User } from './../providers/user';
+import { User } from '../providers/user';
 import { BeeminderApi } from '../providers/beeminder-api';
 import { NectarApi } from '../providers/nectar-api';
+import {EditGoalPage} from "../pages/edit-goal/edit-goal";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     AddGoalPage,
+    ConnectIntegrationPage,
+    CreateGoalSettingsPage,
     GoalDetailsPage,
     IntegrationsPage,
     LoginPage,
     SettingsPage,
-    GoalDetailsPage,
-    GoalWizardPage,
-    EditGoalPage
+    SelectMetricPage,
+    CreateGoalSettingsPage,
+    EditGoalPage,
+    CreateGoalSettingsPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -38,19 +42,20 @@ import { NectarApi } from '../providers/nectar-api';
     MyApp,
     HomePage,
     AddGoalPage,
+    ConnectIntegrationPage,
+    CreateGoalSettingsPage,
     GoalDetailsPage,
     IntegrationsPage,
     LoginPage,
     SettingsPage,
     GoalDetailsPage,
-    GoalWizardPage,
     EditGoalPage
   ],
   providers: [
-    { provide: ErrorHandler, useClass: IonicErrorHandler }, 
-    Storage, 
-    BeeminderApi, 
-    User, 
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    Storage,
+    BeeminderApi,
+    User,
     NectarApi
   ]
 })

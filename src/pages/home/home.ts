@@ -13,10 +13,11 @@ import { GoalDetailsPage } from '../goal-details/goal-details';
 export class HomePage {
   selectedItem: any;
   icons: string[];
-    public goals: {}; 
+  public goals: {}; 
   items: Array<{ lastUpdate: Date, name: string, laneColor: string, icon: any, }>;
 
   constructor(public http: Http, public navCtrl: NavController, public navParams: NavParams, public menu: MenuController, private user: User) {
+
     this.menu.swipeEnable(true);
     user.getGoals().subscribe((goals) => {
       this.items = new Array();
@@ -37,11 +38,12 @@ export class HomePage {
 //     duration: 3000,
 //     position: 'top'
 //   });
+
 //
 //   toast.onDidDismiss(() => {
 //     console.log('Dismissed toast');
 //   });
-//
+
 //   toast.present();
 // }
 

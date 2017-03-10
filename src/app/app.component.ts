@@ -4,10 +4,10 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { HomePage } from '../pages/home/home';
 import { AddGoalPage } from '../pages/add-goal/add-goal';
-import { IntegrationsPage } from '../pages/integrations/integrations'
-import { LoginPage} from '../pages/login/login'
+import { IntegrationsPage } from '../pages/integrations/integrations';
+import { LoginPage} from '../pages/login/login';
 import { SettingsPage} from '../pages/settings/settings';
-import { GoalWizardPage } from '../pages/goal-wizard/goal-wizard';
+import { CreateGoalSettingsPage } from '../pages/create-goal-settings/create-goal-settings';
 
 import { User } from '../providers/user';
 
@@ -37,7 +37,6 @@ export class MyApp {
       { title: 'Add New Integration', component: IntegrationsPage },
 	    { title: 'Create New Goal', component: AddGoalPage },
 	    { title: 'Settings', component: SettingsPage },
-      { title: 'Goal Wizard', component: GoalWizardPage }
     ];
 
     this.activePage = this.pages[0];
@@ -53,10 +52,9 @@ export class MyApp {
     });
   }
 
-
   openPage(page) {
     // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario 
+    // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
     this.activePage = page;
   }
@@ -81,8 +79,6 @@ export class MyApp {
     });
     logout.present();
   }
-
-
 
   checkActive(page) {
     return page == this.activePage;

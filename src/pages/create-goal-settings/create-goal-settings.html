@@ -1,0 +1,54 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+		<ion-title>Manual Goal Form</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-list>
+		<form #formData='ngForm' (ngSubmit)="onSubmit(formData.value)">
+
+			<ion-item>
+				<ion-label floating>Integration:</ion-label>
+				<ion-select [(ngModel)]="integration" name="integration">
+					<ion-option value="manual">Manual</ion-option>
+					<ion-option value="facebook">Facebook</ion-option>
+					<ion-option value="youTube">YouTube</ion-option>
+					<ion-option value="flickr">Flickr</ion-option>
+					<ion-option value="wikipedia">Wikipedia</ion-option>
+					<ion-option value="google fit">Google Fit</ion-option>
+					<ion-option value="world community grid">World Community Grid</ion-option>
+				</ion-select>
+			</ion-item>
+
+			<ion-item>
+				<ion-label floating>Goal Name:</ion-label>
+				<ion-input type="text" [(ngModel)]="goal_name" name="goalName" required="true" value="Name of Goal"></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label floating>Pledge Value:</ion-label>
+				<ion-input type="number" [(ngModel)]="pledge" name="pledge" required="true" value="2, 5, etc"></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label floating>Units:</ion-label>
+				<ion-input type="text" [(ngModel)]="unit" name="unit" required="true" value="steps, post, etc"></ion-input>
+			</ion-item>
+
+			
+			<ion-item>
+				<ion-label floating>Rate:</ion-label>
+				<ion-input type="text" [(ngModel)]="rate" name="rate" required="true" value="day, week, year, etc"></ion-input>
+			</ion-item>
+
+			<div padding>
+				<button ion-button type="submit" block>Go Back</button>
+				<button ion-button type="onSubmit()" block>Confirm</button>
+			</div>
+		</form>
+	</ion-list>
+</ion-content>
