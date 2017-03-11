@@ -22,7 +22,7 @@ export class HomePage {
       for (let goal of goals) {
         goal.lastUpdated = new Date(goal.updated_at * 1000),
           goal.laneColor = this.laneColorFunc(goal.lane),
-          goal.icon = goal.autodata == null ? "assets/logos/beeminder.png" : "assets/logos/" + goal.autodata + ".png"
+          goal.icon = goal.autodata == null ? "assets/logos/nectar.png" : "assets/logos/" + goal.autodata + ".png"
       }
 
     });
