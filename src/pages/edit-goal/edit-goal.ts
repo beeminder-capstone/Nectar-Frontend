@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
 
-import { Storage } from '@ionic/storage';
 
 import { User } from '../../providers/user';
 
@@ -15,7 +14,6 @@ export class EditGoalPage {
     goal: any
 
    constructor( 
-       public storage: Storage,
        public user: User,
        public navParams: NavParams,
        public navcontroller: NavController

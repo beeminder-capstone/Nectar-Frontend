@@ -8,7 +8,7 @@ import { CreateGoalSettingsPage } from '../create-goal-settings/create-goal-sett
 
 @Component({
 	selector: 'page-add-goal',
-	templateUrl: 'add-goal.html'
+	templateUrl: './add-goal.html'
 })
 
 export class AddGoalPage {
