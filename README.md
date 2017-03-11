@@ -66,7 +66,7 @@ The following instructions will enable you to download and compile the source in
 9.    Run: `ionic plugin add cordova-plugin-inappbrowser`.
     1.    See this for more info: [https://www.thepolyglotdeveloper.com/2016/01/using-an-oauth-2-0-service-within-an-ionic-2-mobile-app/](https://www.thepolyglotdeveloper.com/2016/01/using-an-oauth-2-0-service-within-an-ionic-2-mobile-app/)
 10.    If installing the Android app:
-	1.    Run: `ionic platform add android`, it will fail.
+	1.    Run: `ionic platform add android@latest --save`, it will fail.
 	2.    Open Android Studio, click “Import project” and select the `Nectar\platforms\android` folder. Install the Android SDK version it recommends on the bottom. Close Android Studio.
 		1.    Note: Do NOT update the Android Gradle Plugin.
 	3.    Delete the `Nectar\platforms` folder. Rerun: `ionic platform add android`, it should now succeed.
