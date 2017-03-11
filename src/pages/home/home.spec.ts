@@ -3,7 +3,7 @@ import { TestUtils } from '../../test';
 
 import { HomePage } from './home';
 
-let fixture: ComponentFixture < AddGoalPage > = null;
+let fixture: ComponentFixture < HomePage > = null;
 let instance: any = null;
 
 describe('Page: HomePage', () => {

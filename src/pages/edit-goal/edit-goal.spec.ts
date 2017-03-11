@@ -3,7 +3,7 @@ import { TestUtils } from '../../test';
 
 import { EditGoalPage } from './edit-goal';
 
-let fixture: ComponentFixture < AddGoalPage > = null;
+let fixture: ComponentFixture < EditGoalPage > = null;
 let instance: any = null;
 
 describe('Page: EditGoalPage', () => {
