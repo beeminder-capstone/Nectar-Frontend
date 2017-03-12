@@ -39,11 +39,23 @@ export class NectarApi {
       .catch(err => Observable.throw(err.json().error));
   }
 
-  //Stub class to emulate what might be returned
+  //Returns list of all integrations that work with Nectar
   getIntergrations() {
     this.user = this.getUserObject();
+    for (let user of this.user) {
+      user.credentials.provider_name
+    }
 
     return this.mockIntegrations;
+  }
+
+  isLoggedIn(integration: String){
+    for (let user of this.user) {
+      if (user.credentials.provider_name==integration) {
+        return true;
+      }
+    }
+    return false;
   }
 
   // getMetrics(integration: string) {
