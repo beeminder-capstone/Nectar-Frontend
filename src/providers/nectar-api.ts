@@ -81,12 +81,4 @@ export class NectarApi {
     return false;
   }
 
-
-
-
-
-  // getMetrics(integration: string) {
-  //
-  //   return ['Posts Per Day', 'Likes Per Day', 'Logins Per Month'];
-  // }
 }
