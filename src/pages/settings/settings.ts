@@ -25,6 +25,7 @@ export class SettingsPage {
     public user: User
   ) {
     this.storage.get('username').then((value) => {
+      console.log(value)
       this.username = value;
     });
 
