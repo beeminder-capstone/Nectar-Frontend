@@ -12,6 +12,7 @@ import { LoginPage} from '../pages/login/login';
 import { SettingsPage} from '../pages/settings/settings';
 import { CreateGoalSettingsPage } from '../pages/create-goal-settings/create-goal-settings';
 import { SelectMetricPage } from  '../pages/select-metric/select-metric';
+import { PopoverPage } from '../pages/goal-details/popover';
 
 import { User } from '../providers/user';
 import { BeeminderApi } from '../providers/beeminder-api';
@@ -32,7 +33,8 @@ import {EditGoalPage} from "../pages/edit-goal/edit-goal";
     SelectMetricPage,
     CreateGoalSettingsPage,
     EditGoalPage,
-    CreateGoalSettingsPage
+    CreateGoalSettingsPage,
+    PopoverPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -45,12 +47,12 @@ import {EditGoalPage} from "../pages/edit-goal/edit-goal";
     AddGoalPage,
     ConnectIntegrationPage,
     CreateGoalSettingsPage,
-    GoalDetailsPage,
     IntegrationsPage,
     LoginPage,
     SettingsPage,
     GoalDetailsPage,
-    EditGoalPage
+    EditGoalPage,
+    PopoverPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler }, 
