@@ -53,6 +53,7 @@ export class ConnectIntegrationPage {
     { url: "https://www.wunderlist.com/", longname: "Wunderlist", shortname: "wunderlist" },
     { url: "https://www.youtube.com/", longname: "Youtube", shortname: "youtube" }
   ];
+  private url = '';
 
   constructor(public navCtrl: NavController, public nectar: NectarApi) {
     this.integrations = this.nectar.getIntergrations();
@@ -76,12 +77,12 @@ export class ConnectIntegrationPage {
 
   public IntegrationLogin(integrationTitle): Promise<any> {
     return new Promise(function (resolve, reject) {
-      for (provider of this.providers){
+      for (let provider of this.providers){
         if (integrationTitle == provider.shortname) {
-          let url = provider.url;
+          this.url = provider.url;
         }
       }
-      let browserRef = window.cordova.InAppBrowser.open('https://beemindernectar.herokuapp.com/credentials/new?provider_name=' + url, "_self", "location=no");
+      let browserRef = window.cordova.InAppBrowser.open('https://beemindernectar.herokuapp.com/credentials/new?provider_name=' + this.url, "_self", "location=no");
       browserRef.addEventListener("loadstart", (event) => {
         if ((event.url).indexOf("http://localhost/callback") === 0) {
           browserRef.close();
