@@ -14,6 +14,7 @@ declare var window: any;
 	templateUrl: 'login.html'
 })
 export class LoginPage {
+	private url;
 
 	public constructor(
 		public navCtrl: NavController,
@@ -36,10 +37,11 @@ export class LoginPage {
 	public login() {
 		this.platform.ready()
 			.then(() => this.BeeminderLogin())
-			.then(token => this.storage.set('access_token', this.getParameterByName('access_token', token)))
+			.then(url => this.url = url)
+			.then(() => this.storage.set('username', this.getParameterByName('username', this.url)))
+			.then(() => this.storage.set('access_token', this.getParameterByName('access_token', this.url)))
 			.then(token => this.beeminder.access_token = token)
 			.then(() => this.user.setLoginStatus())			
-			.then(username => this.storage.set('username', this.getParameterByName('username', username)))
 			.then(() => this.navCtrl.setRoot(HomePage))
 			.catch(error => console.error(error))
 	}
