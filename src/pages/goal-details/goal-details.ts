@@ -1,28 +1,9 @@
-import {Component, ViewChild, ElementRef} from '@angular/core';
-import {NavController, NavParams, PopoverController, ViewController} from 'ionic-angular';
-import { User } from '../../providers/user';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { NavController, NavParams, PopoverController, ViewController } from 'ionic-angular';
+
 import { EditGoalPage } from '../edit-goal/edit-goal';
-
-@Component({
-  template: `
-    <ion-tab>
-      <button ion-button (click)="editSettingsTapped($event)">Edit Settings</button>
-    </ion-tab>
-  `
-})
-
-export class PopoverPage {
-  constructor(public viewCtrl: ViewController, public navCtrl: NavController, public goal:{}) {}
-
-  close() {
-    this.viewCtrl.dismiss();
-  }
-  
-  editSettingsTapped(event) {
-    this.navCtrl.push(EditGoalPage, this.goal);
-  }
-}
-
+import { PopoverPage } from './popover'
+import { User } from '../../providers/user';
 
 @Component({
   selector: 'page-goal-details',
