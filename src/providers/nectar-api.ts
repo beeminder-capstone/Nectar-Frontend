@@ -68,7 +68,7 @@ export class NectarApi {
       integration.id = credential.id;
     }
 
-    return this.mockIntegrations;
+    return this.integrations;
   }
 
   //Checks if user is logged in to an integration, if the user isn't, returns false
