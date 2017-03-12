@@ -18,6 +18,10 @@ export class NectarApi {
     {title: 'Slack', icon: 'slack', metrics: ['Logins Per Week', 'Direct Messages Read', 'GIFs Uploaded']}
   ];
 
+  userObject = {credentials:{id: String, provider_name:String},
+                providers:[String,{metrics_repo:{collection:{key:String,description:String,title:String}}}]};
+  private user;
+
   constructor(public http: Http, storage: Storage) {
     storage.get('username').then(user => {
       if (user == null) {
@@ -37,6 +41,8 @@ export class NectarApi {
 
   //Stub class to emulate what might be returned
   getIntergrations() {
+    this.user = this.getUserObject();
+
     return this.mockIntegrations;
   }
 
