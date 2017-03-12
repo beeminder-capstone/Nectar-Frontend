@@ -63,10 +63,10 @@ export class NectarApi {
   getLoggedInIntergrations() {
     this.user = this.getUserObject();
     let integrations = [];
-    let integration = { title: String, icon: String, id: Number };
+    let integration = { provider_name: String, icon: String, id: Number };
 
     for (let credential of this.user.credentials) {
-      integration.title = credential.provider_name;
+      integration.provider_name = credential.provider_name;
       integration.icon = credential.provider_name;
       integration.id = credential.id;
     }
@@ -87,7 +87,7 @@ export class NectarApi {
         status = true;
       }
     }
-    
+
     return status;
   }
 }

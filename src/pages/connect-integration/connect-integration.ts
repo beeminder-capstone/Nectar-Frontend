@@ -63,7 +63,7 @@ export class ConnectIntegrationPage {
   selectIntegration(integrationTitle, integrationMetrics) {
 
     //if user isn't logged in, open oauth page
-    if (!this.nectar.isLoggedIn(integrationTitle)) {
+    if (!this.nectar.isLoggedIn(integrationTitle,this.nectar.getLoggedInIntergrations())) {
       //open oauth page
       this.IntegrationLogin(integrationTitle);
       //once they login, continue to the metric page
