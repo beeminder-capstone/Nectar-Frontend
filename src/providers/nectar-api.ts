@@ -21,6 +21,7 @@ export class NectarApi {
   userObject = {credentials:{id: String, provider_name:String},
                 providers:[String,{metrics_repo:{collection:{key:String,description:String,title:String}}}]};
   private user;
+  private integrations;
 
   constructor(public http: Http, storage: Storage) {
     storage.get('username').then(user => {
@@ -42,13 +43,34 @@ export class NectarApi {
   //Returns list of all integrations that work with Nectar
   getIntergrations() {
     this.user = this.getUserObject();
-    for (let user of this.user) {
-      user.credentials.provider_name
+    this.integrations = [];
+    let integration = {title:String, icon:String, metrics:[]};
+    for (let provider of this.user.providers) {
+      integration.title=provider.provider_name;
+      integration.icon=provider.provider_name;
+      integration.metrics=provider.metrics_repo.collection
+
+      this.integrations.push(integration);
+    }
+
+    return this.integrations;
+  }
+
+
+  //Returns list of all integrations that work with Nectar
+  getLoggedInIntergrations() {
+    this.user = this.getUserObject();
+    this.integrations = [];
+    let integration = {title:String, icon:String, metrics:[]};
+    for (let credential of this.user.credentials) {
+      integration.title=credential.provider_name;
+      integration.id = credential.id;
     }
 
     return this.mockIntegrations;
   }
 
+  //Checks if user is logged in to an integration, if the user isn't, returns false
   isLoggedIn(integration: String){
     for (let user of this.user) {
       if (user.credentials.provider_name==integration) {
@@ -57,6 +79,10 @@ export class NectarApi {
     }
     return false;
   }
+
+
+
+
 
   // getMetrics(integration: string) {
   //
