@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import {Observable} from "rxjs";
-import {Storage} from '@ionic/storage';
+import { Observable } from "rxjs";
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class NectarApi {
@@ -10,16 +10,18 @@ export class NectarApi {
   secretKeyBase: string;
   baseUrl: string = 'https://beemindernectar.herokuapp.com/api/v1';
   mockIntegrations = [
-    {title: 'Facebook', icon: 'facebook', metrics: ['Posts Per Day', 'Likes Per Week', 'Logins Per Month']},
-    {title: 'Flickr', icon: 'flickr', metrics: ['Uploads Per Week', 'Visits Per Month', 'Comments Per Week']},
-    {title: 'Instagram', icon: 'instagram', metrics: ['Uploads Per Day', 'Likes Per Week', 'Followers Per Month']},
-    {title: 'Github', icon: 'github', metrics: ['Commits Per Day', 'Pull Requests Per Week', 'New Repos Per Month']},
-    {title: 'Pocket', icon: 'pocket', metrics: ['Articles Read Per Week', 'Articles Added Per Day', 'Something Something Articles']},
-    {title: 'Slack', icon: 'slack', metrics: ['Logins Per Week', 'Direct Messages Read', 'GIFs Uploaded']}
+    { title: 'Facebook', icon: 'facebook', metrics: ['Posts Per Day', 'Likes Per Week', 'Logins Per Month'] },
+    { title: 'Flickr', icon: 'flickr', metrics: ['Uploads Per Week', 'Visits Per Month', 'Comments Per Week'] },
+    { title: 'Instagram', icon: 'instagram', metrics: ['Uploads Per Day', 'Likes Per Week', 'Followers Per Month'] },
+    { title: 'Github', icon: 'github', metrics: ['Commits Per Day', 'Pull Requests Per Week', 'New Repos Per Month'] },
+    { title: 'Pocket', icon: 'pocket', metrics: ['Articles Read Per Week', 'Articles Added Per Day', 'Something Something Articles'] },
+    { title: 'Slack', icon: 'slack', metrics: ['Logins Per Week', 'Direct Messages Read', 'GIFs Uploaded'] }
   ];
 
-  userObject = {credentials:{id: String, provider_name:String},
-                providers:[String,{metrics_repo:{collection:{key:String,description:String,title:String}}}]};
+  userObject = {
+    credentials: { id: String, provider_name: String },
+    providers: [String, { metrics_repo: { collection: { key: String, description: String, title: String } } }]
+  };
   private user;
   private integrations;
 
@@ -44,10 +46,10 @@ export class NectarApi {
   getIntergrations() {
     this.user = this.getUserObject();
     this.integrations = [];
-    let integration = {title:String, icon:String, metrics:[]};
+    let integration = { title: String, icon: String, metrics: [] };
     for (let provider of this.user.providers) {
-      integration.title=provider.provider_name;
-      integration.icon=provider.provider_name;
+      integration.title = provider.provider_name;
+      integration.icon = provider.provider_name;
       integration.metrics = provider.metrics_repo.collection;
 
       this.integrations.push(integration);
@@ -60,25 +62,32 @@ export class NectarApi {
   //Returns list of all integrations that the user is logged into
   getLoggedInIntergrations() {
     this.user = this.getUserObject();
-    this.integrations = [];
-    let integration = {title:String, icon:String, id: Number };
+    let integrations = [];
+    let integration = { title: String, icon: String, id: Number };
+
     for (let credential of this.user.credentials) {
       integration.title = credential.provider_name;
       integration.icon = credential.provider_name;
       integration.id = credential.id;
     }
 
-    return this.integrations;
+    return integrations;
+  }
+
+  getMetrics(provider: string, user) {
+    return user.providers[provider].collections;
   }
 
   //Checks if user is logged in to an integration, if the user isn't, returns false
-  isLoggedIn(integration: String){
-    for (let user of this.user) {
-      if (user.credentials.provider_name==integration) {
-        return true;
+  isLoggedIn(integration: String, loggedProviders) {
+    let status = false;
+
+    for (let provider of loggedProviders) {
+      if (provider.provider_name == integration) {
+        status = true;
       }
     }
-    return false;
+    
+    return status;
   }
-
 }
