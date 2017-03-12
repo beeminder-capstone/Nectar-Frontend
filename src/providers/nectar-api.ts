@@ -48,7 +48,7 @@ export class NectarApi {
     for (let provider of this.user.providers) {
       integration.title=provider.provider_name;
       integration.icon=provider.provider_name;
-      integration.metrics=provider.metrics_repo.collection
+      integration.metrics = provider.metrics_repo.collection;
 
       this.integrations.push(integration);
     }
@@ -57,13 +57,14 @@ export class NectarApi {
   }
 
 
-  //Returns list of all integrations that work with Nectar
+  //Returns list of all integrations that the user is logged into
   getLoggedInIntergrations() {
     this.user = this.getUserObject();
     this.integrations = [];
-    let integration = {title:String, icon:String, metrics:[]};
+    let integration = {title:String, icon:String, id: Number };
     for (let credential of this.user.credentials) {
-      integration.title=credential.provider_name;
+      integration.title = credential.provider_name;
+      integration.icon = credential.provider_name;
       integration.id = credential.id;
     }
 
