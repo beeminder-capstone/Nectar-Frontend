@@ -2,7 +2,6 @@ import { ComponentFixture, async } from '@angular/core/testing';
 import { TestUtils } from '../../test';
 
 import { AddGoalPage } from './add-goal';
-import { StorageMock } from '../../mocks'
 
 let fixture: ComponentFixture < AddGoalPage > = null;
 let instance: any = null;

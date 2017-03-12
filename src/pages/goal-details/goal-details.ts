@@ -12,34 +12,26 @@ import { User } from '../../providers/user';
 
 export class GoalDetailsPage {
 
-  goal={};
+  goal = {};
   showUpdateComponent: boolean = false;
   datapoints = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private user: User, private popoverCtrl: PopoverController) {
-
-
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private user: User,
+    private popoverCtrl: PopoverController
+  ) {}
 
   ionViewDidLoad() {
-
     this.goal = this.navParams.data;
-      console.log(this.navParams.data);
-
-    this.user.getDatapoints(this.goal).subscribe((data) =>{
+    this.user.getDatapoints(this.goal).subscribe((data) => {
       this.datapoints = data;
     });
   }
 
-  editSettingsTapped(event) {
-    this.navCtrl.push(EditGoalPage, this.goal);
-  }
-
-  presentPopover(ev) {
-
-    let popover = this.popoverCtrl.create(PopoverPage,this.goal);
-    popover.present({
-      ev: ev
-    });
+  presentPopover(event: Event) {
+    let popover = this.popoverCtrl.create(PopoverPage, this.goal);
+    popover.present({ ev: event });
   }
 }

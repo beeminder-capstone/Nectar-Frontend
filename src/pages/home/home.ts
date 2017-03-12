@@ -1,10 +1,9 @@
-import {Component} from '@angular/core';
-import {Http} from '@angular/http';
-import {NavController, NavParams, MenuController, ToastController} from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, NavParams, MenuController, ToastController, PopoverController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 
-import {User} from './../../providers/user';
-import {GoalDetailsPage} from '../goal-details/goal-details';
+import { GoalDetailsPage } from '../goal-details/goal-details';
+import { User } from './../../providers/user';
 
 @Component({
   selector: 'page-home',
@@ -14,37 +13,34 @@ export class HomePage {
   icons: string[];
   public goals: {};
 
-  constructor(public http: Http, public navCtrl: NavController, public navParams: NavParams, public menu: MenuController, private user: User) {
-
+  constructor(public navCtrl: NavController, public menu: MenuController, private user: User) {
     this.menu.swipeEnable(true);
     user.getGoals().subscribe((goals) => {
       this.goals = goals;
       for (let goal of goals) {
-        goal.lastUpdated = new Date(goal.updated_at * 1000),
-          goal.laneColor = this.laneColorFunc(goal.lane),
-          goal.icon = goal.autodata == null ? "assets/logos/beeminder.png" : "assets/logos/" + goal.autodata + ".png"
+        goal.lastUpdated = new Date(goal.updated_at * 1000);
+        goal.laneColor = this.laneColorFunc(goal.lane);
+        goal.icon = goal.autodata == null ? "assets/logos/beeminder.png" : "assets/logos/" + goal.autodata + ".png";
       }
-
     });
   }
 
-//   presentToast() {
-//   let toast = this.toastCtrl.create({
-//     message: 'User was added successfully',
-//     duration: 3000,
-//     position: 'top'
-//   });
+  //   presentToast() {
+  //   let toast = this.toastCtrl.create({
+  //     message: 'User was added successfully',
+  //     duration: 3000,
+  //     position: 'top'
+  //   });
 
-//
-//   toast.onDidDismiss(() => {
-//     console.log('Dismissed toast');
-//   });
+  //
+  //   toast.onDidDismiss(() => {
+  //     console.log('Dismissed toast');
+  //   });
 
-//   toast.present();
-// }
+  //   toast.present();
+  // }
 
   itemTapped(goal) {
-    console.log(goal);
     this.navCtrl.push(GoalDetailsPage, goal)
   }
 
@@ -52,7 +48,7 @@ export class HomePage {
     if (laneLevel >= 2) {
       return "ontrack";
     }
-    if (laneLevel == 1) {
+    else if (laneLevel == 1) {
       return "good";
     }
     else if (laneLevel == -1) {
@@ -62,5 +58,4 @@ export class HomePage {
       return "offtrack";
     }
   }
-
 }

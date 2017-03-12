@@ -7,7 +7,6 @@ import { AddGoalPage } from '../pages/add-goal/add-goal';
 import { IntegrationsPage } from '../pages/integrations/integrations';
 import { LoginPage} from '../pages/login/login';
 import { SettingsPage} from '../pages/settings/settings';
-import { CreateGoalSettingsPage } from '../pages/create-goal-settings/create-goal-settings';
 
 import { User } from '../providers/user';
 
