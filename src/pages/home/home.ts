@@ -9,6 +9,7 @@ import { NavController, NavParams, MenuController, ToastController, PopoverContr
 import 'rxjs/add/operator/map';
 
 import { GoalDetailsPage } from '../goal-details/goal-details';
+import { AddGoalPage } from '../add-goal/add-goal';
 import { User } from './../../providers/user';
 
 @Component({
@@ -47,7 +48,7 @@ export class HomePage {
   // }
 
   itemTapped(goal) {
-    this.navCtrl.push(GoalDetailsPage, goal)
+    this.navCtrl.push(GoalDetailsPage, goal);
   }
 
   laneColorFunc(laneLevel) {
@@ -63,5 +64,9 @@ export class HomePage {
     else {
       return "offtrack";
     }
+  }
+  
+  addGoal() {
+    this.navCtrl.setRoot(AddGoalPage);
   }
 }
