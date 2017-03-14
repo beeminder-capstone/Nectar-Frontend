@@ -9,14 +9,6 @@ export class NectarApi {
   username: string;
   secretKeyBase: string;
   baseUrl: string = 'https://beemindernectar.herokuapp.com/api/v1';
-  mockIntegrations = [
-    { title: 'Facebook', icon: 'facebook', metrics: ['Posts Per Day', 'Likes Per Week', 'Logins Per Month'] },
-    { title: 'Flickr', icon: 'flickr', metrics: ['Uploads Per Week', 'Visits Per Month', 'Comments Per Week'] },
-    { title: 'Instagram', icon: 'instagram', metrics: ['Uploads Per Day', 'Likes Per Week', 'Followers Per Month'] },
-    { title: 'Github', icon: 'github', metrics: ['Commits Per Day', 'Pull Requests Per Week', 'New Repos Per Month'] },
-    { title: 'Pocket', icon: 'pocket', metrics: ['Articles Read Per Week', 'Articles Added Per Day', 'Something Something Articles'] },
-    { title: 'Slack', icon: 'slack', metrics: ['Logins Per Week', 'Direct Messages Read', 'GIFs Uploaded'] }
-  ];
 
   userObject = {
     credentials: { id: String, provider_name: String },
