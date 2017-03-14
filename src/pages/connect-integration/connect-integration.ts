@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-
 import { NavController } from 'ionic-angular';
 
-import { NectarApi } from '../../providers/nectar-api';
-
 import { SelectMetricPage } from '../select-metric/select-metric';
+
+import { User } from '../../providers/user';
 
 declare var window: any;
 
@@ -45,7 +44,7 @@ export class ConnectIntegrationPage {
       }
       let browserRef = window.cordova.InAppBrowser.open('https://beemindernectar.herokuapp.com/credentials/new?provider_name=' + this.url, "_self", "location=no");
       browserRef.addEventListener("loadstart", (event) => {
-        if ((event.url).indexOf("http://localhost/callback") === 0) {
+        if ((event.url).indexOf("http://localhost/callback") == 0) {
           browserRef.close();
           resolve(event.url);
         }

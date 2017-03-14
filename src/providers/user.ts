@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-
 import { Storage } from '@ionic/storage';
 
 import { BeeminderApi } from './beeminder-api';
+import { NectarApi } from './nectar-api';
 
 let defaultSettings = {
   enableNotifications: true,
@@ -17,16 +17,28 @@ export class User {
   private userSettings;
   private goals = [];
   private isLoggedIn: boolean;
+  private nectarUser: any;
 
-  constructor(public storage: Storage, public beeminder: BeeminderApi) {
+  constructor(public storage: Storage, public beeminder: BeeminderApi, public nectar: NectarApi) {
     storage.get('goals').then(goals => {
       if (goals == null) {
-        beeminder.fetchGoals().subscribe(userGoals => this.goals = userGoals);
-        storage.set('goals', this.goals);
+        beeminder.fetchGoals().subscribe(userGoals => {
+          this.goals = userGoals;
+          storage.set('goals', this.goals);
+        });
       } else {
         this.goals = goals;
       }
     });
+
+    storage.get('nectarUser').then(nectarUser => {
+      if(nectarUser == null) {
+        nectar.getUserObject().subscribe(userObject => this.nectarUser = userObject);
+      } else {
+        // Since we never refresh this leave it commented out
+        //this.nectarUser = nectarUser;
+      }
+    })
 
     storage.get('userSettings').then(settings => {
       if (settings == null) {
