@@ -23,7 +23,7 @@ export class NectarApi {
     providers: [String, { metrics_repo: { collection: { key: String, description: String, title: String } } }]
   };
   private user;
-  private integrations;
+  private integrations = [];
 
   constructor(public http: Http, storage: Storage) {
     storage.get('username').then(user => {
@@ -42,52 +42,5 @@ export class NectarApi {
       .catch(err => Observable.throw(err.json().error));
   }
 
-  //Returns list of all integrations that work with Nectar
-  getIntergrations() {
-    this.user = this.getUserObject();
-    this.integrations = [];
-    let integration = { title: String, icon: String, metrics: [] };
-    for (let provider of this.user.providers) {
-      integration.title = provider.provider_name;
-      integration.icon = provider.provider_name;
-      integration.metrics = provider.metrics_repo.collection;
 
-      this.integrations.push(integration);
-    }
-
-    return this.integrations;
-  }
-
-
-  //Returns list of all integrations that the user is logged into
-  getLoggedInIntergrations() {
-    this.user = this.getUserObject();
-    let integrations = [];
-    let integration = { provider_name: String, icon: String, id: Number };
-
-    for (let credential of this.user.credentials) {
-      integration.provider_name = credential.provider_name;
-      integration.icon = credential.provider_name;
-      integration.id = credential.id;
-    }
-
-    return integrations;
-  }
-
-  getMetrics(provider: string, user) {
-    return user.providers[provider].collections;
-  }
-
-  //Checks if user is logged in to an integration, if the user isn't, returns false
-  isLoggedIn(integration: String, loggedProviders) {
-    let status = false;
-
-    for (let provider of loggedProviders) {
-      if (provider.provider_name == integration) {
-        status = true;
-      }
-    }
-
-    return status;
-  }
 }

@@ -94,4 +94,39 @@ export class User {
     let token = this.beeminder.login();
     this.storage.set('access_token', token);
   }
+
+    //Returns list of all integrations that work with Nectar
+  getIntergrations() {
+    let integration: any;
+    let integrations = [];
+    for (let provider of this.nectarUser.providers) {
+      let integration = {
+        title: provider[0],
+        icon: provider[0],
+        metrics: provider[1].metrics_repo
+      }
+
+      integrations.push(integration);
+    }
+    return integrations;
+  }
+
+
+  //Returns list of all integrations that the user is logged into
+  getLoggedInIntergrations() {
+    let integrations = [];
+    let integration = { provider_name: String, icon: String, id: Number };
+
+    for (let credential of this.nectarUser.credentials) {
+      integration.provider_name = credential.provider_name;
+      integration.icon = credential.provider_name;
+      integration.id = credential.id;
+    }
+
+    return integrations;
+  }
+
+  getMetrics(provider: string) {
+    return this.nectarUser.providers[provider].collections;
+  }
 }
