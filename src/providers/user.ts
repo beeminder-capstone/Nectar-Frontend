@@ -38,7 +38,7 @@ export class User {
         // Since we never refresh this leave it commented out
         //this.nectarUser = nectarUser;
       }
-    })
+    });
 
     storage.get('userSettings').then(settings => {
       if (settings == null) {
@@ -115,8 +115,8 @@ export class User {
       let integration = {
         title: provider[0],
         icon: provider[0],
-        metrics: provider[1].metrics_repo
-      }
+        metrics: provider[1].collection
+      };
 
       integrations.push(integration);
     }
@@ -139,6 +139,6 @@ export class User {
   }
 
   getMetrics(provider: string) {
-    return this.nectarUser.providers[provider].collections;
+    return this.nectarUser.providers[provider].metrics_repo.collection;
   }
 }
