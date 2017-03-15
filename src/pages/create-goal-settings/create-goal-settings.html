@@ -24,24 +24,29 @@
 			</ion-item>
 
 			<ion-item>
-				<ion-label floating>Pledge Value:</ion-label>
-				<ion-input type="number" [(ngModel)]="pledge" name="pledge" required="true" value="2, 5, etc"></ion-input>
+				<ion-label stacked>Pledge Value:</ion-label>
+				<ion-input type="number" placeholder="5" [(ngModel)]="rate" name="rate" required="true" value="2, 5, etc"></ion-input>
 			</ion-item>
 
 			<ion-item>
-				<ion-label floating>Units:</ion-label>
-				<ion-input type="text" [(ngModel)]="unit" name="unit" required="true" value="steps, post, etc"></ion-input>
+				<ion-label stacked>Units:</ion-label>
+				<ion-input type="text" [(ngModel)]="gunit" name="gunit" required="true" placeholder="steps" value="steps, post, etc"></ion-input>
 			</ion-item>
 
 
 			<ion-item>
-				<ion-label floating>Rate:</ion-label>
-				<ion-input type="text" [(ngModel)]="rate" name="rate" required="true" value="day, week, year, etc"></ion-input>
+				<ion-label stacked>Rate:</ion-label>
+        <ion-select [(ngModel)]="runit" name="runit">
+          <ion-option value="h">Hourly</ion-option>
+          <ion-option value="d">Daily</ion-option>
+          <ion-option value="w">Weekly</ion-option>
+          <ion-option value="m">Monthly</ion-option>
+          <ion-option value="y">Yearly</ion-option>
+        </ion-select>
 			</ion-item>
 
 			<div padding>
-				<button ion-button type="submit" block>Go Back</button>
-				<button ion-button type="onSubmit()" block>Confirm</button>
+				<button ion-button type="onSubmit()" block>Create Goal</button>
 			</div>
 		</form>
 	</ion-list>

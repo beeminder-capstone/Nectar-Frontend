@@ -6,6 +6,8 @@ import { Storage } from '@ionic/storage';
 
 import { User } from '../../providers/user';
 
+import { HomePage } from '../home/home'
+
 @Component({
 	selector: 'page-create-goal-settings',
 	templateUrl: 'create-goal-settings.html'
@@ -16,7 +18,6 @@ export class CreateGoalSettingsPage {
 	metricParam: any;
 	manualGoalParam: boolean;
   icon: string;
-  integration: string;
 
 	constructor(public navCtrl: NavController, public storage: Storage, private params: NavParams, public user: User, private toastCtrl: ToastController ) {
     this.metricParam = params.get("metric");
@@ -33,22 +34,34 @@ export class CreateGoalSettingsPage {
 
 	onSubmit(formData) {
     console.log(formData);
+
     let integration = this.manualGoalParam == null ? null : formData.integration;
 
+    var decade = 60 * 60 * 24 * 365 * 10;
+    var d = new Date();
+    var t = Math.floor(d.getTime() / 1000);
+    var goaldate = t + decade;
 
     let goal = {
+      slug: formData.goalName,
       title: formData.goalName,
-      selected_integration: integration,
-      unit: formData.unit,
-      rate: formData.rate
+      goaldate: goaldate,
+      datasource: 'api',
+      rate: formData.rate,
+      gunit: formData.unit,
+      runit: formData.unit
     };
+
+
 		this.user.addGoal(goal);
 		this.presentToast();
-	}
+    this.navCtrl.popToRoot();
+    this.navCtrl.push(HomePage);
+  }
 
 	presentToast() {
 		let toast = this.toastCtrl.create({
-			message: 'Goal Was Set Successfully',
+			message: 'Goal created successfully',
 			duration: 3000,
 			position: 'bottom'
 		});
