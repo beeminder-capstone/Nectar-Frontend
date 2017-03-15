@@ -46,10 +46,11 @@ export class CreateGoalSettingsPage {
       slug: formData.goalName,
       title: formData.goalName,
       goaldate: goaldate,
-      datasource: 'api',
+      goal_type: "hustler",
+      datasource: "api",
       rate: formData.rate,
-      gunit: formData.unit,
-      runit: formData.unit
+      gunit: formData.gunit,
+      runit: formData.runit
     };
 
 
