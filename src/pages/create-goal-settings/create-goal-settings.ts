@@ -56,8 +56,7 @@ export class CreateGoalSettingsPage {
 
 		this.user.addGoal(goal);
 		this.presentToast();
-    this.navCtrl.popToRoot();
-    this.navCtrl.push(HomePage);
+    this.navCtrl.setRoot(HomePage);
   }
 
 	presentToast() {
