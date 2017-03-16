@@ -13,17 +13,20 @@ import { CreateGoalSettingsPage } from '../create-goal-settings/create-goal-sett
 })
 
 export class SelectMetricPage {
-  integration: string;
+  integration: any;
   metrics: string[];
+  metricKeys: any;
 
-  constructor(public navCtrl: NavController, private params: NavParams, public nectar: NectarApi) {
+  constructor(public navCtrl: NavController, private params: NavParams, public nectar: NectarApi, public user: User) {
     this.integration = this.params.get('integration');
-    this.metrics = this.params.get('metrics');
+    this.metrics = this.integration.metrics;
+    this.metricKeys = Object.keys(this.metrics);
+ //  this.user.getMetrics(this.integration.icon);
   }
 
   selectMetric(metric) {
     this.navCtrl.push(CreateGoalSettingsPage, {
-      integration: this.integration,
+      integration: this.integration.title,
       metric: metric,
       manualGoal: false
     });
