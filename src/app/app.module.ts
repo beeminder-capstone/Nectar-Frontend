@@ -3,6 +3,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
+
 import { HomePage } from '../pages/home/home';
 import { AddGoalPage } from '../pages/add-goal/add-goal';
 import { ConnectIntegrationPage } from '../pages/connect-integration/connect-integration';
@@ -12,6 +13,7 @@ import { LoginPage} from '../pages/login/login';
 import { SettingsPage} from '../pages/settings/settings';
 import { CreateGoalSettingsPage } from '../pages/create-goal-settings/create-goal-settings';
 import { SelectMetricPage } from  '../pages/select-metric/select-metric';
+
 
 import { User } from '../providers/user';
 import { BeeminderApi } from '../providers/beeminder-api';
@@ -32,7 +34,7 @@ import {EditGoalPage} from "../pages/edit-goal/edit-goal";
     SelectMetricPage,
     CreateGoalSettingsPage,
     EditGoalPage,
-    CreateGoalSettingsPage
+    CreateGoalSettingsPage,
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -50,12 +52,13 @@ import {EditGoalPage} from "../pages/edit-goal/edit-goal";
     LoginPage,
     SettingsPage,
     GoalDetailsPage,
-    EditGoalPage
+    EditGoalPage,
+    SelectMetricPage
   ],
   providers: [
-    { provide: ErrorHandler, useClass: IonicErrorHandler }, 
-    BeeminderApi, 
-    User, 
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    BeeminderApi,
+    User,
     NectarApi
   ]
 })
