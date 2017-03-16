@@ -23,34 +23,26 @@ export class ConnectIntegrationPage {
 
   selectIntegration(integration) {
     //if user isn't logged in, open oauth page
-    // if (!this.nectar.isLoggedIn(integrationTitle,this.user.getLoggedInIntergrations())) {
-    //   //open oauth page
-    //   this.IntegrationLogin(integrationTitle);
-    //   //once they login, continue to the metric page
-    // }
+    if (this.user.getIntergrationStatus(integration)) {
+      //open oauth page
+      this.IntegrationLogin(integration.title);
+      //once they login, continue to the metric page
+    }
 
-    console.log(integration);
     this.navCtrl.push(SelectMetricPage, {
       integration: integration,
       metrics: integration
     });
   }
 
-  public IntegrationLogin(integrationTitle): Promise<any> {
-    return new Promise(function (resolve, reject) {
-      for (let provider of this.providers){
-        if (integrationTitle == provider.shortname) {
-          this.url = provider.url;
-        }
-      }
-      let browserRef = window.cordova.InAppBrowser.open('https://beemindernectar.herokuapp.com/credentials/new?provider_name=' + this.url, "_self", "location=no");
+  public IntegrationLogin(integrationTitle) {
+      let browserRef = window.cordova.InAppBrowser.open('https://beemindernectar.herokuapp.com/credentials/new?provider_name=' + integrationTitle, "_self", "location=no");
+      
       browserRef.addEventListener("loadstart", (event) => {
         if ((event.url).indexOf("http://localhost/callback") == 0) {
           browserRef.close();
-          resolve(event.url);
         }
       });
-    });
   }
 
 }

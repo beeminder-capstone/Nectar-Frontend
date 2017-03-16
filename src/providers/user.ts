@@ -110,7 +110,7 @@ export class User {
     //Returns list of all integrations that work with Nectar
   getIntergrations() {
     let integrations = [];
-    console.log(this.nectarUser);
+
     for (let provider of this.nectarUser.providers) {
       let integration = {
         title: provider[0],
@@ -123,6 +123,15 @@ export class User {
     return integrations;
   }
 
+  getIntergrationStatus(integration) {
+    let status = false;
+    for (let provider of this.nectarUser.credentials) {
+      if (provider.name == integration.title) {
+        status = true;
+      }
+    }
+    return status;
+  }
 
   //Returns list of all integrations that the user is logged into
   getLoggedInIntergrations() {
