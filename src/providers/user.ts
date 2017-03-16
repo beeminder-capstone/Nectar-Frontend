@@ -109,13 +109,13 @@ export class User {
 
     //Returns list of all integrations that work with Nectar
   getIntergrations() {
-    let integration: any;
     let integrations = [];
+    console.log(this.nectarUser);
     for (let provider of this.nectarUser.providers) {
       let integration = {
         title: provider[0],
         icon: provider[0],
-        metrics: provider[1].collection
+        metrics: provider[1].metrics_repo.collection
       };
 
       integrations.push(integration);

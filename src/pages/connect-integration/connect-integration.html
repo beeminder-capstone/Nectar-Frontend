@@ -10,7 +10,7 @@
   <ion-row wrap>
     <ion-col width-33 *ngFor="let i of integrations">
       <div class='integration-list'>
-        <img alt="{{i.title}} Logo" class="logo" src="assets/logos/{{i.icon}}.png" (click)="selectIntegration(i.title, i.metrics)"/>
+        <img alt="{{i.title}} Logo" class="logo" src="assets/logos/{{i.icon}}.png" (click)="selectIntegration(i)"/>
       </div>
     </ion-col>
   </ion-row>
