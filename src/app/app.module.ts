@@ -58,8 +58,8 @@ import {EditGoalPage} from "../pages/edit-goal/edit-goal";
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     BeeminderApi,
+    NectarApi,
     User,
-    NectarApi
   ]
 })
 export class AppModule { }

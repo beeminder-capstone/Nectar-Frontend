@@ -16,13 +16,12 @@ export class NectarApi {
   };
 
   constructor(public http: Http, storage: Storage) {
-    // storage.get('username').then(user => {
-    //   if (user == null) {
-    //   } else {
-    //     this.username = user;
-    //   }
-    // });
-    this.username = ''
+    storage.get('username').then(user => {
+      if (user == null) {
+      } else {
+        this.username = user;
+      }
+    });
   }
 
   getUserObject() {
