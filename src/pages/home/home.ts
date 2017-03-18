@@ -5,7 +5,7 @@
  * Please see the file LICENSE in this distribution for license terms.
  */
 import { Component } from '@angular/core';
-import { NavController, NavParams, MenuController, ToastController, PopoverController } from 'ionic-angular';
+import { NavController, MenuController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 
 import { GoalDetailsPage } from '../goal-details/goal-details';
@@ -31,21 +31,6 @@ export class HomePage {
       }
     });
   }
-
-  //   presentToast() {
-  //   let toast = this.toastCtrl.create({
-  //     message: 'User was added successfully',
-  //     duration: 3000,
-  //     position: 'top'
-  //   });
-
-  //
-  //   toast.onDidDismiss(() => {
-  //     console.log('Dismissed toast');
-  //   });
-
-  //   toast.present();
-  // }
 
   itemTapped(goal) {
     this.navCtrl.push(GoalDetailsPage, goal);

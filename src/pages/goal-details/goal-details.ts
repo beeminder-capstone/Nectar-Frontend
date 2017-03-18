@@ -4,10 +4,9 @@
  * This code is available under the "MIT License".
  * Please see the file LICENSE in this distribution for license terms.
  */
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, NavParams, PopoverController, ViewController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, NavParams, PopoverController } from 'ionic-angular';
 
-import { EditGoalPage } from '../edit-goal/edit-goal';
 import { PopoverPage } from './popover'
 import { User } from '../../providers/user';
 
