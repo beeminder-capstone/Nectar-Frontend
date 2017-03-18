@@ -5,12 +5,13 @@
  * Please see the file LICENSE in this distribution for license terms.
  */
 import { Component } from '@angular/core';
-
 import { NavController } from 'ionic-angular';
 
-import { NectarApi } from '../../providers/nectar-api';
-
 import { SelectMetricPage } from '../select-metric/select-metric';
+
+import { User } from '../../providers/user';
+
+declare var window: any;
 
 @Component({
   selector: 'page-connect-integration',
@@ -18,16 +19,36 @@ import { SelectMetricPage } from '../select-metric/select-metric';
 })
 
 export class ConnectIntegrationPage {
-  integrations: any[];
+  constructor(public navCtrl: NavController, public user: User) {}
+  integrations: any;
 
-  constructor(public navCtrl: NavController, public nectar: NectarApi) {
-    this.integrations = this.nectar.getIntergrations();
+
+  ionViewWillEnter() {
+    this.integrations = this.user.getIntergrations();
   }
 
-  selectIntegration(integrationTitle, integrationMetrics) {
+  selectIntegration(integration) {
+    //if user isn't logged in, open oauth page
+    if (this.user.getIntergrationStatus(integration)) {
+      //open oauth page
+      this.IntegrationLogin(integration.title);
+      //once they login, continue to the metric page
+    }
+
     this.navCtrl.push(SelectMetricPage, {
-      integration: integrationTitle,
-      metrics: integrationMetrics
+      integration: integration,
+      metrics: integration
     });
   }
+
+  public IntegrationLogin(integrationTitle) {
+      let browserRef = window.cordova.InAppBrowser.open('https://beemindernectar.herokuapp.com/credentials/new?provider_name=' + integrationTitle, "_self", "location=no");
+
+      browserRef.addEventListener("loadstart", (event) => {
+        if ((event.url).indexOf('https://beemindernectar.herokuapp.com/credentials/' + integrationTitle) == 0) {
+          browserRef.close();
+        }
+      });
+  }
+
 }

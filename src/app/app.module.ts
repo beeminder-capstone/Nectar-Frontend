@@ -8,6 +8,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
+
 import { HomePage } from '../pages/home/home';
 import { AddGoalPage } from '../pages/add-goal/add-goal';
 import { ConnectIntegrationPage } from '../pages/connect-integration/connect-integration';
@@ -18,6 +19,7 @@ import { SettingsPage} from '../pages/settings/settings';
 import { CreateGoalSettingsPage } from '../pages/create-goal-settings/create-goal-settings';
 import { SelectMetricPage } from  '../pages/select-metric/select-metric';
 import { PopoverPage } from '../pages/goal-details/popover';
+
 
 import { User } from '../providers/user';
 import { BeeminderApi } from '../providers/beeminder-api';
@@ -57,13 +59,14 @@ import {EditGoalPage} from "../pages/edit-goal/edit-goal";
     SettingsPage,
     GoalDetailsPage,
     EditGoalPage,
+    SelectMetricPage,
     PopoverPage
   ],
   providers: [
-    { provide: ErrorHandler, useClass: IonicErrorHandler }, 
-    BeeminderApi, 
-    User, 
-    NectarApi
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    BeeminderApi,
+    NectarApi,
+    User,
   ]
 })
 export class AppModule { }
