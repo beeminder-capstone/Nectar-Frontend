@@ -5,8 +5,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>Select a metric for {{integration}}:</ion-list-header>
-    <button ion-item *ngFor="let m of metricKeys" (click)="selectMetric(m)">{{m}}</button>
+  <ion-list inset>
+    <ion-list-header>
+      <ion-avatar style="text-align: center">
+        <img src="assets/logos/{{integration.icon}}.png">
+      </ion-avatar>
+      Select a metric for {{integration.title}}:
+    </ion-list-header>
+    <button ion-item style="text-align: center" *ngFor="let m of metricObject" (click)="selectMetric(m)">{{m.title}}
+      <p>{{m.description}}</p>
+    </button>
   </ion-list>
 </ion-content>

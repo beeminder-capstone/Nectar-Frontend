@@ -14,14 +14,20 @@ import { CreateGoalSettingsPage } from '../create-goal-settings/create-goal-sett
 
 export class SelectMetricPage {
   integration: any;
-  metrics: string[];
+  metrics: any;
   metricKeys: any;
+  metricObject = [];
 
   constructor(public navCtrl: NavController, private params: NavParams, public nectar: NectarApi, public user: User) {
     this.integration = this.params.get('integration');
     this.metrics = this.integration.metrics;
     this.metricKeys = Object.keys(this.metrics);
- //  this.user.getMetrics(this.integration.icon);
+    for (let m of this.metricKeys) {
+      this.metricObject.push({
+        title: this.metrics[m].title,
+        description: this.metrics[m].description
+      })
+    }
   }
 
   selectMetric(metric) {
