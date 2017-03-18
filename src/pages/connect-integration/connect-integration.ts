@@ -37,9 +37,9 @@ export class ConnectIntegrationPage {
 
   public IntegrationLogin(integrationTitle) {
       let browserRef = window.cordova.InAppBrowser.open('https://beemindernectar.herokuapp.com/credentials/new?provider_name=' + integrationTitle, "_self", "location=no");
-      
+
       browserRef.addEventListener("loadstart", (event) => {
-        if ((event.url).indexOf("http://localhost/callback") == 0) {
+        if ((event.url).indexOf('https://beemindernectar.herokuapp.com/credentials/' + integrationTitle) == 0) {
           browserRef.close();
         }
       });
