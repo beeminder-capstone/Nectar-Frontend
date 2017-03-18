@@ -32,7 +32,10 @@ export class ConnectIntegrationPage {
     if (this.user.getIntergrationStatus(integration)) {
       //open oauth page
       this.IntegrationLogin(integration.title);
-      //once they login, continue to the metric page
+    }
+
+    if (integration.metrics == null) {
+      integration.metrics = [];
     }
 
     this.navCtrl.push(SelectMetricPage, {
