@@ -1,3 +1,9 @@
+/**
+ * Created by PSU Beeminder Capstone Team on 3/12/2017.
+ * Copyright (c) 2017 PSU Beeminder Capstone Team
+ * This code is available under the "MIT License".
+ * Please see the file LICENSE in this distribution for license terms.
+ */
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, AlertController, MenuController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
@@ -7,7 +13,6 @@ import { AddGoalPage } from '../pages/add-goal/add-goal';
 import { IntegrationsPage } from '../pages/integrations/integrations';
 import { LoginPage} from '../pages/login/login';
 import { SettingsPage} from '../pages/settings/settings';
-import { CreateGoalSettingsPage } from '../pages/create-goal-settings/create-goal-settings';
 
 import { User } from '../providers/user';
 

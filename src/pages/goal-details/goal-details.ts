@@ -1,28 +1,15 @@
-import {Component, ViewChild, ElementRef} from '@angular/core';
-import {NavController, NavParams, PopoverController, ViewController} from 'ionic-angular';
-import { User } from '../../providers/user';
+/**
+ * Created by PSU Beeminder Capstone Team on 3/12/2017.
+ * Copyright (c) 2017 PSU Beeminder Capstone Team
+ * This code is available under the "MIT License".
+ * Please see the file LICENSE in this distribution for license terms.
+ */
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { NavController, NavParams, PopoverController, ViewController } from 'ionic-angular';
+
 import { EditGoalPage } from '../edit-goal/edit-goal';
-
-@Component({
-  template: `
-    <ion-tab>
-      <button ion-button (click)="editSettingsTapped($event)">Edit Settings</button>
-    </ion-tab>
-  `
-})
-
-export class PopoverPage {
-  constructor(public viewCtrl: ViewController, public navCtrl: NavController, public goal:{}) {}
-
-  close() {
-    this.viewCtrl.dismiss();
-  }
-  
-  editSettingsTapped(event) {
-    this.navCtrl.push(EditGoalPage, this.goal);
-  }
-}
-
+import { PopoverPage } from './popover'
+import { User } from '../../providers/user';
 
 @Component({
   selector: 'page-goal-details',
@@ -31,34 +18,26 @@ export class PopoverPage {
 
 export class GoalDetailsPage {
 
-  goal={};
+  goal = {};
   showUpdateComponent: boolean = false;
   datapoints = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private user: User, private popoverCtrl: PopoverController) {
-
-
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private user: User,
+    private popoverCtrl: PopoverController
+  ) {}
 
   ionViewDidLoad() {
-
     this.goal = this.navParams.data;
-      console.log(this.navParams.data);
-
-    this.user.getDatapoints(this.goal).subscribe((data) =>{
+    this.user.getDatapoints(this.goal).subscribe((data) => {
       this.datapoints = data;
     });
   }
 
-  editSettingsTapped(event) {
-    this.navCtrl.push(EditGoalPage, this.goal);
-  }
-
-  presentPopover(ev) {
-
-    let popover = this.popoverCtrl.create(PopoverPage,this.goal);
-    popover.present({
-      ev: ev
-    });
+  presentPopover(event: Event) {
+    let popover = this.popoverCtrl.create(PopoverPage, this.goal);
+    popover.present({ ev: event });
   }
 }
