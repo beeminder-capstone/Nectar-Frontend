@@ -132,7 +132,7 @@ export class User {
   getIntergrationStatus(integration) {
     let status = false;
     for (let provider of this.nectarUser.credentials) {
-      if (provider.name == integration.title) {
+      if (provider.provider_name == integration.title) {
         status = true;
       }
     }

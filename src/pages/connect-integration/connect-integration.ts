@@ -11,7 +11,7 @@ import { SelectMetricPage } from '../select-metric/select-metric';
 
 import { User } from '../../providers/user';
 
-declare var window: any;
+let window: any;
 
 @Component({
   selector: 'page-connect-integration',
@@ -29,7 +29,7 @@ export class ConnectIntegrationPage {
 
   selectIntegration(integration) {
     //if user isn't logged in, open oauth page
-    if (this.user.getIntergrationStatus(integration)) {
+    if (!this.user.getIntergrationStatus(integration)) {
       //open oauth page
       this.IntegrationLogin(integration.title);
     }
