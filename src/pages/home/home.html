@@ -1,3 +1,9 @@
+<!--
+ * Created by PSU Beeminder Capstone Team on 3/12/2017.
+ * Copyright (c) 2017 PSU Beeminder Capstone Team
+ * This code is available under the "MIT License".
+ * Please see the file LICENSE in this distribution for license terms
+  -->
 <ion-header>
   <ion-navbar color="primary">
     <button ion-button menuToggle>
@@ -6,6 +12,10 @@
     <ion-title>Beeminder Goals</ion-title>
   </ion-navbar>
 </ion-header>
+
+<ion-fab bottom right>
+  <button ion-fab (click)="addGoal()" color="light"><ion-icon name="add"></ion-icon></button>
+</ion-fab>
 
 <ion-content padding>
   <span>{{username}}</span>
