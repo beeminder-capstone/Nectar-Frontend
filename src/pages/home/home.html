@@ -14,7 +14,11 @@
 </ion-header>
 
 <ion-fab bottom right>
-  <button ion-fab (click)="addGoal()" color="light"><ion-icon name="add"></ion-icon></button>
+  <button ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
+  <ion-fab-list side="top">
+    <button ion-fab (click)="goToCreateManualGoal()"><ion-icon name="create"></ion-icon></button>
+    <button ion-fab (click)="goToConnectIntegration()"><ion-icon name="code-working"></ion-icon></button>
+  </ion-fab-list>
 </ion-fab>
 
 <ion-content padding>

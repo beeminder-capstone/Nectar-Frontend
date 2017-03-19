@@ -10,6 +10,8 @@ import 'rxjs/add/operator/map';
 
 import { GoalDetailsPage } from '../goal-details/goal-details';
 import { AddGoalPage } from '../add-goal/add-goal';
+import { CreateGoalSettingsPage } from '../create-goal-settings/create-goal-settings';
+import { ConnectIntegrationPage } from '../connect-integration/connect-integration';
 import { User } from './../../providers/user';
 
 @Component({
@@ -50,8 +52,16 @@ export class HomePage {
       return "offtrack";
     }
   }
-  
+
   addGoal() {
     this.navCtrl.setRoot(AddGoalPage);
+  }
+
+  goToCreateManualGoal() {
+    this.navCtrl.push(CreateGoalSettingsPage, {manualGoal: true});
+  }
+
+  goToConnectIntegration() {
+    this.navCtrl.push(ConnectIntegrationPage);
   }
 }
