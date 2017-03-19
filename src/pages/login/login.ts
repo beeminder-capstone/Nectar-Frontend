@@ -11,6 +11,7 @@ import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
 
 import { BeeminderApi } from '../../providers/beeminder-api';
+import { NectarApi } from '../../providers/nectar-api';
 import { User } from '../../providers/user';
 
 declare var window: any;
@@ -28,6 +29,7 @@ export class LoginPage {
 		public menu: MenuController,
 		public storage: Storage,
 		public beeminder: BeeminderApi,
+    public nectar: NectarApi,
 		public user: User
 	) {}
 
@@ -47,7 +49,8 @@ export class LoginPage {
 			.then(() => this.storage.set('username', this.getParameterByName('username', this.url)))
 			.then(() => this.storage.set('access_token', this.getParameterByName('access_token', this.url)))
 			.then(token => this.beeminder.access_token = token)
-			.then(() => this.user.setLoginStatus())			
+      .then(username => this.nectar.username = username)
+      .then(() => this.user.setLoginStatus())
 			.then(() => this.navCtrl.setRoot(HomePage))
 			.catch(error => console.error(error))
 	}

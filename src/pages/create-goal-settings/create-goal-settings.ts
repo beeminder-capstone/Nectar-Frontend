@@ -28,7 +28,7 @@ export class CreateGoalSettingsPage {
 	constructor(public navCtrl: NavController, public storage: Storage, private params: NavParams, public user: User, private toastCtrl: ToastController ) {
     this.metricParam = params.get("metric");
     this.manualGoalParam = params.get("manualGoal");
-    this.integrationParam = this.manualGoalParam==true ? "manual" : params.get("integration");
+    this.integrationParam = this.manualGoalParam==true ? "Manual" : params.get("integration");
     this.icon = this.manualGoalParam==true ? "assets/logos/nectar.png" : "assets/logos/" + this.integrationParam + ".png"
   }
 
@@ -49,7 +49,7 @@ export class CreateGoalSettingsPage {
     var goaldate = t + decade;
 
     let goal = {
-      slug: formData.goalName,
+      slug: formData.goalName.replace(" ", ""),
       title: formData.goalName,
       goaldate: goaldate,
       goal_type: "hustler",
