@@ -41,12 +41,12 @@ export class CreateGoalSettingsPage {
 	onSubmit(formData) {
     console.log(formData);
 
-    let integration = this.manualGoalParam == null ? null : formData.integration;
+    // let integration = this.manualGoalParam == null ? null : formData.integration;
 
-    var decade = 60 * 60 * 24 * 365 * 10;
-    var d = new Date();
-    var t = Math.floor(d.getTime() / 1000);
-    var goaldate = t + decade;
+    let decade = 60 * 60 * 24 * 365 * 10;
+    let d = new Date();
+    let t = Math.floor(d.getTime() / 1000);
+    let goaldate = t + decade;
 
     let goal = {
       slug: formData.goalName,
@@ -59,11 +59,12 @@ export class CreateGoalSettingsPage {
       runit: formData.runit
     };
 
-
-		this.user.addGoal(goal);
-		this.presentToast();
-		this.navCtrl.popToRoot();
-    this.navCtrl.setRoot(HomePage);
+    let cred_id = this.user.getCredentialID(this.integrationParam);
+    this.user.nectar.createGoal(cred_id,this.metricParam,goal.slug,goal);
+		// this.user.addGoal(goal);
+		// this.presentToast();
+		// this.navCtrl.popToRoot();
+    // this.navCtrl.setRoot(HomePage);
   }
 
 	presentToast() {

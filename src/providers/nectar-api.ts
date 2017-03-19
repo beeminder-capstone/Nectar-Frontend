@@ -38,7 +38,7 @@ export class NectarApi {
       .catch(err => Observable.throw(err.json().error));
   }
 
-  createGoal(credential:string, metricKey:string, slug:string, goal){
+  createGoal(credential:number, metricKey:string, slug:string, goal){
       // https://beemindernectar.herokuapp.com/api/v1/goals?username=[beeminder_username]&credential_id=[credential_id]&metric_key=[metric_key]&slug=[beeminder_slug]&active=1&secret_key=[heroku_secret_key_base]
       let url = this.baseUrl + '/goals?username=' + this.username + '&credential_id=' + credential + '&metric_key=' + metricKey + '&slug=' + slug + '&active=1&secret_key=' + this.secretKeyBase;
       return this.http.post(url, goal)
@@ -46,7 +46,7 @@ export class NectarApi {
         .catch(error => Observable.throw(error.json().error));
   }
 
-  updateGoal(goalID:number, credential:string, metricKey:string, slug:string, goal){
+  updateGoal(goalID:number, credential:number, metricKey:string, slug:string, goal){
     // https://beemindernectar.herokuapp.com/api/v1/goals?username=[beeminder_username]%id=[goal_id]&credential_id=[credential_id]&metric_key=[metric_key]&slug=[beeminder_slug]&active=[1_to_enable,_0_to_disable]&secret_key=[heroku_secret_key_base]
     let url = this.baseUrl + '/goals?username=' + this.username + '%id=' + goalID + '&credential_id=' + credential + '&metric_key=' + metricKey + '&slug=' + slug + '&active=1&secret_key=' + this.secretKeyBase;
     return this.http.put(url,goal)

@@ -156,4 +156,12 @@ export class User {
   getMetrics(provider: string) {
     return this.nectarUser.providers[provider].metrics_repo.collection;
   }
+
+  getCredentialID(integrationTitle: string){
+    for (let credential of this.nectarUser.credentials) {
+      if (credential.provider_name== integrationTitle) {
+        return credential.id;
+      }
+    }
+  }
 }
