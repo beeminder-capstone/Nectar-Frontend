@@ -73,6 +73,15 @@ export class User {
       .subscribe(() => this.goals.push(goal));
   }
 
+  addIntegration(goal, metricKey, credentialId) {
+    this.beeminder.createGoal(goal).subscribe(newGoal => {
+      this.nectar.createGoal(credentialId, metricKey, goal.slug).subscribe(newNectarCredentials => {
+        this.goals.push(newGoal);
+        this.nectarUser.credentials.push(newNectarCredentials);
+      })
+    })
+  }
+
   //TODO
   editGoal(goal) {
     this.beeminder.editGoal(goal).subscribe(() => {
@@ -157,9 +166,9 @@ export class User {
     return this.nectarUser.providers[provider].metrics_repo.collection;
   }
 
-  getCredentialID(integrationTitle: string){
+  getCredentialID(integrationTitle: string): number {
     for (let credential of this.nectarUser.credentials) {
-      if (credential.provider_name== integrationTitle) {
+      if (credential.provider_name == integrationTitle) {
         return credential.id;
       }
     }

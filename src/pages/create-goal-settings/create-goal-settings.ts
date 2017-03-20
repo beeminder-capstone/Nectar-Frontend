@@ -63,6 +63,8 @@ export class CreateGoalSettingsPage {
     this.user.addGoal(goal);
     this.user.nectar.createGoal(cred_id,this.metricParam,goal.slug,goal);
 		// this.presentToast();
+		this.user.addIntegration(goal, this.metricParam.key, credentialId);
+		this.presentToast();
 		this.navCtrl.popToRoot();
     this.navCtrl.setRoot(HomePage);
   }
