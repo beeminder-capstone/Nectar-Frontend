@@ -31,7 +31,6 @@ export class GoalDetailsPage {
 
   ngOnInit() {
     this.goal = this.navParams.data;
-    this.datapoint = {}
     this.user.getDatapoints(this.goal).subscribe((data) => {
       this.datapoints = data;
     });
