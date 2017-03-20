@@ -62,8 +62,9 @@ export class BeeminderApi {
   }
 
   addDataPoint(goal, datapoint){
-    let url = this.baseUrl + '/users/me/goals/' + goal.slug + '/datapoints.json?timestamp=' + datapoint.timestamp + 'value=' + datapoint.value + 'comment=' + datapoint.comment;
-    return this.http.get(url)
+    let url = this.baseUrl + '/users/me/goals/' + goal.slug + '/datapoints.json?timestamp=' + datapoint.timestamp + '&value=' + datapoint.value + '&comment=' + datapoint.comment + '&access_token=' + this.access_token;
+
+    return this.http.post(url, datapoint)
       .map(res => res.json())
       .catch(err => Observable.throw(err.json().error));
   }

@@ -33,20 +33,19 @@ export class GoalDetailsPage {
     this.navCtrl.push(EditGoalPage, this.goal);
   }
 
-  //datapoints have a timestamp, daystamp, value, comment, and requestid
-  addDataPoint(goal){
+  addDataPoint(){
     //create timestamp for goal
     let decade = 60 * 60 * 24 * 365 * 10;
 		let d = new Date();
 		let t = Math.floor(d.getTime() / 1000);
 
-		var goaldate = t + decade;
+		let goaldate = t + decade;
 
     let datapoint = {
       timestamp: goaldate,
       value: this.datapoint.value,
     }
 
-    this.user.addDataPoint(goal, datapoint);
+    this.user.addDataPoint(this.goal, datapoint);
   }
 }
