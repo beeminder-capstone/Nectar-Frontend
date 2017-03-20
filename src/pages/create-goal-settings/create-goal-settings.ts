@@ -32,37 +32,25 @@ export class CreateGoalSettingsPage {
     this.icon = this.manualGoalParam==true ? "assets/logos/nectar.png" : "assets/logos/" + this.integrationParam + ".png"
   }
 
-  ionViewDidLoad() {
-    // console.log(this.integrationParam);
-    // console.log(this.metricParam);
-	}
-
-
 	onSubmit(formData) {
-    console.log(formData);
-
-    let integration = this.manualGoalParam == true ? null : this.integrationParam;
+    let credentialId = this.user.getCredentialID(this.integrationParam);
 
     let decade = 60 * 60 * 24 * 365 * 10;
     let d = new Date();
     let t = Math.floor(d.getTime() / 1000);
     let goaldate = t + decade;
 
+    
     let goal = {
-      slug: formData.goalName,
-      title: formData.goalName,
+      slug: formData.slug,
+      title: formData.title,
       goaldate: goaldate,
       goal_type: "hustler",
-      datasource: integration,
       rate: formData.rate,
       gunit: formData.gunit,
       runit: formData.runit
     };
 
-    let cred_id = this.user.getCredentialID(this.integrationParam);
-    this.user.addGoal(goal);
-    this.user.nectar.createGoal(cred_id,this.metricParam,goal.slug,goal);
-		// this.presentToast();
 		this.user.addIntegration(goal, this.metricParam.key, credentialId);
 		this.presentToast();
 		this.navCtrl.popToRoot();
@@ -74,10 +62,6 @@ export class CreateGoalSettingsPage {
 			message: 'Goal created successfully',
 			duration: 3000,
 			position: 'bottom'
-		});
-
-		toast.onDidDismiss(() => {
-			console.log('Dismissed toast');
 		});
 
 		toast.present();

@@ -25,8 +25,13 @@
 			</ion-item>
 
 			<ion-item>
+				<ion-label floating>Goal Slug:</ion-label>
+				<ion-input type="text" [(ngModel)]="slug" name="slug" required="true" value="Name of Goal"></ion-input>
+			</ion-item>
+
+			<ion-item>
 				<ion-label floating>Goal Name:</ion-label>
-				<ion-input type="text" [(ngModel)]="goal_name" name="goalName" required="true" value="Name of Goal"></ion-input>
+				<ion-input type="text" [(ngModel)]="title" name="title" required="true" value="Name of Goal"></ion-input>
 			</ion-item>
 
 			<ion-item>
