@@ -5,5 +5,14 @@
  * Please see the file LICENSE in this distribution for license terms
 */
 page-login {
-
+  .provider h3 {
+    text-align: center;
+  }
+  
+  img.logo {
+    display: block;
+    margin: auto;
+    max-width: 300px;
+    width: 50%;
+  }
 }

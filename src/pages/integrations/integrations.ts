@@ -4,11 +4,13 @@
  * This code is available under the "MIT License".
  * Please see the file LICENSE in this distribution for license terms.
  */
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
+
+import { EnvVariables } from '../../app/environment-variables/environment-variables.token';
 
 declare var window: any;
 
@@ -56,10 +58,10 @@ export class IntegrationsPage {
 		{ url: "https://www.youtube.com/", longname: "Youtube", shortname: "youtube" }
 	];
 
-	constructor(public navCtrl: NavController, public storage: Storage) {}
+	constructor(public navCtrl: NavController, public storage: Storage, @Inject(EnvVariables) public envVariables) {}
 
-	public open(url) {
-		window.cordova.InAppBrowser.open('https://beemindernectar.herokuapp.com/credentials/new?provider_name=' + url, "_self", "location=no");
+	public open(url, shortname) {
+		window.cordova.InAppBrowser.open(url + '/credentials/new?provider_name=' + shortname, "_self", "location=no");
 	}
 
 }

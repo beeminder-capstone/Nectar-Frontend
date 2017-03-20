@@ -1,6 +1,6 @@
 {
-  "name": "nectar",
-  "author": "PSU Capstone",
+  "name": "Nectar",
+  "author": "PSU CS Capstone",
   "description": "Nectar: An Ionic project",
   "repository": {
     "type": "git",
@@ -58,5 +58,8 @@
     "ionic-plugin-keyboard",
     "cordova-plugin-inappbrowser"
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [],
+  "config": {
+    "ionic_webpack": "./webpack.config.js"
+  }
 }
