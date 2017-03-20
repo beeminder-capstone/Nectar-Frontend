@@ -18,6 +18,7 @@ import { User } from '../../providers/user';
 export class GoalDetailsPage {
 
   goal = {};
+  datapoint: any;
   showUpdateComponent: boolean = false;
   datapoints = [];
 
@@ -38,5 +39,21 @@ export class GoalDetailsPage {
   presentPopover(event: Event) {
     let popover = this.popoverCtrl.create(PopoverPage, this.goal);
     popover.present({ ev: event });
+  }
+
+  addDataPoint(){
+    //create timestamp for goal
+    let decade = 60 * 60 * 24 * 365 * 10;
+		let d = new Date();
+		let t = Math.floor(d.getTime() / 1000);
+
+		let goaldate = t + decade;
+
+    let datapoint = {
+      timestamp: goaldate,
+      value: this.datapoint.value,
+    }
+
+    this.user.addDataPoint(this.goal, datapoint);
   }
 }

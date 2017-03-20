@@ -93,6 +93,10 @@ export class User {
     return this.beeminder.fetchDatapoints(goal.slug);
   }
 
+  addDataPoint(goal, datapoint){
+    this.beeminder.addDataPoint(goal, datapoint).subscribe();
+  }
+
   getSettings() {
     return this.userSettings;
   }
