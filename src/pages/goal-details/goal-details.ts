@@ -45,7 +45,6 @@ export class GoalDetailsPage {
     let datapoint = {
       timestamp: goaldate,
       value: this.datapoint.value,
-      comment: this.datapoint.comment,
     }
 
     this.user.addDataPoint(goal, datapoint);
