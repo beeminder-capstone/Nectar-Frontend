@@ -28,39 +28,31 @@ export class CreateGoalSettingsPage {
 	constructor(public navCtrl: NavController, public storage: Storage, private params: NavParams, public user: User, private toastCtrl: ToastController ) {
     this.metricParam = params.get("metric");
     this.manualGoalParam = params.get("manualGoal");
-    this.integrationParam = this.manualGoalParam==true ? "manual" : params.get("integration");
+    this.integrationParam = this.manualGoalParam==true ? "Manual" : params.get("integration");
     this.icon = this.manualGoalParam==true ? "assets/logos/nectar.png" : "assets/logos/" + this.integrationParam + ".png"
   }
 
-  ionViewDidLoad() {
-    // console.log(this.integrationParam);
-    // console.log(this.metricParam);
-	}
-
-
 	onSubmit(formData) {
-    console.log(formData);
+    let credentialId = this.user.getCredentialID(this.integrationParam);
+    let integration = this.manualGoalParam==true ? null : this.integrationParam;
+    let decade = 60 * 60 * 24 * 365 * 10;
+    let d = new Date();
+    let t = Math.floor(d.getTime() / 1000);
+    let goaldate = t + decade;
 
-    let integration = this.manualGoalParam == null ? null : formData.integration;
-
-    var decade = 60 * 60 * 24 * 365 * 10;
-    var d = new Date();
-    var t = Math.floor(d.getTime() / 1000);
-    var goaldate = t + decade;
 
     let goal = {
-      slug: formData.goalName,
-      title: formData.goalName,
+      slug: formData.slug,
+      title: formData.title,
       goaldate: goaldate,
+      datasource: integration,
       goal_type: "hustler",
-      datasource: this.integrationParam,
       rate: formData.rate,
       gunit: formData.gunit,
       runit: formData.runit
     };
 
-
-		this.user.addGoal(goal);
+		this.user.addIntegration(goal, this.metricParam.key, credentialId);
 		this.presentToast();
 		this.navCtrl.popToRoot();
     this.navCtrl.setRoot(HomePage);
@@ -71,10 +63,6 @@ export class CreateGoalSettingsPage {
 			message: 'Goal created successfully',
 			duration: 3000,
 			position: 'bottom'
-		});
-
-		toast.onDidDismiss(() => {
-			console.log('Dismissed toast');
 		});
 
 		toast.present();

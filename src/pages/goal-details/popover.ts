@@ -4,8 +4,8 @@
  * This code is available under the "MIT License".
  * Please see the file LICENSE in this distribution for license terms.
  */
-import { Component, Input } from '@angular/core';
-import { ViewController, NavController, App, ModalController, NavParams } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { ViewController, NavController, NavParams } from 'ionic-angular';
 
 import { EditGoalPage } from '../edit-goal/edit-goal';
 

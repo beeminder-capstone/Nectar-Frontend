@@ -9,6 +9,7 @@ import { Http } from '@angular/http';
 import { InAppBrowser } from 'ionic-native';
 import { Observable } from 'rxjs/Observable';
 import { Storage } from '@ionic/storage';
+import { GoalDetails } from '../pages/goal-details/goal-details.ts';
 import 'rxjs/Rx';
 
 @Injectable()
@@ -55,22 +56,27 @@ export class BeeminderApi {
   editGoal(goal) {
     let url = `${this.baseUrl}/users/me/goals/${goal.slug}.json?access_token=${this.access_token}`;
     return this.http.put(url, goal)
-             .map(res => res.json())
-             .catch(err => Observable.throw(err.json().error));
+             .map(res => res.json());
   }
 
   createGoal(goal) {
     let url = this.baseUrl + '/users/me/goals.json?access_token=' + this.access_token;
     return this.http.post(url, goal)
-             .map(res => res.json())
-             .catch(error => Observable.throw(error.json().error));
+             .map(res => res.json());
+  }
+
+  addDataPoint(goal, datapoint){
+    let url = this.baseUrl + '/users/me/goals/' + goal.slug + '/datapoints.json?timestamp=' + datapoint.timestamp + '&value=' + datapoint.value + '&comment=' + datapoint.comment + '&access_token=' + this.access_token;
+
+    return this.http.post(url, datapoint)
+      .map(res => res.json())
+      .catch(err => Observable.throw(err.json().error));
   }
 
   fetchDatapoints(slug) {
     let url = this.baseUrl + '/users/me/goals/' + slug + '/datapoints.json?access_token=' + this.access_token;
     return this.http.get(url)
-      .map(res => res.json())
-      .catch(err => Observable.throw(err.json().error));
+      .map(res => res.json());
   }
 
 }

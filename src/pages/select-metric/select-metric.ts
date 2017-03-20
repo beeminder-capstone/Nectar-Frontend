@@ -31,6 +31,7 @@ export class SelectMetricPage {
     for (let m of this.metricKeys) {
       this.metricObject.push({
         title: this.metrics[m].title,
+        key: this.metrics[m].key,
         description: this.metrics[m].description
       })
     }

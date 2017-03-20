@@ -13,7 +13,7 @@ import { User } from '../../providers/user';
 
 import { EnvVariables } from '../../app/environment-variables/environment-variables.token';
 
-declare var window: any;
+let window: any;
 
 @Component({
   selector: 'page-connect-integration',
@@ -87,10 +87,14 @@ export class ConnectIntegrationPage {
 
   selectIntegration(baseUrl, integration) {
     //if user isn't logged in, open oauth page
-    if (this.user.getIntergrationStatus(integration)) {
+    if (!this.user.getIntergrationStatus(integration)) {
       //open oauth page
       this.IntegrationLogin(baseUrl, integration.title);
       //once they login, continue to the metric page
+    }
+
+    if (integration.metrics == null) {
+      integration.metrics = [];
     }
 
     this.navCtrl.push(SelectMetricPage, {

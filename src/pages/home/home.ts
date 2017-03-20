@@ -7,6 +7,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, MenuController, ToastController, PopoverController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { NavController, MenuController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 
 import { GoalDetailsPage } from '../goal-details/goal-details';
@@ -34,25 +36,10 @@ export class HomePage {
       for (let goal of goals) {
         goal.lastUpdated = new Date(goal.updated_at * 1000),
           goal.laneColor = this.laneColorFunc(goal.lane),
-          goal.icon = goal.autodata == null ? "assets/logos/nectar.png" : "assets/logos/" + goal.autodata + ".png"
+          goal.icon = (goal.autodata == null || goal.autodata == "manual") ? "assets/logos/nectar.png" : "assets/logos/" + goal.autodata + ".png"
       }
     });
   }
-
-  //   presentToast() {
-  //   let toast = this.toastCtrl.create({
-  //     message: 'User was added successfully',
-  //     duration: 3000,
-  //     position: 'top'
-  //   });
-
-  //
-  //   toast.onDidDismiss(() => {
-  //     console.log('Dismissed toast');
-  //   });
-
-  //   toast.present();
-  // }
 
   itemTapped(goal) {
     this.navCtrl.push(GoalDetailsPage, goal);
@@ -72,7 +59,7 @@ export class HomePage {
       return "offtrack";
     }
   }
-  
+
   addGoal() {
     this.navCtrl.setRoot(AddGoalPage);
   }
