@@ -51,6 +51,9 @@ export class GoalDetailsPage {
       value: this.datapointValue,
     };
 
-    this.user.addDataPoint(this.goal, datapoint);
+    this.user.addDataPoint(this.goal, datapoint).subscribe(newDataPoint => {
+      this.datapoints.push(newDataPoint);
+    });
+
   }
 }
