@@ -34,6 +34,7 @@ export class CreateGoalSettingsPage {
 
 	onSubmit(formData) {
     let credentialId = this.user.getCredentialID(this.integrationParam);
+    let datasource = this.manualGoalParam==true ? 'manual' : 'api';
     let integration = this.manualGoalParam==true ? null : this.integrationParam;
     let decade = 60 * 60 * 24 * 365 * 10;
     let d = new Date();
@@ -45,7 +46,8 @@ export class CreateGoalSettingsPage {
       slug: formData.slug,
       title: formData.title,
       goaldate: goaldate,
-      datasource: integration,
+      datasource: datasource,
+      description: integration,
       goal_type: "hustler",
       rate: formData.rate,
       gunit: formData.gunit,
