@@ -28,23 +28,24 @@ export class CreateGoalSettingsPage {
 	constructor(public navCtrl: NavController, public storage: Storage, private params: NavParams, public user: User, private toastCtrl: ToastController ) {
     this.metricParam = params.get("metric");
     this.manualGoalParam = params.get("manualGoal");
-    this.integrationParam = this.manualGoalParam==true ? "manual" : params.get("integration");
+    this.integrationParam = this.manualGoalParam==true ? "Manual" : params.get("integration");
     this.icon = this.manualGoalParam==true ? "assets/logos/nectar.png" : "assets/logos/" + this.integrationParam + ".png"
   }
 
 	onSubmit(formData) {
     let credentialId = this.user.getCredentialID(this.integrationParam);
-
+    let integration = this.manualGoalParam==true ? null : this.integrationParam;
     let decade = 60 * 60 * 24 * 365 * 10;
     let d = new Date();
     let t = Math.floor(d.getTime() / 1000);
     let goaldate = t + decade;
 
-    
+
     let goal = {
       slug: formData.slug,
       title: formData.title,
       goaldate: goaldate,
+      datasource: integration,
       goal_type: "hustler",
       rate: formData.rate,
       gunit: formData.gunit,
