@@ -6,6 +6,7 @@
  */
 import { Component } from '@angular/core';
 import { NavController, NavParams, MenuController, ToastController, PopoverController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 
 import { GoalDetailsPage } from '../goal-details/goal-details';
@@ -19,9 +20,15 @@ import { User } from './../../providers/user';
 export class HomePage {
   icons: string[];
   public goals: {};
+  username: string;
 
-  constructor(public navCtrl: NavController, public menu: MenuController, private user: User) {
+  constructor(public navCtrl: NavController, public menu: MenuController, public storage: Storage, private user: User) {
     this.menu.swipeEnable(true);
+	
+	this.storage.get('username').then((value) => {
+		this.username = value;
+	});
+	
     user.getGoals().subscribe((goals) => {
       this.goals = goals;
       for (let goal of goals) {

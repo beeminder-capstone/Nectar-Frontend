@@ -6,6 +6,7 @@
  */
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams, PopoverController, ViewController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 import { EditGoalPage } from '../edit-goal/edit-goal';
 import { PopoverPage } from './popover'
@@ -21,13 +22,19 @@ export class GoalDetailsPage {
   goal = {};
   showUpdateComponent: boolean = false;
   datapoints = [];
+  username: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+	public storage: Storage,
     private user: User,
     private popoverCtrl: PopoverController
-  ) {}
+  ) {
+	this.storage.get('username').then((value) => {
+		this.username = value;
+	});
+  }
 
   ionViewDidLoad() {
     this.goal = this.navParams.data;

@@ -9,6 +9,8 @@ import { Storage } from '@ionic/storage';
 
 import { BeeminderApi } from './beeminder-api';
 import { NectarApi } from './nectar-api';
+import { Component, Inject } from '@angular/core';
+import { EnvVariables } from '../app/environment-variables/environment-variables.token';
 
 let defaultSettings = {
   enableNotifications: true,
@@ -25,7 +27,7 @@ export class User {
   private isLoggedIn: boolean;
   private nectarUser: any;
 
-  constructor(public storage: Storage, public beeminder: BeeminderApi, public nectar: NectarApi) {
+  constructor(public storage: Storage, public beeminder: BeeminderApi, public nectar: NectarApi, @Inject(EnvVariables) public envVariables) {
     storage.get('goals').then(goals => {
       if (goals == null) {
         beeminder.fetchGoals().subscribe(userGoals => {
@@ -39,7 +41,7 @@ export class User {
 
     storage.get('nectarUser').then(nectarUser => {
       if(nectarUser == null) {
-        nectar.getUserObject().subscribe(userObject => this.nectarUser = userObject);
+        nectar.getUserObject(this.envVariables.DOMAIN_NAME, this.envVariables.SECRET_KEY).subscribe(userObject => this.nectarUser = userObject);
       } else {
         // Since we never refresh this leave it commented out
         //this.nectarUser = nectarUser;
@@ -107,26 +109,25 @@ export class User {
     this.storage.clear();
   }
 
-  login() {
-    this.storage.set('loggedIn', 'true');
+  /*login() {
+    this.storage.set('loggedIn', true);
     let token = this.beeminder.login();
     this.storage.set('access_token', token);
-  }
+  }*/
 
     //Returns list of all integrations that work with Nectar
   getIntergrations() {
-    let integrations = [];
+    let providers = [];
 
     for (let provider of this.nectarUser.providers) {
       let integration = {
-        title: provider[0],
-        icon: provider[0],
+        name: provider[0],
         metrics: provider[1].metrics_repo.collection
       };
 
-      integrations.push(integration);
+      providers.push(integration);
     }
-    return integrations;
+    return providers;
   }
 
   getIntergrationStatus(integration) {
