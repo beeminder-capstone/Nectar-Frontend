@@ -69,31 +69,14 @@
   </ion-card>
 
   <ion-card>
-    <ion-card-header>
-      <h1>Add Datapoint</h1>
-    </ion-card-header>
-
-    <form (ngSubmit)="addDataPoint()">
-      <ion-item>
-        <ion-label floating>Value</ion-label>
-        <ion-input type="number" [(ngModel)]="datapointValue" name="value" value="{{datapoints[0]?.value | number:0}}"></ion-input>
-      </ion-item>
-
-      <ion-row>
-        <ion-col width-50 style="text-align: right">
-          <button type="submit" ion-button>Submit DataPoint</button>
-        </ion-col>
-      </ion-row>
-
-    </form>
-  </ion-card>
-
-
-  <ion-card>
 
     <ion-card-header>
       <h1>Datapoints</h1>
     </ion-card-header>
+
+    <div text-center>
+      <button ion-button (click)="showPrompt()">Add Datapoint</button>
+    </div>
 
     <ion-list>
       <ion-item>
