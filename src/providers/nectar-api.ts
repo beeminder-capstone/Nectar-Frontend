@@ -5,7 +5,7 @@
  * Please see the file LICENSE in this distribution for license terms.
  */
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import {Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from "rxjs";
 import { Storage } from '@ionic/storage';
