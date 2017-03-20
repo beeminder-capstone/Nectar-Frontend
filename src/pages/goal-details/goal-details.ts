@@ -18,7 +18,7 @@ import { User } from '../../providers/user';
 export class GoalDetailsPage {
 
   goal = {};
-  datapoint: any;
+  datapointValue;
   showUpdateComponent: boolean = false;
   datapoints = [];
 
@@ -44,16 +44,13 @@ export class GoalDetailsPage {
 
   addDataPoint(){
     //create timestamp for goal
-    let decade = 60 * 60 * 24 * 365 * 10;
 		let d = new Date();
-		let t = Math.floor(d.getTime() / 1000);
-
-		let goaldate = t + decade;
+		let goaldate = Math.floor(d.getTime() / 1000);
 
     let datapoint = {
       timestamp: goaldate,
-      value: this.datapoint.value,
-    }
+      value: this.datapointValue,
+    };
 
     this.user.addDataPoint(this.goal, datapoint);
   }

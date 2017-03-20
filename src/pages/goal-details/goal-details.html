@@ -76,7 +76,7 @@
     <form (ngSubmit)="addDataPoint()">
       <ion-item>
         <ion-label floating>Value</ion-label>
-        <ion-input type="number" [(ngModel)]="datapoint.value" name="value" value="{{datapoints[0]?.value | number:0}}"></ion-input>
+        <ion-input type="number" [(ngModel)]="datapointValue" name="value" value="{{datapoints[0]?.value | number:0}}"></ion-input>
       </ion-item>
 
       <ion-row>
