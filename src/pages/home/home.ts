@@ -5,8 +5,6 @@
  * Please see the file LICENSE in this distribution for license terms.
  */
 import { Component } from '@angular/core';
-import { NavController, NavParams, MenuController, ToastController, PopoverController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
 import { NavController, MenuController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
