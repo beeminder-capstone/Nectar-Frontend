@@ -4,7 +4,7 @@
  * This code is available under the "MIT License".
  * Please see the file LICENSE in this distribution for license terms.
  */
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 
@@ -13,6 +13,8 @@ import { Storage } from '@ionic/storage';
 import { User } from '../../providers/user';
 
 import { HomePage } from '../home/home'
+
+import { EnvVariables } from '../../app/environment-variables/environment-variables.token';
 
 @Component({
 	selector: 'page-create-goal-settings',
@@ -25,14 +27,14 @@ export class CreateGoalSettingsPage {
 	manualGoalParam: boolean;
   icon: string;
 
-	constructor(public navCtrl: NavController, public storage: Storage, private params: NavParams, public user: User, private toastCtrl: ToastController ) {
+	constructor(public navCtrl: NavController, public storage: Storage, private params: NavParams, public user: User, private toastCtrl: ToastController, @Inject(EnvVariables) public envVariables) {
     this.metricParam = params.get("metric");
     this.manualGoalParam = params.get("manualGoal");
     this.integrationParam = this.manualGoalParam==true ? "Manual" : params.get("integration");
-    this.icon = this.manualGoalParam==true ? "assets/logos/nectar.png" : "assets/logos/" + this.integrationParam + ".png"
+    this.icon = this.manualGoalParam==true ? "assets/Nectar Logo/Bee Emoji.svg" : "assets/logos/" + this.integrationParam + ".png"
   }
 
-	onSubmit(formData) {
+	onSubmit(formData, baseUrl, secretKeyBase) {
     let credentialId = this.user.getCredentialID(this.integrationParam);
     let datasource = this.manualGoalParam==true ? 'manual' : 'api';
     let integration = this.manualGoalParam==true ? null : this.integrationParam;
@@ -54,7 +56,7 @@ export class CreateGoalSettingsPage {
       runit: formData.runit
     };
 
-		this.user.addIntegration(goal, this.metricParam.key, credentialId);
+		this.user.addIntegration(goal, this.metricParam.key, credentialId, baseUrl, secretKeyBase);
 		this.presentToast();
 		this.navCtrl.popToRoot();
     this.navCtrl.setRoot(HomePage);

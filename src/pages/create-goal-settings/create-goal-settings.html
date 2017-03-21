@@ -15,14 +15,12 @@
 
 <ion-content>
 	<ion-list>
-		<form #formData='ngForm' (ngSubmit)="onSubmit(formData.value)">
+		<form #formData='ngForm' (ngSubmit)="onSubmit(formData.value, envVariables.DOMAIN_NAME, envVariables.SECRET_KEY)">
 
-			<ion-item>
-        <ion-avatar item-left="">
-          <img src={{icon}}>
-        </ion-avatar>
-				<ion-label >Integration: {{integrationParam}}</ion-label>
-			</ion-item>
+			<ion-list-header>
+				<img border="0" src="{{icon}}" width="50px" style="logo"/>
+				Integration: {{integrationParam}}
+			</ion-list-header>
 
 			<ion-item>
 				<ion-label floating>Goal Slug:</ion-label>

@@ -75,9 +75,9 @@ export class User {
       .subscribe(() => this.goals.push(goal));
   }
 
-  addIntegration(goal, metricKey, credentialId) {
+  addIntegration(goal, metricKey, credentialId, baseUrl, secretKeyBase) {
     this.beeminder.createGoal(goal).subscribe(newGoal => {
-      this.nectar.createGoal(credentialId, metricKey, goal.slug).subscribe(newNectarCredentials => {
+      this.nectar.createGoal(credentialId, metricKey, goal.slug, baseUrl, secretKeyBase).subscribe(newNectarCredentials => {
         this.goals.push(newGoal);
         this.nectarUser.credentials.push(newNectarCredentials);
       })
@@ -146,7 +146,7 @@ export class User {
   getIntergrationStatus(integration) {
     let status = false;
     for (let provider of this.nectarUser.credentials) {
-      if (provider.provider_name == integration.title) {
+      if (provider.provider_name == integration.name) {
         status = true;
       }
     }

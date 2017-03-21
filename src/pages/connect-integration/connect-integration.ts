@@ -13,7 +13,7 @@ import { User } from '../../providers/user';
 
 import { EnvVariables } from '../../app/environment-variables/environment-variables.token';
 
-let window: any;
+declare var window: any;
 
 @Component({
   selector: 'page-connect-integration',
@@ -71,12 +71,15 @@ export class ConnectIntegrationPage {
 	
 	for (let provider of this.providersbackend) {
 	  let temp = this.providersfrontend.find(p => p.name == provider.name);
+	  
+	  let style = this.user.getIntergrationStatus(temp)==true ? 'logo' : 'logo greyed';
 	
       let aprovider = {
         name: provider.name,
         metrics: provider.metrics,
 		title: temp.title,
-		url: temp.url
+		url: temp.url,
+		style: style
       };
 
       providers.push(aprovider);
@@ -89,7 +92,11 @@ export class ConnectIntegrationPage {
     //if user isn't logged in, open oauth page
     if (!this.user.getIntergrationStatus(integration)) {
       //open oauth page
-      this.IntegrationLogin(baseUrl, integration.title);
+      this.IntegrationLogin(baseUrl, integration.name).catch(() => {
+		alert('You must login to ' + integration.title + ' before you can create a new goal.');
+		this.navCtrl.pop();
+		return;
+	  });
       //once they login, continue to the metric page
     }
 
@@ -103,14 +110,21 @@ export class ConnectIntegrationPage {
     });
   }
 
-  public IntegrationLogin(baseUrl, integrationTitle) {
-      let browserRef = window.cordova.InAppBrowser.open(this.envVariables.DOMAIN_NAME + '/credentials/new?provider_name=' + integrationTitle, "_self", "location=no");
+  public IntegrationLogin(baseUrl, integrationTitle): Promise<any> {
+		return new Promise(function (resolve, reject) {
+		  let browserRef = window.cordova.InAppBrowser.open(baseUrl + '/credentials/new?provider_name=' + integrationTitle, "_self", "location=no");
 
-      browserRef.addEventListener("loadstart", (event) => {
-        if ((event.url).indexOf(baseUrl + '/credentials/' + integrationTitle) == 0) {
-          browserRef.close();
-        }
-      });
+		  browserRef.addEventListener("loadstart", (event) => {
+			if ((event.url).indexOf(baseUrl + '/credentials/' + integrationTitle) === 0) {
+			  browserRef.close();
+			  resolve();
+			}
+		  });
+		  
+		  browserRef.addEventListener("exit", function(event) {
+            reject();
+          });
+		});
   }
 
 }

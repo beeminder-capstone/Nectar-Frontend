@@ -24,12 +24,10 @@
 
   <ion-list>
     <button ion-item *ngFor="let goal of goals" (click)="itemTapped(goal)">
-        <ion-avatar item-left="">
-          <img src={{goal.icon}}>
-        </ion-avatar>
+		<img border="0" src="{{goal.icon}}" width="50px" style="float: left; margin-right: 10px;"/>
         <h1>{{goal.slug}}</h1>
         <p>Updated: {{goal.lastUpdated | date:'M/dd/yy HH:mm'}}</p>
-        <button item-right class='large_button' ion-button color={{goal.laneColor}}></button>
+        <button item-right class='large_button' ion-button color="{{goal.laneColor}}"></button>
     </button>
   </ion-list>
 </ion-content>
