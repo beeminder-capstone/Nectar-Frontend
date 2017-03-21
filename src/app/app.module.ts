@@ -8,6 +8,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
+import { EnvironmentsModule } from './environment-variables/environment-variables.module.ts';
 
 import { HomePage } from '../pages/home/home';
 import { AddGoalPage } from '../pages/add-goal/add-goal';
@@ -45,7 +46,8 @@ import {EditGoalPage} from "../pages/edit-goal/edit-goal";
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot(MyApp)
+    IonicStorageModule.forRoot(MyApp),
+	EnvironmentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

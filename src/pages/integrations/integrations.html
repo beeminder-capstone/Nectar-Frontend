@@ -21,7 +21,7 @@
         <a target="_blank" href="{{provider.url}}">
           <h3>{{provider.longname}}</h3>
         </a>
-        <img alt="{{provider.longname}} Logo" class="logo" src="assets/logos/{{provider.shortname}}.png" (click)="open(provider.shortname)"/>
+        <img alt="{{provider.longname}} Logo" class="logo" src="assets/logos/{{provider.shortname}}.png" (click)="open(envVariables.DOMAIN_NAME, provider.shortname)"/>
       </div>
       
     </ion-col>

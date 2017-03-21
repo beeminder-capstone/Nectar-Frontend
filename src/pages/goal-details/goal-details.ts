@@ -7,6 +7,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import { PopoverPage } from './popover'
 import { User } from '../../providers/user';
 
@@ -21,14 +22,20 @@ export class GoalDetailsPage {
   datapointValue;
   showUpdateComponent: boolean = false;
   datapoints = [];
+  username: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+	public storage: Storage,
     private user: User,
     private popoverCtrl: PopoverController,
     public alertCtrl: AlertController
-  ) {}
+  ) {
+	this.storage.get('username').then((value) => {
+		this.username = value;
+	});
+  }
 
   ngOnInit() {
     this.goal = this.navParams.data;

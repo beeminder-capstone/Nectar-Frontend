@@ -18,6 +18,10 @@
 </ion-fab>
 
 <ion-content padding>
+  <div class='user'>
+    <p>{{username}}</p>
+  </div>
+
   <ion-list>
     <button ion-item *ngFor="let goal of goals" (click)="itemTapped(goal)">
         <ion-avatar item-left="">

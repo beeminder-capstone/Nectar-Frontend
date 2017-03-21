@@ -4,7 +4,7 @@
  * This code is available under the "MIT License".
  * Please see the file LICENSE in this distribution for license terms.
  */
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { NavController, Platform, MenuController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
@@ -12,6 +12,8 @@ import { HomePage } from '../home/home';
 
 import { BeeminderApi } from '../../providers/beeminder-api';
 import { User } from '../../providers/user';
+
+import { EnvVariables } from '../../app/environment-variables/environment-variables.token';
 
 declare var window: any;
 
@@ -28,8 +30,11 @@ export class LoginPage {
 		public menu: MenuController,
 		public storage: Storage,
 		public beeminder: BeeminderApi,
-		public user: User
-	) {}
+		public user: User,
+		@Inject(EnvVariables) public envVariables
+	) {
+		this.menu.swipeEnable(false);
+	}
 
 	public getParameterByName(name, url) {
 		name = name.replace(/[\[\]]/g, "\\$&");
@@ -40,9 +45,9 @@ export class LoginPage {
 		return decodeURIComponent(results[2].replace(/\+/g, " "));
 	}
 
-	public login() {
+	public login(baseUrl) {
 		this.platform.ready()
-			.then(() => this.BeeminderLogin())
+			.then(() => this.BeeminderLogin(baseUrl))
 			.then(url => this.url = url)
 			.then(() => this.storage.set('username', this.getParameterByName('username', this.url)))
 			.then(() => this.storage.set('access_token', this.getParameterByName('access_token', this.url)))
@@ -52,10 +57,12 @@ export class LoginPage {
 			.catch(error => console.error(error))
 	}
 
-	public BeeminderLogin(): Promise<any> {
+	public BeeminderLogin(baseUrl): Promise<any> {
 		return new Promise(function (resolve, reject) {
+			//var browserRef = window.cordova.InAppBrowser.open(baseUrl + '/signin', "_blank", "location=no");
 			var browserRef = window.cordova.InAppBrowser.open("https://www.beeminder.com/apps/authorize?client_id=4nqs6w7oxdutqq0qg09gq72i8&redirect_uri=http://localhost/callback&response_type=token", "_blank", "location=no");
 			browserRef.addEventListener("loadstart", (event) => {
+				//if ((event.url).indexOf(baseUrl + '/auth/beeminder/callback') === 0) {
 				if ((event.url).indexOf("http://localhost/callback") === 0) {
 					browserRef.close();
 					resolve(event.url);

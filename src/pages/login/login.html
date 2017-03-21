@@ -13,9 +13,14 @@
 </ion-header>
 
 <ion-content padding>
-  <img alt="Nectar Logo" border="0" src="assets/logos/nectar.png" width="50px" style="{margin:auto;display:block;position: fixed;width:50%}"/>
-  <span style="{text-align: center;position: relative}">
-    Log in with your Beeminder Account
-  </span>
-  <button ion-button block (click)="login()">Log in</button>
+  <img alt="Nectar Logo" border="0" src="assets/Nectar Logo/Bee Emoji.svg" class="logo"/>
+  <div class='provider'>
+  <h3>Nectar</h3>
+  </div>
+  <p>Nectar adds support for more integrations on <a target="_blank" href="https://beeminder.com">Beeminder</a>.<br>Automatically gets data from supported integrations and adds it to Beeminder goals.</p>
+  <br>
+  <p>Please, Log in with your Beeminder account.</p>
+  <button ion-button block (click)="login(envVariables.DOMAIN_NAME)">Log in with Beeminder</button>
+  <br>
+  <p>Visit <a target="_blank" href="{{envVariables.DOMAIN_NAME}}">{{envVariables.DOMAIN_NAME}}</a> for more information.</p>
 </ion-content>

@@ -9,20 +9,26 @@ import {Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from "rxjs";
 import { Storage } from '@ionic/storage';
+//import { Component, Inject } from '@angular/core';
+//import { EnvVariables } from '../app/environment-variables/environment-variables.token';
+
 
 @Injectable()
 export class NectarApi {
   username: string;
-  secretKeyBase: string = '';
-  baseUrl: string = 'https://beemindernectar.herokuapp.com/api/v1';
+  //secretKeyBase: string;
+  //baseUrl: string;
 
   userObject = {
     credentials: { id: String, provider_name: String },
     providers: [String, { metrics_repo: { collection: { key: String, description: String, title: String } } }]
   };
 
-  constructor(public http: Http, storage: Storage) {
-    storage.get('username').then(user => {
+  constructor(public http: Http, storage: Storage/*, @Inject(EnvVariables) public envVariables*/) {
+    //this.secretKeyBase = this.envVariables.SECRET_KEY;
+    //this.baseUrl = this.envVariables.DOMAIN_NAME;
+	
+	storage.get('username').then(user => {
       if (user == null) {
       } else {
         this.username = user;
@@ -30,27 +36,27 @@ export class NectarApi {
     });
   }
 
-  getUserObject() {
+  getUserObject(baseUrl, secretKeyBase) {
     // https://beemindernectar.herokuapp.com/api/v1/users/show?username=[beeminder_username]&secret_key=[heroku_secret_key_base]
-    let url = this.baseUrl + '/users/show?username=' + this.username + '&secret_key=' + this.secretKeyBase;
+    let url = baseUrl + '/api/v1/users/show?username=' + this.username + '&secret_key=' + secretKeyBase;
     return this.http.get(url)
       .map(res => res.json())
       .catch(err => Observable.throw(err.json().error));
   }
 
-  createGoal(credential:number, metricKey:string, slug:string){
+  createGoal(credential:number, metricKey:string, slug:string, baseUrl, secretKeyBase){
       let headers = new Headers();
       headers.append('Content-Type', null);
       // https://beemindernectar.herokuapp.com/api/v1/goals?username=[beeminder_username]&credential_id=[credential_id]&metric_key=[metric_key]&slug=[beeminder_slug]&active=1&secret_key=[heroku_secret_key_base]
-      let url = this.baseUrl + '/goals?username=' + this.username + '&credential_id=' + credential + '&metric_key=' + metricKey + '&slug=' + slug + '&active=1&secret_key=' + this.secretKeyBase;
+      let url = baseUrl + '/api/v1/goals?username=' + this.username + '&credential_id=' + credential + '&metric_key=' + metricKey + '&slug=' + slug + '&active=1&secret_key=' + secretKeyBase;
       return this.http.post(url, headers)
         .map(res => res.json())
         .catch(error => Observable.throw(error.json().error));
   }
 
-  updateGoal(goalID:number, credential:number, metricKey:string, slug:string, goal){
+  updateGoal(goalID:number, credential:number, metricKey:string, slug:string, goal, baseUrl, secretKeyBase){
     // https://beemindernectar.herokuapp.com/api/v1/goals?username=[beeminder_username]%id=[goal_id]&credential_id=[credential_id]&metric_key=[metric_key]&slug=[beeminder_slug]&active=[1_to_enable,_0_to_disable]&secret_key=[heroku_secret_key_base]
-    let url = this.baseUrl + '/goals?username=' + this.username + '%id=' + goalID + '&credential_id=' + credential + '&metric_key=' + metricKey + '&slug=' + slug + '&active=1&secret_key=' + this.secretKeyBase;
+    let url = baseUrl + '/api/v1/goals?username=' + this.username + '%id=' + goalID + '&credential_id=' + credential + '&metric_key=' + metricKey + '&slug=' + slug + '&active=1&secret_key=' + secretKeyBase;
     return this.http.put(url,goal)
       .map(res => res.json())
       .catch(error => Observable.throw(error.json().error));

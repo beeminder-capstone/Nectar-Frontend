@@ -14,10 +14,10 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class BeeminderApi {
-  callback_uri: string = 'https://localhost/callback';
+  //callback_uri: string = 'https://localhost/callback';
   baseUrl: string = 'https://www.beeminder.com/api/v1';
   access_token: string;
-  client_id: string = '4nqs6w7oxdutqq0qg09gq72i8';
+  //client_id: string = '4nqs6w7oxdutqq0qg09gq72i8';
 
   constructor(private http: Http, storage: Storage) {
     storage.get('access_token').then(token => {
@@ -28,8 +28,8 @@ export class BeeminderApi {
       }
     });
   }
-
-  login() {
+  
+  /*login() {
     let url = 'https://www.beeminder.com/apps/authorize?client_id=' + this.client_id +
       '&redirect_uri' + this.callback_uri + '&response_type=token';
     let browser = new InAppBrowser(url, '_blank');
@@ -44,7 +44,7 @@ export class BeeminderApi {
         return console.error("Failed to authenticate");
       }
     });
-  }
+  }*/
 
   fetchGoals() {
     let url = this.baseUrl + '/users/me/goals.json?access_token=' + this.access_token;
