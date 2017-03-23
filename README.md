@@ -30,11 +30,11 @@ Install the APK and enjoy!
  
 ---
 
-##Idea
+## Idea
 The idea behind this project was to create a clean, user friendly app for customers of Beeminder to use to add any goals using any integrations that Beeminder supports.
 
 
-##Usage
+## Usage
 This app allows the user to do the following things for their Beeminder account
  * Add a goal
      * Manual
@@ -44,7 +44,7 @@ This app allows the user to do the following things for their Beeminder account
  
 In addition, app notifications are supported, so the user has a choice between the Beeminder emails and regualar app notifications.
 
-##Build
+## Build
 The following instructions will enable you to download and compile the source into a working Android and/or iOS application:
 
 
@@ -75,10 +75,10 @@ The following instructions will enable you to download and compile the source in
 11.    If installing the iOS app:
 	1.    Run: `ionic platform add ios`.
 
-##Contributing
+## Contributing
 To contribute, simply fork and then create a pull request. 
 
-##License
-#####Copyright © 2017 The [PSU](https://www.pdx.edu/) [CS](https://www.pdx.edu/computer-science/) Beeminder [Capstone](http://wiki.cs.pdx.edu/capstone/fall_2016/fall_2016.html) Team
+## License
+##### Copyright © 2017 The [PSU](https://www.pdx.edu/) [CS](https://www.pdx.edu/computer-science/) Beeminder [Capstone](http://wiki.cs.pdx.edu/capstone/fall_2016/fall_2016.html) Team
 This code is available under the "MIT License".
 Please see the file LICENSE in this distribution for license terms.
