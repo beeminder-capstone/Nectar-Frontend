@@ -10,7 +10,6 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { HomePage } from '../pages/home/home';
 import { AddGoalPage } from '../pages/add-goal/add-goal';
-import { IntegrationsPage } from '../pages/integrations/integrations';
 import { LoginPage} from '../pages/login/login';
 import { SettingsPage} from '../pages/settings/settings';
 
@@ -39,7 +38,6 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'Add New Integration', component: IntegrationsPage },
 	    { title: 'Create New Goal', component: AddGoalPage },
 	    { title: 'Settings', component: SettingsPage },
     ];
