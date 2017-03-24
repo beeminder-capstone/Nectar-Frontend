@@ -31,7 +31,7 @@ export class CreateGoalSettingsPage {
     this.metricParam = params.get("metric");
     this.manualGoalParam = params.get("manualGoal");
     this.integrationParam = this.manualGoalParam==true ? "Manual" : params.get("integration");
-    this.icon = this.manualGoalParam==true ? "assets/Nectar Logo/Bee Emoji.svg" : "assets/logos/" + this.integrationParam + ".png"
+    this.icon = this.manualGoalParam==true ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.integrationParam + ".png"
   }
 
 	onSubmit(formData, baseUrl, secretKeyBase) {
