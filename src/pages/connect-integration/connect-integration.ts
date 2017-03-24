@@ -48,7 +48,7 @@ export class ConnectIntegrationPage {
 		{ url: "https://moves-app.com/", title: "Moves", name: "moves" },
 		{ url: "https://getpocket.com", title: "Pocket", name: "pocket" },
 		{ url: "https://quizlet.com", title: "Quizlet", name: "quizlet" },
-		{ url: "https://www.rememberthemilk.com/", title: "Remember The Milk", name: "rememberthemilk" },
+		{ url: "https://www.rememberthemilk.com/", title: "Remember The Milk", name: "rtm" },
 		{ url: "https://runkeeper.com/", title: "RunKeeper", name: "runkeeper" },
 		{ url: "https://slack.com/", title: "Slack", name: "slack" },
 		{ url: "https://stackoverflow.com/", title: "Stack Overflow", name: "stackoverflow" },
@@ -105,8 +105,7 @@ export class ConnectIntegrationPage {
     }
 
     this.navCtrl.push(SelectMetricPage, {
-      integration: integration,
-      metrics: integration
+      integration: integration
     });
   }
 

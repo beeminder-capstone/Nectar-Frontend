@@ -39,7 +39,7 @@ export class SelectMetricPage {
 
   selectMetric(metric) {
     this.navCtrl.push(CreateGoalSettingsPage, {
-      integration: this.integration.name,
+      integration: this.integration,
       metric: metric,
       manualGoal: false
     });

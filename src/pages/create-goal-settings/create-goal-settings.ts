@@ -31,20 +31,20 @@ export class CreateGoalSettingsPage {
     this.metricParam = params.get("metric");
     this.manualGoalParam = params.get("manualGoal");
     this.integrationParam = this.manualGoalParam==true ? "Manual" : params.get("integration");
-    this.icon = this.manualGoalParam==true ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.integrationParam + ".png"
+    this.icon = this.manualGoalParam==true ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.integrationParam.name + ".png"
   }
 
 	onSubmit(formData, baseUrl, secretKeyBase) {
-    let credentialId = this.user.getCredentialID(this.integrationParam);
+    let credentialId = this.user.getCredentialID(this.integrationParam.name);
     let datasource = this.manualGoalParam==true ? 'manual' : 'api';
-    let integration = this.manualGoalParam==true ? null : this.integrationParam;
+    let integration = this.manualGoalParam==true ? null : this.integrationParam.title;
     let decade = 60 * 60 * 24 * 365 * 10;
     let d = new Date();
     let t = Math.floor(d.getTime() / 1000);
     let goaldate = t + decade;
 
 
-    let goal = {
+    let beemindergoal = {
       slug: formData.slug,
       title: formData.title,
       goaldate: goaldate,
@@ -55,10 +55,12 @@ export class CreateGoalSettingsPage {
       gunit: formData.gunit,
       runit: formData.runit
     };
+	
+	let active = 1;
 
-		this.user.addIntegration(goal, this.metricParam.key, credentialId, baseUrl, secretKeyBase);
-		this.presentToast();
-		this.navCtrl.popToRoot();
+	this.user.addIntegration(beemindergoal, this.metricParam.key, credentialId, active, baseUrl, secretKeyBase);
+	this.presentToast();
+	this.navCtrl.popToRoot();
     this.navCtrl.setRoot(HomePage);
   }
 

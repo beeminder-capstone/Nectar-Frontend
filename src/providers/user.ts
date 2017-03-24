@@ -75,11 +75,18 @@ export class User {
       .subscribe(() => this.goals.push(goal));
   }
 
-  addIntegration(goal, metricKey, credentialId, baseUrl, secretKeyBase) {
-    this.beeminder.createGoal(goal).subscribe(newGoal => {
-      this.nectar.createGoal(credentialId, metricKey, goal.slug, baseUrl, secretKeyBase).subscribe(newNectarCredentials => {
-        this.goals.push(newGoal);
-        this.nectarUser.credentials.push(newNectarCredentials);
+  addIntegration(beemindergoal, metricKey, credentialId, active, baseUrl, secretKeyBase) {
+    this.beeminder.createGoal(beemindergoal).subscribe(newbeeminderGoal => {
+	  let nectargoal = {
+        credential_id: credentialId,
+        metric_key: metricKey,
+        slug: newbeeminderGoal.slug,
+	    active: active
+      };
+	
+      this.nectar.createGoal(nectargoal, baseUrl, secretKeyBase).subscribe(newnectarGoal => {
+        this.goals.push(newbeeminderGoal);
+        this.nectarUser.goals.push(newnectarGoal);
       })
     })
   }
@@ -152,6 +159,16 @@ export class User {
     }
     return status;
   }
+  
+  getIntergration(goal) {
+    let id;
+    for (let g of this.nectarUser.goals) {
+      if (g.slug == goal.slug) {
+        id = g.credential_id;
+      }
+    }
+    return this.getCredentialname(id);
+  }
 
   //Returns list of all integrations that the user is logged into
   getLoggedInIntergrations() {
@@ -175,6 +192,14 @@ export class User {
     for (let credential of this.nectarUser.credentials) {
       if (credential.provider_name == integrationTitle) {
         return credential.id;
+      }
+    }
+  }
+  
+  getCredentialname(integrationID: number): string {
+    for (let credential of this.nectarUser.credentials) {
+      if (credential.id == integrationID) {
+        return credential.provider_name;
       }
     }
   }

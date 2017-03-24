@@ -10,14 +10,15 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list inset>
+<ion-content padding>
+  <ion-list text-wrap>
     <ion-list-header>
 	  <img border="0" src="assets/logos/{{integration.name}}.png" width="50px" style="logo"/>
       Please select a metric for {{integration.title}}:
     </ion-list-header>
-    <button ion-item style="text-align: center" *ngFor="let m of metricObject" (click)="selectMetric(m)">{{m.title}}
-      <p>{{m.description}}</p>
+    <button ion-item style="text-align: center" *ngFor="let m of metricObject" (click)="selectMetric(m)">
+      <h3>{{m.title}}</h3>
+	  <p>{{m.description}}</p>
     </button>
   </ion-list>
 </ion-content>
