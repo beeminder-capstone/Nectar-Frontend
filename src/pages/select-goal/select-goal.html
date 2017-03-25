@@ -1,0 +1,43 @@
+<!--
+ * Created by PSU Beeminder Capstone Team on 3/12/2017.
+ * Copyright (c) 2017 PSU Beeminder Capstone Team
+ * This code is available under the "MIT License".
+ * Please see the file LICENSE in this distribution for license terms
+  -->
+<ion-header>
+	<ion-navbar color="primary">
+		<button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+		<ion-title>Select Beeminder Goal</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-list>
+		<form #formData='ngForm' (ngSubmit)="onSubmit(formData.value, envVariables.DOMAIN_NAME, envVariables.SECRET_KEY)">
+
+			<ion-list-header>
+				<img border="0" src="{{icon}}" width="50px" style="logo"/>
+				{{integration}}
+				<br>
+				{{metric}}
+				<br><br>
+				Please select one of your Beeminder goals:
+			</ion-list-header>
+
+			<ion-list radio-group *ngFor="let goal of goals" [(ngModel)]="slug" name="slug" required="true">
+			<ion-item>
+				<ion-label>{{goal.slug}}</ion-label>
+				<ion-radio value="{{goal.slug}}" checked></ion-radio>
+			</ion-item>
+			</ion-list>
+
+			<div padding>
+				<button ion-button type="onSubmit()" block>Add Integration</button>
+			</div>
+		</form>
+	</ion-list>
+	
+	<button ion-button block (click)="createGoal()">Create New Beeminder Goal</button>
+</ion-content>

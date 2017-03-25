@@ -22,27 +22,33 @@ import { EnvVariables } from '../../app/environment-variables/environment-variab
 })
 export class CreateGoalSettingsPage {
 	access_token: string;
+	integration: string;
+	metric: string;
+	slug: string;
+	title: string;
 	integrationParam: any;
 	metricParam: any;
 	manualGoalParam: boolean;
   icon: string;
 
 	constructor(public navCtrl: NavController, public storage: Storage, private params: NavParams, public user: User, private toastCtrl: ToastController, @Inject(EnvVariables) public envVariables) {
-    this.metricParam = params.get("metric");
     this.manualGoalParam = params.get("manualGoal");
+	this.metricParam = this.manualGoalParam==true ? null : params.get("metric");
     this.integrationParam = this.manualGoalParam==true ? "Manual" : params.get("integration");
     this.icon = this.manualGoalParam==true ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.integrationParam.name + ".png"
+	this.integration = this.manualGoalParam==true ? "Manual Goal" : 'Integration: ' + this.integrationParam.title;
+	this.metric = this.manualGoalParam==true ? null : 'Metric: ' + this.metricParam.title;
+	this.slug = this.manualGoalParam==true ? "nectar" : this.integrationParam.title.toLowerCase();
+	this.title = this.manualGoalParam==true ? "Nectar" : this.integrationParam.title + ' ' + this.metricParam.title;
   }
 
-	onSubmit(formData, baseUrl, secretKeyBase) {
-    let credentialId = this.user.getCredentialID(this.integrationParam.name);
-    let datasource = this.manualGoalParam==true ? 'manual' : 'api';
-    let integration = this.manualGoalParam==true ? null : this.integrationParam.title;
+  onSubmit(formData, baseUrl, secretKeyBase) {
+	let datasource = this.manualGoalParam==true ? 'manual' : 'api';
+    let integration = this.manualGoalParam==true ? 'Manual' : this.integrationParam.title + 'Integration';
     let decade = 60 * 60 * 24 * 365 * 10;
     let d = new Date();
     let t = Math.floor(d.getTime() / 1000);
     let goaldate = t + decade;
-
 
     let beemindergoal = {
       slug: formData.slug,
@@ -56,12 +62,17 @@ export class CreateGoalSettingsPage {
       runit: formData.runit
     };
 	
-	let active = 1;
-
-	this.user.addIntegration(beemindergoal, this.metricParam.key, credentialId, active, baseUrl, secretKeyBase);
+	this.user.addbeeminderGoal(beemindergoal);
+	  
 	this.presentToast();
-	this.navCtrl.popToRoot();
-    this.navCtrl.setRoot(HomePage);
+	
+	if(this.manualGoalParam == true){
+	  this.navCtrl.popToRoot();
+      this.navCtrl.setRoot(HomePage);
+	}else{
+	  this.navCtrl.pop();
+	  return;
+	}
   }
 
 	presentToast() {

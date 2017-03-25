@@ -45,6 +45,22 @@ export class BeeminderApi {
       }
     });
   }*/
+  
+  /*getaccess_token(code, nectarbaseUrl, client_id, client_secret) {
+    //https://www.beeminder.com/apps/authorize?client_id=YOURCLIENTID&client_secret=YOURCLIENTSECRET&grant_type=authorization_code&code=THISISTHECODE&redirect_uri=YOURREDIRECTURI
+	//https://cloud.digitalocean.com/v1/oauth/token?client_id=CLIENT_ID&client_secret=CLIENT_SECRET&grant_type=authorization_code&code=AUTHORIZATION_CODE&redirect_uri=CALLBACK_URL
+    let url = 'https://www.beeminder.com/apps/authorize?client_id=' + client_id + '&client_secret=' + client_secret + '&grant_type=refresh_token&code=' + code + '&redirect_uri=' + nectarbaseUrl + '/auth/beeminder/callback';
+    return this.http.post(url, null)
+      .map(res => res.json())
+	  .catch(err => Observable.throw(err.json().error));
+  }*/
+  
+  fetchUser() {
+    let url = this.baseUrl + '/users/me.json?access_token=' + this.access_token;
+    return this.http.get(url)
+      .map(res => res.json())
+      .catch(err => Observable.throw(err.json().error));
+  }
 
   fetchGoals() {
     let url = this.baseUrl + '/users/me/goals.json?access_token=' + this.access_token;

@@ -16,6 +16,7 @@ import { ConnectIntegrationPage } from '../pages/connect-integration/connect-int
 import { GoalDetailsPage } from '../pages/goal-details/goal-details';
 import { LoginPage} from '../pages/login/login';
 import { SettingsPage} from '../pages/settings/settings';
+import { SelectGoalPage } from '../pages/select-goal/select-goal';
 import { CreateGoalSettingsPage } from '../pages/create-goal-settings/create-goal-settings';
 import { SelectMetricPage } from  '../pages/select-metric/select-metric';
 import { PopoverPage } from '../pages/goal-details/popover';
@@ -33,13 +34,12 @@ import { EditGoalPage } from "../pages/edit-goal/edit-goal";
     AddGoalPage,
     ConnectIntegrationPage,
     CreateGoalSettingsPage,
+    SelectGoalPage,
     GoalDetailsPage,
     LoginPage,
     SettingsPage,
     SelectMetricPage,
-    CreateGoalSettingsPage,
     EditGoalPage,
-    CreateGoalSettingsPage,
     PopoverPage
   ],
   imports: [
@@ -54,6 +54,7 @@ import { EditGoalPage } from "../pages/edit-goal/edit-goal";
     AddGoalPage,
     ConnectIntegrationPage,
     CreateGoalSettingsPage,
+    SelectGoalPage,
     LoginPage,
     SettingsPage,
     GoalDetailsPage,

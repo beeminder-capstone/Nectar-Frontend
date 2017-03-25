@@ -23,7 +23,7 @@ let defaultSettings = {
 @Injectable()
 export class User {
   private userSettings;
-  private goals = [];
+  public goals = [];
   private isLoggedIn: boolean;
   private nectarUser: any;
 
@@ -70,9 +70,22 @@ export class User {
     return this.beeminder.fetchGoals();
   }
 
-  addGoal(goal) {
+  addbeeminderGoal(goal) {
     this.beeminder.createGoal(goal)
       .subscribe(() => this.goals.push(goal));
+  }
+  
+  addnectarGoal(slug, metricKey, credentialId, active, baseUrl, secretKeyBase) {
+	let nectargoal = {
+      credential_id: credentialId,
+      metric_key: metricKey,
+      slug: slug,
+	  active: active
+    };
+	
+    this.nectar.createGoal(nectargoal, baseUrl, secretKeyBase).subscribe(newnectarGoal => {
+      this.nectarUser.goals.push(newnectarGoal);
+    })
   }
 
   addIntegration(beemindergoal, metricKey, credentialId, active, baseUrl, secretKeyBase) {
@@ -120,6 +133,21 @@ export class User {
       .then(status => { return status })
       .catch(() => { return false })
   }
+  
+  /*setaccess_token(code, nectarbaseUrl, client_id, client_secret) {
+    this.beeminder.getaccess_token(code, nectarbaseUrl, client_id, client_secret).subscribe(value => {
+	  this.beeminder.access_token = value.access_token;
+	  this.storage.set('access_token', value.access_token);
+	  this.beeminder.fetchUser().subscribe(user => {
+	    this.nectar.username = user.username;
+	    this.storage.set('username', user.username);
+	  })
+	  this.beeminder.fetchGoals().subscribe(userGoals => {
+	    this.goals = userGoals;
+	    this.storage.set('goals', this.goals);
+	  })
+	})
+  }*/
 
   setLoginStatus() {
     this.storage.set('isLoggedIn', true);

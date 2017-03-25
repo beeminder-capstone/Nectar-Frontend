@@ -45,10 +45,11 @@ export class LoginPage {
 		return decodeURIComponent(results[2].replace(/\+/g, " "));
 	}
 
-	public login(baseUrl) {
+	public login(baseUrl, client_id) {
 		this.platform.ready()
-			.then(() => this.BeeminderLogin(baseUrl))
+			.then(() => this.BeeminderLogin(baseUrl, client_id))
 			.then(url => this.url = url)
+			//.then(() => this.user.setaccess_token(this.getParameterByName('code', this.url), baseUrl, client_id, client_secret))
 			.then(() => this.storage.set('username', this.getParameterByName('username', this.url)))
 			.then(() => this.storage.set('access_token', this.getParameterByName('access_token', this.url)))
 			.then(token => this.beeminder.access_token = token)
@@ -57,10 +58,10 @@ export class LoginPage {
 			.catch(error => console.error(error))
 	}
 
-	public BeeminderLogin(baseUrl): Promise<any> {
+	public BeeminderLogin(baseUrl, client_id): Promise<any> {
 		return new Promise(function (resolve, reject) {
 			//var browserRef = window.cordova.InAppBrowser.open(baseUrl + '/signin', "_blank", "location=no");
-			var browserRef = window.cordova.InAppBrowser.open("https://www.beeminder.com/apps/authorize?client_id=4nqs6w7oxdutqq0qg09gq72i8&redirect_uri=http://localhost/callback&response_type=token", "_blank", "location=no");
+			var browserRef = window.cordova.InAppBrowser.open('https://www.beeminder.com/apps/authorize?client_id=' + client_id + '&redirect_uri=http://localhost/callback&response_type=token', "_blank", "location=no");
 			browserRef.addEventListener("loadstart", (event) => {
 				//if ((event.url).indexOf(baseUrl + '/auth/beeminder/callback') === 0) {
 				if ((event.url).indexOf("http://localhost/callback") === 0) {

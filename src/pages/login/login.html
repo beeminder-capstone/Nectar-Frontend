@@ -18,7 +18,7 @@
   <h3>Nectar</h3>
   </div>
   <p text-center>Log in with your Beeminder account</p>
-  <button ion-button block (click)="login(envVariables.DOMAIN_NAME)">Log in with Beeminder</button>
+  <button ion-button block (click)="login(envVariables.DOMAIN_NAME, envVariables.BEEMINDER_PROVIDER_KEY)">Log in with Beeminder</button>
   <br>
   <p>Visit <a target="_blank" href="{{envVariables.DOMAIN_NAME}}">{{envVariables.DOMAIN_NAME}}</a> for more information.</p>
 </ion-content>

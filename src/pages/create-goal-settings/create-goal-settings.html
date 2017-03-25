@@ -19,39 +19,41 @@
 
 			<ion-list-header>
 				<img border="0" src="{{icon}}" width="50px" style="logo"/>
-				Integration: {{integrationParam.title}}
+				{{integration}}
+				<br>
+				{{metric}}
 			</ion-list-header>
 
 			<ion-item>
 				<ion-label floating>Goal Slug:</ion-label>
-				<ion-input type="text" [(ngModel)]="slug" name="slug" required="true" value="Name of Goal"></ion-input>
+				<ion-input type="text" [(ngModel)]="slug" name="slug" required="true" value="Name of Goal" placeholder="{{slug}}"></ion-input>
 			</ion-item>
 
 			<ion-item>
 				<ion-label floating>Goal Name:</ion-label>
-				<ion-input type="text" [(ngModel)]="title" name="title" required="true" value="Name of Goal"></ion-input>
+				<ion-input type="text" [(ngModel)]="title" name="title" required="true" value="Name of Goal" placeholder="{{title}}"></ion-input>
 			</ion-item>
 
 			<ion-item>
 				<ion-label stacked>Pledge Value:</ion-label>
-				<ion-input type="number" placeholder="5" [(ngModel)]="rate" name="rate" required="true" value="2, 5, etc"></ion-input>
+				<ion-input type="number" [(ngModel)]="rate" name="rate" required="true" value="2, 5, etc"></ion-input>
 			</ion-item>
 
 			<ion-item>
-				<ion-label stacked>Units:</ion-label>
-				<ion-input type="text" [(ngModel)]="gunit" name="gunit" required="true" placeholder="steps" value="steps, post, etc"></ion-input>
+				<ion-label stacked>Pledge Units:</ion-label>
+				<ion-input type="text" [(ngModel)]="gunit" name="gunit" required="true" value="steps, post, etc" placeholder="steps"></ion-input>
 			</ion-item>
 
 
 			<ion-item>
-				<ion-label stacked>Rate:</ion-label>
-        <ion-select [(ngModel)]="runit" name="runit">
-          <ion-option value="h">Hourly</ion-option>
-          <ion-option value="d">Daily</ion-option>
-          <ion-option value="w">Weekly</ion-option>
-          <ion-option value="m">Monthly</ion-option>
-          <ion-option value="y">Yearly</ion-option>
-        </ion-select>
+				<ion-label stacked>Select one of the Pledge Rates:</ion-label>
+				<ion-select [(ngModel)]="runit" name="runit">
+				<ion-option value="h">Hourly</ion-option>
+				<ion-option value="d" selected>Daily</ion-option>
+				<ion-option value="w">Weekly</ion-option>
+				<ion-option value="m">Monthly</ion-option>
+				<ion-option value="y">Yearly</ion-option>
+				</ion-select>
 			</ion-item>
 
 			<div padding>

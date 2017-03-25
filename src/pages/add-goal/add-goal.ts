@@ -4,13 +4,17 @@
  * This code is available under the "MIT License".
  * Please see the file LICENSE in this distribution for license terms.
  */
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
-import { NavController } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 
 import { ConnectIntegrationPage } from '../connect-integration/connect-integration';
 
 import { CreateGoalSettingsPage } from '../create-goal-settings/create-goal-settings';
+
+import { EnvVariables } from '../../app/environment-variables/environment-variables.token';
+
+declare var window: any;
 
 @Component({
 	selector: 'page-add-goal',
@@ -19,13 +23,34 @@ import { CreateGoalSettingsPage } from '../create-goal-settings/create-goal-sett
 
 export class AddGoalPage {
 
-	constructor(public navCtrl: NavController) {}
+	constructor(public navCtrl: NavController, private platform: Platform, @Inject(EnvVariables) public envVariables) {}
 
 	goToCreateManualGoal() {
     this.navCtrl.push(CreateGoalSettingsPage, {manualGoal: true});
   }
 
-  goToConnectIntegration() {
-    this.navCtrl.push(ConnectIntegrationPage);
+  goToConnectIntegration(baseUrl) {
+	this.platform.ready()
+		.then(() => this.BeeminderLogin(baseUrl))
+		.catch(() => {
+			alert('You must login to Nectar before you can create a new goal.');
+			return;
+		}).then(() => this.navCtrl.push(ConnectIntegrationPage));
   }
+  
+  public BeeminderLogin(baseUrl): Promise<any> {
+		return new Promise(function (resolve, reject) {
+			var browserRef = window.cordova.InAppBrowser.open(baseUrl + '/signin', "_blank", "location=no");
+			browserRef.addEventListener("loadstart", (event) => {
+				if ((event.url).indexOf(baseUrl + '/auth/beeminder/callback') === 0) {
+					browserRef.close();
+					resolve();
+				}
+			});
+			
+			browserRef.addEventListener("exit", function(event) {
+				reject();
+			});
+		});
+	}
 }

@@ -31,6 +31,7 @@ export class HomePage {
 	
     user.getGoals().subscribe((goals) => {
       this.goals = goals;
+      this.user.goals = goals;
       for (let goal of goals) {
         goal.lastUpdated = new Date(goal.updated_at * 1000),
           goal.laneColor = this.laneColorFunc(goal.lane),

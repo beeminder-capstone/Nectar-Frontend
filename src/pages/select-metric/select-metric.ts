@@ -11,7 +11,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { NectarApi } from '../../providers/nectar-api';
 import { User } from '../../providers/user';
 
-import { CreateGoalSettingsPage } from '../create-goal-settings/create-goal-settings';
+import { SelectGoalPage } from '../select-goal/select-goal';
 
 @Component({
   selector: 'page-select-metric',
@@ -38,7 +38,7 @@ export class SelectMetricPage {
   }
 
   selectMetric(metric) {
-    this.navCtrl.push(CreateGoalSettingsPage, {
+    this.navCtrl.push(SelectGoalPage, {
       integration: this.integration,
       metric: metric,
       manualGoal: false
