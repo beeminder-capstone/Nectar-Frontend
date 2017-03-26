@@ -6,7 +6,7 @@
  */
 import { Component, Inject } from '@angular/core';
 
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
@@ -33,7 +33,7 @@ export class SelectGoalPage {
     icon: string;
 	public goals: {};
 
-	constructor(public navCtrl: NavController, public storage: Storage, private params: NavParams, public user: User, private toastCtrl: ToastController, @Inject(EnvVariables) public envVariables) {
+	constructor(public navCtrl: NavController, public storage: Storage, private params: NavParams, public user: User, @Inject(EnvVariables) public envVariables) {
 	this.metricParam = params.get("metric");
     this.integrationParam = params.get("integration");
     this.icon = "assets/logos/" + this.integrationParam.name + ".png";
@@ -42,7 +42,6 @@ export class SelectGoalPage {
 	
 	user.getGoals().subscribe((goals) => {
       this.goals = goals;
-      this.user.goals = goals;
     });
   }
 
@@ -52,7 +51,6 @@ export class SelectGoalPage {
 	  
 	this.user.addnectarGoal(formData.slug, this.metricParam.key, credentialId, active, baseUrl, secretKeyBase);
 	
-	this.presentToast();
 	this.navCtrl.popToRoot();
     this.navCtrl.setRoot(HomePage);
   }
@@ -64,14 +62,4 @@ export class SelectGoalPage {
       manualGoal: false
     });
   }
-
-	presentToast() {
-		let toast = this.toastCtrl.create({
-			message: 'Goal created successfully',
-			duration: 3000,
-			position: 'bottom'
-		});
-
-		toast.present();
-	}
 }

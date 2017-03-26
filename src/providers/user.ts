@@ -5,11 +5,12 @@
  * Please see the file LICENSE in this distribution for license terms.
  */
 import { Injectable } from '@angular/core';
+import { ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { BeeminderApi } from './beeminder-api';
 import { NectarApi } from './nectar-api';
-import { Component, Inject } from '@angular/core';
+import { Inject } from '@angular/core';
 import { EnvVariables } from '../app/environment-variables/environment-variables.token';
 
 let defaultSettings = {
@@ -27,7 +28,7 @@ export class User {
   private isLoggedIn: boolean;
   private nectarUser: any;
 
-  constructor(public storage: Storage, public beeminder: BeeminderApi, public nectar: NectarApi, @Inject(EnvVariables) public envVariables) {
+  constructor(public storage: Storage, public beeminder: BeeminderApi, public nectar: NectarApi, private toastCtrl: ToastController, @Inject(EnvVariables) public envVariables) {
     storage.get('goals').then(goals => {
       if (goals == null) {
         beeminder.fetchGoals().subscribe(userGoals => {
@@ -71,8 +72,15 @@ export class User {
   }
 
   addbeeminderGoal(goal) {
-    this.beeminder.createGoal(goal)
-      .subscribe(() => this.goals.push(goal));
+    this.beeminder.createGoal(goal).subscribe(newbeeminderGoal => {
+	  this.goals.push(newbeeminderGoal);
+	  this.presentToast('The Beeminder goal ' + goal.slug + ' was successfully created.');
+	}, err => {
+	    if(err){
+		  console.error(err);
+		  alert('An error occurred creating Beeminder goal ' + goal.slug + ': ' + JSON.stringify(err) + '.');
+		}
+	});
   }
   
   addnectarGoal(slug, metricKey, credentialId, active, baseUrl, secretKeyBase) {
@@ -85,10 +93,16 @@ export class User {
 	
     this.nectar.createGoal(nectargoal, baseUrl, secretKeyBase).subscribe(newnectarGoal => {
       this.nectarUser.goals.push(newnectarGoal);
-    })
+	  this.presentToast('The Nectar goal ' + slug + ' was successfully created.');
+    }, err => {
+		if(err){
+		  console.error(err);
+		  alert('An error occurred creating Nectar goal ' + slug + ': ' + err + '.');
+		}
+	});
   }
 
-  addIntegration(beemindergoal, metricKey, credentialId, active, baseUrl, secretKeyBase) {
+  /*addIntegration(beemindergoal, metricKey, credentialId, active, baseUrl, secretKeyBase) {
     this.beeminder.createGoal(beemindergoal).subscribe(newbeeminderGoal => {
 	  let nectargoal = {
         credential_id: credentialId,
@@ -102,13 +116,37 @@ export class User {
         this.nectarUser.goals.push(newnectarGoal);
       })
     })
-  }
+  }*/
 
-  //TODO
-  editGoal(goal) {
-    this.beeminder.editGoal(goal).subscribe(() => {
-      this.goals[goal.slug] = goal;
-    });
+  editbeeminderGoal(goal) {
+    this.beeminder.editGoal(goal).subscribe(newnectarGoal => {
+      this.goals[goal.slug] = newnectarGoal;
+	  this.presentToast('The Beeminder goal ' + goal.slug + ' was successfully updated.');
+    }, err => {
+		if(err){
+		  console.error(err);
+		  alert('An error occurred editing Beeminder goal ' + goal.slug + ': ' + err+ '.');
+		}
+	});
+  }
+  
+  updatenectarGoal(slug, metricKey, credentialId, active, baseUrl, secretKeyBase) {
+	let nectargoal = {
+      credential_id: credentialId,
+      metric_key: metricKey,
+      slug: slug,
+	  active: active
+    };
+	
+    this.nectar.updateGoal(nectargoal, baseUrl, secretKeyBase).subscribe(newnectarGoal => {
+      this.nectarUser.goals[slug] = newnectarGoal;
+	  this.presentToast('The Nectar goal ' + slug + ' was successfully updated.');
+    }, err => {
+		if(err){
+		  console.error(err);
+		  alert('An error occurred updating Nectar goal ' + slug + ': ' + err + '.');
+		}
+	});
   }
 
   getDatapoints(goal){
@@ -116,8 +154,13 @@ export class User {
   }
 
   addDataPoint(goal, datapoint){
-    return this.beeminder.addDataPoint(goal, datapoint)
-  }
+    return this.beeminder.addDataPoint(goal, datapoint).subscribe(data => this.presentToast('The datapoint was successfully added to goal ' + goal.slug + '.'), err => {
+	    if(err){
+		  console.error(err);
+		  alert('An error occurred adding the datapoint to goal ' + goal.slug + ': ' + JSON.stringify(err) + '.');
+		}
+	  }
+  )}
 
   getSettings() {
     return this.userSettings;
@@ -231,4 +274,14 @@ export class User {
       }
     }
   }
+  
+  presentToast(message) {
+		let toast = this.toastCtrl.create({
+			message: message,
+			duration: 3000,
+			position: 'bottom'
+		});
+
+		toast.present();
+	}
 }

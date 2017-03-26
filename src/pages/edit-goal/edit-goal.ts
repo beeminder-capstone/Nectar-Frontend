@@ -39,7 +39,7 @@ export class EditGoalPage {
 		goalval: this.goal.goalval,
     }
 
-    this.user.editGoal(goal);
+    this.user.editbeeminderGoal(goal);
     this.navcontroller.pop();
    }
 

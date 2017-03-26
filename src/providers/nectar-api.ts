@@ -5,7 +5,7 @@
  * Please see the file LICENSE in this distribution for license terms.
  */
 import { Injectable } from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from "rxjs";
 import { Storage } from '@ionic/storage';
@@ -49,7 +49,7 @@ export class NectarApi {
       let url = baseUrl + '/api/v1/goals?username=' + this.username + '&secret_key=' + secretKeyBase;
       return this.http.post(url, goal)
         .map(res => res.json())
-        .catch(error => Observable.throw(error.json().error));
+		.catch(err => Observable.throw(err.json().error));
   }
 
   updateGoal(goal, baseUrl, secretKeyBase){
@@ -57,7 +57,7 @@ export class NectarApi {
     let url = baseUrl + '/api/v1/goals?username=' + this.username + '&secret_key=' + secretKeyBase;
     return this.http.put(url, goal)
       .map(res => res.json())
-      .catch(error => Observable.throw(error.json().error));
+	  .catch(err => Observable.throw(err.json().error));
   }
 
 

@@ -6,10 +6,9 @@
  */
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { InAppBrowser } from 'ionic-native';
+//import { InAppBrowser } from 'ionic-native';
 import { Observable } from 'rxjs/Observable';
 import { Storage } from '@ionic/storage';
-import { GoalDetails } from '../pages/goal-details/goal-details.ts';
 import 'rxjs/Rx';
 
 @Injectable()
@@ -52,35 +51,35 @@ export class BeeminderApi {
     let url = 'https://www.beeminder.com/apps/authorize?client_id=' + client_id + '&client_secret=' + client_secret + '&grant_type=refresh_token&code=' + code + '&redirect_uri=' + nectarbaseUrl + '/auth/beeminder/callback';
     return this.http.post(url, null)
       .map(res => res.json())
-	  .catch(err => Observable.throw(err.json().error));
+	  .catch(err => Observable.throw(err.json().errors));
   }*/
   
   fetchUser() {
     let url = this.baseUrl + '/users/me.json?access_token=' + this.access_token;
     return this.http.get(url)
       .map(res => res.json())
-      .catch(err => Observable.throw(err.json().error));
+      .catch(err => Observable.throw(err.json().errors));
   }
 
   fetchGoals() {
     let url = this.baseUrl + '/users/me/goals.json?access_token=' + this.access_token;
     return this.http.get(url)
       .map(res => res.json())
-      .catch(err => Observable.throw(err.json().error));
+      .catch(err => Observable.throw(err.json().errors));
   }
 
   editGoal(goal) {
     let url = `${this.baseUrl}/users/me/goals/${goal.slug}.json?access_token=${this.access_token}`;
     return this.http.put(url, goal)
       .map(res => res.json())
-	  .catch(err => Observable.throw(err.json().error));
+	  .catch(err => Observable.throw(err.json().errors));
   }
 
   createGoal(goal) {
     let url = this.baseUrl + '/users/me/goals.json?access_token=' + this.access_token;
     return this.http.post(url, goal)
       .map(res => res.json())
-	  .catch(err => Observable.throw(err.json().error));
+	  .catch(err => Observable.throw(err.json().errors));
   }
 
   addDataPoint(goal, datapoint){
@@ -88,14 +87,14 @@ export class BeeminderApi {
 
     return this.http.post(url, datapoint)
       .map(res => res.json())
-      .catch(err => Observable.throw(err.json().error));
+	  .catch(err => Observable.throw(err.json().errors));
   }
 
   fetchDatapoints(slug) {
     let url = this.baseUrl + '/users/me/goals/' + slug + '/datapoints.json?access_token=' + this.access_token;
     return this.http.get(url)
       .map(res => res.json())
-	  .catch(err => Observable.throw(err.json().error));
+	  .catch(err => Observable.throw(err.json().errors));
   }
 
 }

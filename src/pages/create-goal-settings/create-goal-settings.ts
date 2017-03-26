@@ -6,7 +6,7 @@
  */
 import { Component, Inject } from '@angular/core';
 
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
@@ -31,7 +31,7 @@ export class CreateGoalSettingsPage {
 	manualGoalParam: boolean;
   icon: string;
 
-	constructor(public navCtrl: NavController, public storage: Storage, private params: NavParams, public user: User, private toastCtrl: ToastController, @Inject(EnvVariables) public envVariables) {
+	constructor(public navCtrl: NavController, public storage: Storage, private params: NavParams, public user: User, @Inject(EnvVariables) public envVariables) {
     this.manualGoalParam = params.get("manualGoal");
 	this.metricParam = this.manualGoalParam==true ? null : params.get("metric");
     this.integrationParam = this.manualGoalParam==true ? "Manual" : params.get("integration");
@@ -63,8 +63,6 @@ export class CreateGoalSettingsPage {
     };
 	
 	this.user.addbeeminderGoal(beemindergoal);
-	  
-	this.presentToast();
 	
 	if(this.manualGoalParam == true){
 	  this.navCtrl.popToRoot();
@@ -74,14 +72,4 @@ export class CreateGoalSettingsPage {
 	  return;
 	}
   }
-
-	presentToast() {
-		let toast = this.toastCtrl.create({
-			message: 'Goal created successfully',
-			duration: 3000,
-			position: 'bottom'
-		});
-
-		toast.present();
-	}
 }
