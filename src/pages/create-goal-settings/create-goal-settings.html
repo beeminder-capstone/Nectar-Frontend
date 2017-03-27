@@ -18,7 +18,7 @@
 		<form #formData='ngForm' (ngSubmit)="onSubmit(formData.value, envVariables.DOMAIN_NAME, envVariables.SECRET_KEY)">
 
 			<ion-list-header>
-				<img border="0" src="{{icon}}" width="50px" style="logo"/>
+				<img item-left border="0" src="{{icon}}" width="50px"/>
 				{{integration}}
 				<br>
 				{{metric}}

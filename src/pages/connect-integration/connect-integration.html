@@ -18,11 +18,11 @@
 
       <div class='integration-list'>
         <a target="_blank" href="{{provider.url}}">
-          <h3>{{provider.title}}</h3>
+          <p text-center>{{provider.title}}</p>
         </a>
         <img alt="{{provider.title}} Logo" class="{{provider.style}}" src="assets/logos/{{provider.name}}.png" (click)="selectIntegration(envVariables.DOMAIN_NAME, provider)"/>
       </div>
-      
+
     </ion-col>
   </ion-row>
   </ion-list>

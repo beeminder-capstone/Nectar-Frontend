@@ -25,7 +25,7 @@ export class MyApp {
   rootPage;
   activePage : any;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, icon: string}>;
 
   constructor(public platform: Platform, public alertCtrl: AlertController, public menu: MenuController, public user: User) {
     this.user.getLoginStatus().then(isLoggedIn  => {
@@ -37,9 +37,9 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-	    { title: 'Create New Goal', component: AddGoalPage },
-	    { title: 'Settings', component: SettingsPage },
+      { title: 'Home', component: HomePage , icon:'home'},
+	    { title: 'Create New Goal', component: AddGoalPage, icon:'add-circle' },
+	    { title: 'Settings', component: SettingsPage, icon:'settings' },
     ];
 
     this.activePage = this.pages[0];
