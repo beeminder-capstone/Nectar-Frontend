@@ -9,7 +9,7 @@
 		<button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-		<ion-title>Select Beeminder Goal</ion-title>
+		<ion-title>Edit Integration</ion-title>
 	</ion-navbar>
 </ion-header>
 
@@ -24,28 +24,28 @@
 
     <ion-card>
 
-      <p text-center>Please select an existing Beeminder goal:</p>
-
-      <form #formData='ngForm' (ngSubmit)="onSubmit(formData.value, envVariables.DOMAIN_NAME, envVariables.SECRET_KEY)">
+      <form (ngSubmit)="confirm(envVariables.DOMAIN_NAME, envVariables.SECRET_KEY)">
         <ion-item>
-          <ion-label stacked>Goal</ion-label>
-          <ion-select [(ngModel)]="slug" name="slug" required="true" placeholder="Select goal">
+          <ion-label stacked>Please select a goal:</ion-label>
+          <ion-select [(ngModel)]="integrationgoal.slug" name="slug" required>
             <ion-option *ngFor="let goal of goals" value="{{goal.slug}}">{{goal.slug}}</ion-option>
           </ion-select>
         </ion-item>
-        <ion-item>
-          <button ion-button block type="onSubmit()">Add integration to existing goal</button>
-        </ion-item>
+		<ion-item>
+		  <ion-label stacked>Enabled:</ion-label>
+		  <ion-checkbox [(ngModel)]="integrationgoal.active" name="active" required></ion-checkbox>
+		</ion-item>
+        <ion-row>
+			<ion-col width-50 style="text-align: right">
+				<button ion-button type="confirm()">Submit</button>
+			</ion-col>
+
+			<ion-col width-50 style="text-align: left">
+			  <button ion-button color="dark" type="button" (click)="cancel()">Cancel</button>
+			</ion-col>
+		</ion-row>
       </form>
 
-    </ion-card>
-
-    <p text-center>Or</p>
-
-    <ion-card>
-      <ion-item>
-        <button ion-button block (click)="createGoal()">Create New Beeminder Goal</button>
-      </ion-item>
     </ion-card>
 
   </ion-list>

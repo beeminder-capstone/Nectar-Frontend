@@ -8,16 +8,20 @@ import { Component } from '@angular/core';
 import { ViewController, NavController, NavParams } from 'ionic-angular';
 
 import { EditGoalPage } from '../edit-goal/edit-goal';
+import { EditIntegrationPage } from '../edit-integration/edit-integration';
 
 @Component({
     template: `
     <ion-list> 
-      <button ion-item (click)="editSettingsTapped($event)">Edit Beeminder Goal</button> 
+      <button ion-item (click)="editbeeminderTapped($event)">Edit Beeminder Goal</button> 
+	  <div *ngIf="goal.integration != null">
+      <button ion-item (click)="editIntegrationTapped($event)">Edit Integration</button> 
+	  </div>
     </ion-list> 
   `
 })
 export class PopoverPage {
-    goal: any;
+	goal: any;
     constructor(
         public viewCtrl: ViewController,
         public navParams: NavParams,
@@ -28,8 +32,12 @@ export class PopoverPage {
         this.goal = this.navParams.data.goal;
     }
 
-    editSettingsTapped(event) {
+    editbeeminderTapped(event) {
 		this.navCtrl.push(EditGoalPage, { goal: this.goal });
+    }
+	
+	editIntegrationTapped(event) {
+		this.navCtrl.push(EditIntegrationPage, { goal: this.goal });
     }
 
     close() {

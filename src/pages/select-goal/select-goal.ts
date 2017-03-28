@@ -23,11 +23,8 @@ import { EnvVariables } from '../../app/environment-variables/environment-variab
 	templateUrl: 'select-goal.html'
 })
 export class SelectGoalPage {
-	access_token: string;
 	integration: string;
 	metric: string;
-	slug: string;
-	title: string;
 	integrationParam: any;
 	metricParam: any;
     icon: string;

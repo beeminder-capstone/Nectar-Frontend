@@ -20,12 +20,13 @@ import { SelectGoalPage } from '../pages/select-goal/select-goal';
 import { CreateGoalSettingsPage } from '../pages/create-goal-settings/create-goal-settings';
 import { SelectMetricPage } from  '../pages/select-metric/select-metric';
 import { PopoverPage } from '../pages/goal-details/popover';
+import { EditGoalPage } from "../pages/edit-goal/edit-goal";
+import { EditIntegrationPage } from '../pages/edit-integration/edit-integration';
 
 
 import { User } from '../providers/user';
 import { BeeminderApi } from '../providers/beeminder-api';
 import { NectarApi } from '../providers/nectar-api';
-import { EditGoalPage } from "../pages/edit-goal/edit-goal";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { EditGoalPage } from "../pages/edit-goal/edit-goal";
     SettingsPage,
     SelectMetricPage,
     EditGoalPage,
+    EditIntegrationPage,
     PopoverPage
   ],
   imports: [
@@ -59,6 +61,7 @@ import { EditGoalPage } from "../pages/edit-goal/edit-goal";
     SettingsPage,
     GoalDetailsPage,
     EditGoalPage,
+    EditIntegrationPage,
     SelectMetricPage,
     PopoverPage
   ],

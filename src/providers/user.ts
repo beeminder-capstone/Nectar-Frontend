@@ -138,9 +138,10 @@ export class User {
 	});
   }
   
-  updatenectarGoal(slug, metricKey, credentialId, active, baseUrl, secretKeyBase) {
+  updatenectarGoal(slug, id, metricKey, credentialId, active, baseUrl, secretKeyBase) {
 	let nectargoal = {
       credential_id: credentialId,
+      id: id,
       metric_key: metricKey,
       slug: slug,
 	  active: active
@@ -248,9 +249,17 @@ export class User {
     }
     return this.getCredentialname(id);
   }
+  
+  getIntergrationGoal(goal) {
+    for (let g of this.nectarUser.goals) {
+      if (g.slug == goal.slug) {
+        return g;
+      }
+    }
+  }
 
   //Returns list of all integrations that the user is logged into
-  getLoggedInIntergrations() {
+  /*getLoggedInIntergrations() {
     let integrations = [];
     let integration = { provider_name: String, icon: String, id: Number };
 
@@ -261,10 +270,21 @@ export class User {
     }
 
     return integrations;
-  }
+  }*/
 
-  getMetrics(provider: string) {
+  /*getMetrics(provider: string) {
     return this.nectarUser.providers[provider].metrics_repo.collection;
+  }*/
+  
+  getMetric(provider: string, key: string) {
+	let integration = this.nectarUser.providers.find(p => p[0] == provider);
+	let metrics = integration[1].metrics_repo.collection;
+	let metricKeys = Object.keys(metrics);
+    for (let m of metricKeys) {
+	  if (metrics[m].key == key) {
+        return metrics[m];
+      }
+    }
   }
 
   getCredentialID(integrationTitle: string): number {

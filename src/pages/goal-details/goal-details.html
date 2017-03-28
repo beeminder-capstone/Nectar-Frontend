@@ -63,6 +63,10 @@
         <span item-left>Last Updated</span>
         <span item-right>{{goal.lastUpdated | date:'M/dd/yyyy HH:mm:ss'}}</span>
       </ion-item>
+	  <ion-item>
+        <span item-left>Beeminder Link</span>
+        <span item-right><a target="_blank" href="https://www.beeminder.com/{{username}}/goals/{{goal.slug}}">{{goal.slug}}</a></span>
+      </ion-item>
     </ion-list>
 
   </ion-card>
