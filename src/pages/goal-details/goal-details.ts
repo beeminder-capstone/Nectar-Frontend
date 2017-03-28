@@ -18,10 +18,9 @@ import { User } from '../../providers/user';
 
 export class GoalDetailsPage {
 
-  goal = {};
+  goal: any;
   datapointValue;
   showUpdateComponent: boolean = false;
-  datapoints = [];
   username: string;
 
   constructor(
@@ -38,15 +37,11 @@ export class GoalDetailsPage {
   }
 
   ngOnInit() {
-    this.goal = this.navParams.data;
-    console.log(this.goal);
-    this.user.getDatapoints(this.goal).subscribe((data) => {
-      this.datapoints = data;
-    });
+    this.goal = this.navParams.data.goal;
   }
 
   presentPopover(event: Event) {
-    let popover = this.popoverCtrl.create(PopoverPage, this.goal);
+    let popover = this.popoverCtrl.create(PopoverPage, { goal: this.goal });
     popover.present({ ev: event });
   }
 
@@ -62,8 +57,13 @@ export class GoalDetailsPage {
 
     this.user.addDataPoint(this.goal, datapoint);
 	
-	this.user.getDatapoints(this.goal).subscribe((data) => {
-      this.datapoints = data;
+	this.user.getGoal(this.goal.slug).subscribe((data) => {
+      this.goal = data;
+	  
+	  this.goal.lastUpdated = new Date(this.goal.updated_at * 1000),
+      this.goal.laneColor = this.laneColorFunc(this.goal.lane),
+	  this.goal.integration = this.user.getIntergration(this.goal),
+      this.goal.icon = this.goal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.goal.integration + ".png"
     });
 
   }
@@ -98,6 +98,19 @@ export class GoalDetailsPage {
     prompt.present();
   }
 
-
+  laneColorFunc(laneLevel) {
+    if (laneLevel >= 2) {
+      return "ontrack";
+    }
+    else if (laneLevel == 1) {
+      return "good";
+    }
+    else if (laneLevel == -1) {
+      return "trouble";
+    }
+    else {
+      return "offtrack";
+    }
+  }
 
 }

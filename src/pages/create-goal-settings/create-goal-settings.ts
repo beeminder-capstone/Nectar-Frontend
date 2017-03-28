@@ -69,7 +69,6 @@ export class CreateGoalSettingsPage {
       this.navCtrl.setRoot(HomePage);
 	}else{
 	  this.navCtrl.pop();
-	  return;
 	}
   }
 }

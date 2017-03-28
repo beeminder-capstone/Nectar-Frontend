@@ -17,7 +17,7 @@ import { User } from '../../providers/user';
 })
 
 export class EditGoalPage {
-    goal: any
+    goal: any;
 
    constructor( 
        public user: User,
@@ -26,20 +26,16 @@ export class EditGoalPage {
    ){}
 
    ngOnInit() {
-       this.goal = this.navParams.data;
+       this.goal = this.navParams.data.goal;
    }
 
    confirm(){
-    console.log(this.goal)
-
-    let goal = {
+    let beemindergoal = {
         slug: this.goal.slug,
 		title: this.goal.title,
-		gunit: this.goal.runits, //There isn't a gunit variable?
-		goalval: this.goal.goalval,
     }
 
-    this.user.editbeeminderGoal(goal);
+    this.user.editbeeminderGoal(beemindergoal);
     this.navcontroller.pop();
    }
 

@@ -12,7 +12,7 @@ import { EditGoalPage } from '../edit-goal/edit-goal';
 @Component({
     template: `
     <ion-list> 
-      <button ion-item (click)="editSettingsTapped($event)">Edit Settings</button> 
+      <button ion-item (click)="editSettingsTapped($event)">Edit Beeminder Goal</button> 
     </ion-list> 
   `
 })
@@ -24,15 +24,15 @@ export class PopoverPage {
         public navCtrl: NavController,
     ) { }
 
-    onNgInit() {
-        this.goal = this.navParams.data;
+    ngOnInit() {
+        this.goal = this.navParams.data.goal;
     }
 
     editSettingsTapped(event) {
-        this.navCtrl.push(EditGoalPage, this.goal);
+		this.navCtrl.push(EditGoalPage, { goal: this.goal });
     }
 
-    close(url: string) {
+    close() {
         this.viewCtrl.dismiss();
     }
 }

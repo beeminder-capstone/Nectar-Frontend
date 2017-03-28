@@ -19,7 +19,7 @@ import { User } from './../../providers/user';
 })
 export class HomePage {
   icons: string[];
-  public goals: {};
+  public goals = [];
   username: string;
 
   constructor(public navCtrl: NavController, public menu: MenuController, public storage: Storage, private user: User) {
@@ -29,21 +29,22 @@ export class HomePage {
 		this.username = value;
 	});
 	
-	this.goals = this.user.goals;
-	
-    user.getGoals().subscribe((goals) => {
-      this.goals = goals;
-      for (let goal of goals) {
-        goal.lastUpdated = new Date(goal.updated_at * 1000),
-          goal.laneColor = this.laneColorFunc(goal.lane),
-		  goal.integration = user.getIntergration(goal),
-          goal.icon = goal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + goal.integration + ".png"
+    user.getUser().subscribe((auser) => {
+      for (let goal of auser.goals) {
+	    user.getGoal(goal).subscribe((agoal) => {
+          agoal.lastUpdated = new Date(agoal.updated_at * 1000),
+          agoal.laneColor = this.laneColorFunc(agoal.lane),
+		  agoal.integration = user.getIntergration(agoal),
+          agoal.icon = agoal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + agoal.integration + ".png"
+		  
+		  this.goals.push(agoal);
+		});
       }
     });
   }
 
   itemTapped(goal) {
-    this.navCtrl.push(GoalDetailsPage, goal);
+    this.navCtrl.push(GoalDetailsPage, { goal: goal });
   }
 
   laneColorFunc(laneLevel) {

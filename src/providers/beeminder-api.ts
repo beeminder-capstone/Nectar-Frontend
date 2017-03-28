@@ -60,6 +60,13 @@ export class BeeminderApi {
       .map(res => res.json())
       .catch(err => Observable.throw(err.json().errors));
   }
+  
+  fetchGoal(slug) {
+    let url = this.baseUrl + '/users/me/goals/' + slug + '.json?access_token=' + this.access_token + '&datapoints=true';
+    return this.http.get(url)
+      .map(res => res.json())
+      .catch(err => Observable.throw(err.json().errors));
+  }
 
   fetchGoals() {
     let url = this.baseUrl + '/users/me/goals.json?access_token=' + this.access_token;
@@ -90,8 +97,8 @@ export class BeeminderApi {
 	  .catch(err => Observable.throw(err.json().errors));
   }
 
-  fetchDatapoints(slug) {
-    let url = this.baseUrl + '/users/me/goals/' + slug + '/datapoints.json?access_token=' + this.access_token;
+  fetchDatapoints(goal) {
+    let url = this.baseUrl + '/users/me/goals/' + goal.slug + '/datapoints.json?access_token=' + this.access_token;
     return this.http.get(url)
       .map(res => res.json())
 	  .catch(err => Observable.throw(err.json().errors));

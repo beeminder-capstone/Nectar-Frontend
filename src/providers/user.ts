@@ -66,6 +66,14 @@ export class User {
       }
     });
   }
+  
+  getUser() {
+    return this.beeminder.fetchUser();
+  }
+  
+  getGoal(slug) {
+    return this.beeminder.fetchGoal(slug);
+  }
 
   getGoals() {
     return this.beeminder.fetchGoals();
@@ -150,7 +158,7 @@ export class User {
   }
 
   getDatapoints(goal){
-    return this.beeminder.fetchDatapoints(goal.slug);
+    return this.beeminder.fetchDatapoints(goal);
   }
 
   addDataPoint(goal, datapoint){
