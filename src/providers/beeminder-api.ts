@@ -88,9 +88,17 @@ export class BeeminderApi {
       .map(res => res.json())
 	  .catch(err => Observable.throw(err.json().errors));
   }
+  
+  editDataPoint(goal, id, datapoint){
+    let url = this.baseUrl + '/users/me/goals/' + goal.slug + '/datapoints/' + id + '.json?access_token=' + this.access_token;
+
+    return this.http.put(url, datapoint)
+      .map(res => res.json())
+	  .catch(err => Observable.throw(err.json().errors));
+  }
 
   addDataPoint(goal, datapoint){
-    let url = this.baseUrl + '/users/me/goals/' + goal.slug + '/datapoints.json?timestamp=' + datapoint.timestamp + '&value=' + datapoint.value + '&comment=' + datapoint.comment + '&access_token=' + this.access_token;
+    let url = this.baseUrl + '/users/me/goals/' + goal.slug + '/datapoints.json?access_token=' + this.access_token;
 
     return this.http.post(url, datapoint)
       .map(res => res.json())

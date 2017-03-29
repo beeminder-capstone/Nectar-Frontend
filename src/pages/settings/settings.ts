@@ -4,13 +4,15 @@
  * This code is available under the "MIT License".
  * Please see the file LICENSE in this distribution for license terms.
  */
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
 import { AlertController, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { SocialSharing } from 'ionic-native';
 
 import { User } from '../../providers/user';
+
+import { EnvVariables } from '../../app/environment-variables/environment-variables.token';
 
 @Component({
   selector: 'page-settings',
@@ -28,7 +30,8 @@ export class SettingsPage {
     public storage: Storage,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
-    public user: User
+    public user: User,
+	@Inject(EnvVariables) public envVariables
   ) {
     this.storage.get('username').then((value) => {
       this.username = value;
@@ -59,10 +62,10 @@ export class SettingsPage {
     this.user.changeSetting('enableVibration', this.vibration_toggle);
   }
 
-  showAbout() {
+  showAbout(domain_name) {
     let about = this.alertCtrl.create({
       title: 'About Nectar',
-      message: 'Nectar adds support for more integrations on <a target="_blank" href="https://beeminder.com">Beeminder</a>.<br>Automatically gets data from supported integrations and adds it to Beeminder goals.',
+      message: 'Nectar adds support for more integrations on <a target="_blank" href="https://beeminder.com">Beeminder</a>.<br>Automatically gets data from supported integrations and adds it to Beeminder goals.<br>Visit <a target="_blank" href="' + domain_name + '">' + domain_name + '</a> for more information.',
       buttons: ['OK']
     });
     about.present();
@@ -84,7 +87,8 @@ export class SettingsPage {
       message: 'Help us improve Nectar!',
       buttons: [
         {
-          text: 'Cancel'
+          text: 'Cancel',
+		  role: 'cancel'
         },
         {
           text: 'Next',

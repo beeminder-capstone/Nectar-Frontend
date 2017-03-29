@@ -22,28 +22,39 @@
   </div>
   
   <ion-card>
+    <ion-item text-wrap>
+	  <ion-thumbnail item-left>
+        <img src="{{goal.icon}}">
+      </ion-thumbnail>
+	  <h2>
+	  {{integration}}
+	  <br>
+	  {{metric}}</h2>
+	</ion-item>
+  </ion-card>
+  
+  <ion-card>
     <ion-card-header>
-      <ion-item>
-        <h1>{{goal.slug}}</h1>
-        <ion-thumbnail item-left>
-          <img src={{goal.icon}}>
-        </ion-thumbnail>
-      </ion-item>
+      <h1>{{goal.title}}</h1>
     </ion-card-header>
 
 
 
     <ion-card-content>
       <!--This will contain the d3 graph of the users datapoints-->
-      <ion-img width="300" height="200" src={{goal.graph_url}}> </ion-img>
+      <img src="{{goal.graph_url}}" class="graph"/>
       <button ion-button block color={{goal.laneColor}}></button>
+	  <ion-item>
+        <span item-left>Summary</span>
+        <span item-right>{{goal.limsum}}</span>
+      </ion-item>
     </ion-card-content>
   </ion-card>
 
   <ion-card>
 
     <ion-card-header>
-      <h1>Settings</h1>
+      <h2>Settings</h2>
     </ion-card-header>
 
     <ion-list>
@@ -61,7 +72,7 @@
       </ion-item>
       <ion-item>
         <span item-left>Last Updated</span>
-        <span item-right>{{goal.lastUpdated | date:'M/dd/yyyy HH:mm:ss'}}</span>
+        <span item-right>{{goal.lastUpdated | date:"MMM d, y h:mm a"}}</span>
       </ion-item>
 	  <ion-item>
         <span item-left>Beeminder Link</span>
@@ -74,23 +85,34 @@
   <ion-card>
 
     <ion-card-header>
-      <h1>Datapoints</h1>
+      <h2>Datapoints</h2>
     </ion-card-header>
 
     <div text-center>
-      <button ion-button (click)="showPrompt()">Add Datapoint</button>
+      <button ion-button (click)="addDatapointPrompt()">Add Datapoint</button>
     </div>
 
-    <ion-list>
-      <ion-item>
+    <ion-list text-wrap>
+      <ion-list-header>
         <span item-left>Value</span>
         <span item-right>Updated</span>
-      </ion-item>
+      </ion-list-header>
 
-      <ion-item *ngFor="let datapoint of goal.datapoints">
-        <span>{{datapoint.value  |  number:0}}</span>
-        <span item-right style="font-style: italic">{{datapoint.timestamp*1000  |  date:'M/d/yyyy HH:mm:ss'}} </span>
-      </ion-item>
+      <button ion-item *ngFor="let datapoint of goal.datapoints" (click)="editDatapointPrompt(datapoint)">
+		<ion-row wrap>
+		  <ion-col width-33>
+		    <span>{{datapoint.value  |  number:0}}</span>
+		  </ion-col>
+		  <ion-col width-67>
+		    <span style="float: right; font-style: italic">{{datapoint.timestamp*1000  |  date:"MMM d, y h:mm a"}} </span>
+		  </ion-col>
+	    </ion-row>
+		<ion-row wrap>
+		  <ion-col>
+		    <span>{{datapoint.comment}}</span>
+		  </ion-col>
+	    </ion-row>
+      </button>
     </ion-list>
 
   </ion-card>

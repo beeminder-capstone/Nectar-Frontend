@@ -22,6 +22,8 @@ import { EditIntegrationPage } from '../edit-integration/edit-integration';
 })
 export class PopoverPage {
 	goal: any;
+	integration: string;
+    metric: string;
     constructor(
         public viewCtrl: ViewController,
         public navParams: NavParams,
@@ -30,6 +32,8 @@ export class PopoverPage {
 
     ngOnInit() {
         this.goal = this.navParams.data.goal;
+        this.integration = this.navParams.data.integration;
+        this.metric = this.navParams.data.metric;
     }
 
     editbeeminderTapped(event) {
@@ -37,7 +41,7 @@ export class PopoverPage {
     }
 	
 	editIntegrationTapped(event) {
-		this.navCtrl.push(EditIntegrationPage, { goal: this.goal });
+		this.navCtrl.push(EditIntegrationPage, { goal: this.goal, integration: this.integration, metric: this.metric });
     }
 
     close() {

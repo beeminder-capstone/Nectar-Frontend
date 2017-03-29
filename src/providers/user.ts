@@ -133,7 +133,7 @@ export class User {
     }, err => {
 		if(err){
 		  console.error(err);
-		  alert('An error occurred editing Beeminder goal ' + goal.slug + ': ' + err+ '.');
+		  alert('An error occurred updating Beeminder goal ' + goal.slug + ': ' + err+ '.');
 		}
 	});
   }
@@ -167,6 +167,15 @@ export class User {
 	    if(err){
 		  console.error(err);
 		  alert('An error occurred adding the datapoint to goal ' + goal.slug + ': ' + JSON.stringify(err) + '.');
+		}
+	  }
+  )}
+  
+  editDataPoint(goal, id, datapoint){
+    return this.beeminder.editDataPoint(goal, id, datapoint).subscribe(data => this.presentToast('The datapoint was successfully updated for goal ' + goal.slug + '.'), err => {
+	    if(err){
+		  console.error(err);
+		  alert('An error occurred updating the datapoint for goal ' + goal.slug + ': ' + JSON.stringify(err) + '.');
 		}
 	  }
   )}

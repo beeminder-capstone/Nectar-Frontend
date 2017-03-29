@@ -68,14 +68,14 @@ export class MyApp {
       message: 'Are you sure you want to log out?',
       buttons: [
         {
-          text: 'Cancel'
+          text: 'Cancel',
+		  role: 'cancel'
         },
         {
           text: 'Confirm',
           handler: () => {
             this.user.logout();
             this.nav.setRoot(LoginPage);
-            this.menu.toggle();
           }
         }
       ]

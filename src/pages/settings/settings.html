@@ -46,7 +46,7 @@
 
   <ion-list>
     <ion-list-header>Nectar App</ion-list-header>
-    <button ion-item (click)="showAbout()">About</button>
+    <button ion-item (click)="showAbout(envVariables.DOMAIN_NAME)">About Nectar</button>
     <button ion-item (click)="showOpenSource()">License</button>
     <button ion-item (click)="showFeedback()">Send Feedback</button>
   </ion-list>
