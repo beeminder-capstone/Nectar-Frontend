@@ -29,9 +29,11 @@
     <button ion-item *ngFor="let goal of goals" (click)="itemTapped(goal)">
 		<img item-left src="{{goal.thumb_url}}" class="thumb"/>
         <h1>{{goal.slug}}</h1>
+        <p>Rate: {{goal.rate}}/{{goal.runits}}</p>
         <p>{{goal.limsum}}</p>
 		<img item-right border="0" src="{{goal.icon}}" width="50px"/>
-        <button item-right class='large_button' ion-button color="{{goal.laneColor}}"></button>
+        <div item-right class='box' [style.background-color]="goal.color">
+	    </div>
     </button>
   </ion-list>
 </ion-content>

@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { DomSanitizer } from '@angular/platform-browser';
 import { PopoverPage } from './popover'
 import { User } from '../../providers/user';
 
@@ -69,7 +70,8 @@ export class GoalDetailsPage {
 	public storage: Storage,
     private user: User,
     private popoverCtrl: PopoverController,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+	private sanitizer: DomSanitizer
   ) {
 	this.storage.get('username').then((value) => {
 		this.username = value;
@@ -106,9 +108,9 @@ export class GoalDetailsPage {
       this.goal = data;
 	  
 	  this.goal.lastUpdated = new Date(this.goal.updated_at * 1000),
-      this.goal.laneColor = this.laneColorFunc(this.goal.lane),
 	  this.goal.integration = this.user.getIntergration(this.goal),
-      this.goal.icon = this.goal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.goal.integration + ".png"
+      this.goal.icon = this.goal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.goal.integration + ".png",
+	  this.goal.color = this.sanitizer.bypassSecurityTrustStyle(this.goal.roadstatuscolor)
     });
 
   }
@@ -125,9 +127,9 @@ export class GoalDetailsPage {
       this.goal = data;
 	  
 	  this.goal.lastUpdated = new Date(this.goal.updated_at * 1000),
-      this.goal.laneColor = this.laneColorFunc(this.goal.lane),
 	  this.goal.integration = this.user.getIntergration(this.goal),
-      this.goal.icon = this.goal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.goal.integration + ".png"
+      this.goal.icon = this.goal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.goal.integration + ".png",
+	  this.goal.color = this.sanitizer.bypassSecurityTrustStyle(this.goal.roadstatuscolor)
     });
 
   }
@@ -205,21 +207,6 @@ export class GoalDetailsPage {
       ]
     });
     prompt.present();
-  }
-
-  laneColorFunc(laneLevel) {
-    if (laneLevel >= 2) {
-      return "ontrack";
-    }
-    else if (laneLevel == 1) {
-      return "good";
-    }
-    else if (laneLevel == -1) {
-      return "trouble";
-    }
-    else {
-      return "offtrack";
-    }
   }
 
 }

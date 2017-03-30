@@ -42,10 +42,15 @@
 
     <ion-card-content>
       <!--This will contain the d3 graph of the users datapoints-->
-      <img src="{{goal.graph_url}}" class="graph"/>
-      <button ion-button block color={{goal.laneColor}}></button>
+      <div class='box' [style.background-color]="goal.color">
+		<ion-item [style.background-color]="goal.color" style="color: white;">
+		  <span item-left>Derailment:</span>
+          <span item-right>{{goal.losedate * 1000 | date:"MMM d, y h:mm a"}}</span>
+		</ion-item>
+	  </div>
+	  <img src="{{goal.graph_url}}" class="graph"/>
 	  <ion-item>
-        <span item-left>Summary</span>
+        <span item-left>Summary:</span>
         <span item-right>{{goal.limsum}}</span>
       </ion-item>
     </ion-card-content>
@@ -59,23 +64,23 @@
 
     <ion-list>
       <ion-item>
-        <span item-left>Rate</span>
-        <span item-right>{{goal.rate  | number:0}} </span>
+        <span item-left>Rate:</span>
+        <span item-right>{{goal.rate  | number:0}}/{{goal.runits}}</span>
       </ion-item>
       <ion-item>
-        <span item-left>Current Value</span>
+        <span item-left>Current Value:</span>
         <span item-right>{{goal.curval  | number:0}}</span>
       </ion-item>
       <ion-item>
-        <span item-left>Amount Pledged</span>
+        <span item-left>Amount Pledged:</span>
         <span item-right>{{goal.pledge}}</span>
       </ion-item>
       <ion-item>
-        <span item-left>Last Updated</span>
+        <span item-left>Last Updated:</span>
         <span item-right>{{goal.lastUpdated | date:"MMM d, y h:mm a"}}</span>
       </ion-item>
 	  <ion-item>
-        <span item-left>Beeminder Link</span>
+        <span item-left>Beeminder Link:</span>
         <span item-right><a target="_blank" href="https://www.beeminder.com/{{username}}/goals/{{goal.slug}}">{{goal.slug}}</a></span>
       </ion-item>
     </ion-list>

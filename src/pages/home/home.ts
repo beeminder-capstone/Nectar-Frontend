@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 import { NavController, MenuController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { GoalDetailsPage } from '../goal-details/goal-details';
 import { AddGoalPage } from '../add-goal/add-goal';
@@ -22,7 +23,7 @@ export class HomePage {
   public goals = [];
   username: string;
 
-  constructor(public navCtrl: NavController, public menu: MenuController, public storage: Storage, private user: User) {
+  constructor(public navCtrl: NavController, public menu: MenuController, public storage: Storage, private sanitizer: DomSanitizer, private user: User) {
     this.menu.swipeEnable(true);
 	
 	this.storage.get('username').then((value) => {
@@ -33,9 +34,9 @@ export class HomePage {
       for (let goal of auser.goals) {
 	    user.getGoal(goal).subscribe((agoal) => {
           agoal.lastUpdated = new Date(agoal.updated_at * 1000),
-          agoal.laneColor = this.laneColorFunc(agoal.lane),
 		  agoal.integration = user.getIntergration(agoal),
-          agoal.icon = agoal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + agoal.integration + ".png"
+          agoal.icon = agoal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + agoal.integration + ".png",
+          agoal.color = sanitizer.bypassSecurityTrustStyle(agoal.roadstatuscolor)
 		  
 		  this.goals.push(agoal);
 		});
@@ -45,21 +46,6 @@ export class HomePage {
 
   itemTapped(goal) {
     this.navCtrl.push(GoalDetailsPage, { goal: goal });
-  }
-
-  laneColorFunc(laneLevel) {
-    if (laneLevel >= 2) {
-      return "ontrack";
-    }
-    else if (laneLevel == 1) {
-      return "good";
-    }
-    else if (laneLevel == -1) {
-      return "trouble";
-    }
-    else {
-      return "offtrack";
-    }
   }
 
   addGoal() {

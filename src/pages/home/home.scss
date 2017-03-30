@@ -8,29 +8,19 @@ page-home {
 	.user p {
 		text-align: center;
 	}
-
-    .large_button {
-        line-height: 15vh !important;
-        width: 20%;
-    }
-    
-    .name { 
-        margin-top: auto; 
-        font-size: 20px; 
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
-    } 
-    
-    .center{
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
-        
-    }
 	
 	img.thumb {
 		max-width: 200px;
 		width: 20%;
    }
+   
+    div.box {
+        width: 20%;
+		max-width: 200px;
+		height: 80%;
+		max-height: 200px;
+		border-radius: 5px;
+		color: white;
+		text-align: center;
+    }
 }
