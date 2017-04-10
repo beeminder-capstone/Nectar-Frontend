@@ -3,13 +3,24 @@
 
 Copyright © 2017 The [PSU](https://www.pdx.edu/) [CS](https://www.pdx.edu/computer-science/) Beeminder [Capstone](http://wiki.cs.pdx.edu/capstone/fall_2016/fall_2016.html) Team
 
+Maintained by: [Teal Dulcet](https://github.com/tdulcet)
+
+Made by:
+* [Rachael Johnson](https://github.com/rhatchet)
+* [Kevin Bui](https://github.com/kevbui)
+* Teal Dulcet
+* [Nathan Axt](https://github.com/naxt25)
+* [Tim Sweeney](https://github.com/sweeney6)
+* [Nida Imran](https://github.com/nidaimran)
+* [Tuan Lam](https://github.com/t-lam)
+
 Frontend for Nectar app
 
 Nectar adds support for more integrations on [Beeminder](https://www.beeminder.com/). Automatically gets data from supported integrations and adds it to Beeminder goals.
 
 This frontend compiles an Android and iOS version of the app, more interfaces to be added at a later date.
 
-This is a work in progress. Incorporates the [Nectar Backend](https://github.com/beeminder-capstone/Nectar-Backend).
+Incorporates the [Nectar Backend](https://github.com/beeminder-capstone/Nectar-Backend).
 
 Requires [Cordova and Ionic 2](https://ionicframework.com/getting-started/).
 
