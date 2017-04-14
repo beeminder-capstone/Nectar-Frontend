@@ -8,7 +8,7 @@ import { Component, Inject } from '@angular/core';
 
 import { AlertController, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { SocialSharing } from 'ionic-native';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { User } from '../../providers/user';
 
@@ -28,6 +28,7 @@ export class SettingsPage {
 
   constructor(
     public storage: Storage,
+	private socialSharing: SocialSharing,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public user: User,
@@ -93,8 +94,8 @@ export class SettingsPage {
         {
           text: 'Next',
           handler: data => {
-            SocialSharing.canShareViaEmail().then(() => {
-              SocialSharing.shareViaEmail("", 'User Feedback: ' + this.username, ['nectarapp.feedback@gmail.com'])
+            this.socialSharing.canShareViaEmail().then(() => {
+              this.socialSharing.shareViaEmail("", 'User Feedback: ' + this.username, ['nectarapp.feedback@gmail.com'])
                 .then(() => { this.createToast('Thank you for your feedback!'); })
                 .catch(() => { this.createToast('Failed to send message!'); });
             }).catch(() => {

@@ -104,15 +104,15 @@
       </ion-list-header>
 
       <button ion-item *ngFor="let datapoint of goal.datapoints" (click)="editDatapointPrompt(datapoint)">
-		<ion-row wrap>
-		  <ion-col width-33>
+		<ion-row>
+		  <ion-col col-4>
 		    <span>{{datapoint.value  |  number:0}}</span>
 		  </ion-col>
-		  <ion-col width-67>
+		  <ion-col col-8>
 		    <span style="float: right; font-style: italic">{{datapoint.timestamp*1000  |  date:"MMM d, y h:mm a"}} </span>
 		  </ion-col>
 	    </ion-row>
-		<ion-row wrap>
+		<ion-row>
 		  <ion-col>
 		    <span>{{datapoint.comment}}</span>
 		  </ion-col>

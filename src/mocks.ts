@@ -153,6 +153,20 @@ export class PlatformMock {
   }
 }
 
+export class SplashMock {
+
+  public hide() {
+    return Promise.resolve(true);
+  }
+}
+
+export class StatusMock {
+
+  public styleDefault() {
+    return Promise.resolve(true);
+  }
+}
+
 export class NavParamsMock {
   data = {
   };

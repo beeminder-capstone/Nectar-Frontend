@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/beeminder-capstone/Nectar-Frontend.svg?branch=develop)](https://travis-ci.org/beeminder-capstone/Nectar-Frontend)
 # Nectar Frontend
 
+Frontend for Nectar app
+
 Copyright © 2017 The [PSU](https://www.pdx.edu/) [CS](https://www.pdx.edu/computer-science/) Beeminder [Capstone](http://wiki.cs.pdx.edu/capstone/fall_2016/fall_2016.html) Team
 
 Maintained by: [Teal Dulcet](https://github.com/tdulcet)
@@ -13,8 +15,6 @@ Made by:
 * [Tim Sweeney](https://github.com/sweeney6)
 * [Nida Imran](https://github.com/nidaimran)
 * [Tuan Lam](https://github.com/t-lam)
-
-Frontend for Nectar app
 
 Nectar adds support for more integrations on [Beeminder](https://www.beeminder.com/). Automatically gets data from supported integrations and adds it to Beeminder goals.
 

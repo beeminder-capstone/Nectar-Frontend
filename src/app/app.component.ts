@@ -6,7 +6,8 @@
  */
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, AlertController, MenuController } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { AddGoalPage } from '../pages/add-goal/add-goal';
@@ -27,7 +28,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any, icon: string}>;
 
-  constructor(public platform: Platform, public alertCtrl: AlertController, public menu: MenuController, public user: User) {
+  constructor(public platform: Platform, public alertCtrl: AlertController, public menu: MenuController, public statusBar: StatusBar, public splashscreen: SplashScreen, public user: User) {
     this.user.getLoginStatus().then(isLoggedIn  => {
       //If true then go page1 else go into login page
       isLoggedIn ? this.rootPage = HomePage : this.rootPage = LoginPage;
@@ -50,8 +51,8 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
-      Splashscreen.hide();
+      this.statusBar.styleDefault();
+      this.splashscreen.hide();
     });
   }
 

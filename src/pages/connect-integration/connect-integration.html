@@ -13,8 +13,8 @@
 <ion-content>
   <ion-list>
   <ion-list-header>Please select an integration:</ion-list-header>
-  <ion-row wrap>
-    <ion-col width-33 *ngFor="let provider of providers">
+  <ion-row>
+    <ion-col col-4 col-xs-4 col-sm-4 col-lg-2 *ngFor="let provider of providers">
 
       <div class='integration-list'>
         <a target="_blank" href="{{provider.url}}">

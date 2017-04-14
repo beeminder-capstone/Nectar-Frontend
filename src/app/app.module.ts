@@ -5,9 +5,14 @@
  * Please see the file LICENSE in this distribution for license terms.
  */
 import { NgModule, ErrorHandler } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { SocialSharing } from '@ionic-native/social-sharing';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
+import { HttpModule } from '@angular/http';
 import { EnvironmentsModule } from './environment-variables/environment-variables.module.ts';
 
 import { HomePage } from '../pages/home/home';
@@ -45,7 +50,9 @@ import { NectarApi } from '../providers/nectar-api';
     PopoverPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp),
+    BrowserModule,
+	HttpModule,
+	IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(MyApp),
 	EnvironmentsModule
   ],
@@ -67,6 +74,9 @@ import { NectarApi } from '../providers/nectar-api';
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    StatusBar,
+    SplashScreen,
+    SocialSharing,
     BeeminderApi,
     NectarApi,
     User,
