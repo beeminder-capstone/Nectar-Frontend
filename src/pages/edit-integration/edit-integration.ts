@@ -26,9 +26,13 @@ export class EditIntegrationPage {
 	integrationgoal: any;
 
 	constructor(public navCtrl: NavController, public storage: Storage, private params: NavParams, public user: User, @Inject(EnvVariables) public envVariables) {
-	user.getGoals().subscribe((goals) => {
-      this.goals = goals;
-    });
+	user.getUser().subscribe((auser) => {
+      this.goals = auser.goals;
+    }, err => {
+		if(err){
+		  console.error(err);
+		}
+	});
   }
   
   ngOnInit() {

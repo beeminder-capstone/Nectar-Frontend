@@ -28,10 +28,25 @@ export class MyApp {
 
   pages: Array<{title: string, component: any, icon: string}>;
 
-  constructor(public platform: Platform, public alertCtrl: AlertController, public menu: MenuController, public statusBar: StatusBar, public splashscreen: SplashScreen, public user: User) {
+  constructor(public platform: Platform, public alertCtrl: AlertController, public menu: MenuController, public statusBar: StatusBar, public splashScreen: SplashScreen, public user: User) {
     this.user.getLoginStatus().then(isLoggedIn  => {
       //If true then go page1 else go into login page
-      isLoggedIn ? this.rootPage = HomePage : this.rootPage = LoginPage;
+	  if(isLoggedIn){
+		this.user.getUser().subscribe((auser) => {
+			this.user.setbeeminderUserObject(auser);
+			this.rootPage = HomePage;
+		}, err => {
+			if(err){
+			  console.error(err);
+			  this.rootPage = LoginPage;
+			}
+			else{
+			  this.rootPage = HomePage;
+			}
+		});
+	  }else{
+		this.rootPage = LoginPage;
+	  }
     });
 
     this.initializeApp();
@@ -52,7 +67,7 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
-      this.splashscreen.hide();
+      this.splashScreen.hide();
     });
   }
 
@@ -73,7 +88,7 @@ export class MyApp {
 		  role: 'cancel'
         },
         {
-          text: 'Confirm',
+          text: 'Log out',
           handler: () => {
             this.user.logout();
             this.nav.setRoot(LoginPage);

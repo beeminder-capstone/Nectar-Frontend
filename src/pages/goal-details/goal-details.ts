@@ -4,13 +4,14 @@
  * This code is available under the "MIT License".
  * Please see the file LICENSE in this distribution for license terms.
  */
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PopoverPage } from './popover'
 import { User } from '../../providers/user';
+import { EnvVariables } from '../../app/environment-variables/environment-variables.token';
 
 @Component({
   selector: 'page-goal-details',
@@ -20,11 +21,13 @@ import { User } from '../../providers/user';
 export class GoalDetailsPage {
 
   goal: any;
+  integrationgoal: any;
   datapointValue;
   showUpdateComponent: boolean = false;
   username: string;
   integration: string;
   metric: string;
+  metrictitle: string;
   providersfrontend: Array<{ url: string, title: string, name: string }> = [
 		{ url: "https://www.beeminder.com", title: "Beeminder", name: "beeminder" },
 		{ url: "https://austin.bcycle.com", title: "Austin Bcycle", name: "bcycle" },
@@ -71,6 +74,7 @@ export class GoalDetailsPage {
     private user: User,
     private popoverCtrl: PopoverController,
     public alertCtrl: AlertController,
+	@Inject(EnvVariables) public envVariables,
 	private sanitizer: DomSanitizer
   ) {
 	this.storage.get('username').then((value) => {
@@ -80,10 +84,11 @@ export class GoalDetailsPage {
 
   ngOnInit() {
     this.goal = this.navParams.data.goal;
-	let integrationgoal = this.user.getIntergrationGoal(this.goal);
+	this.integrationgoal = this.user.getIntergrationGoal(this.goal);
 	
-	this.integration = integrationgoal == null ? "Manual Goal" : 'Integration: ' + this.providersfrontend.find(p => p.name == this.goal.integration).title;
-	this.metric = integrationgoal == null ? null : 'Metric: ' + this.user.getMetric(this.goal.integration, integrationgoal.metric_key).title;
+	this.integration = this.integrationgoal == null ? "Manual Goal" : 'Integration: ' + this.providersfrontend.find(p => p.name == this.goal.integration).title;
+	this.metrictitle = this.integrationgoal == null ? null : this.user.getMetric(this.goal.integration, this.integrationgoal.metric_key).title;
+	this.metric = this.integrationgoal == null ? null : 'Metric: ' + this.metrictitle;
   }
 
   presentPopover(event: Event) {
@@ -107,11 +112,15 @@ export class GoalDetailsPage {
 	this.user.getGoal(this.goal.slug).subscribe((data) => {
       this.goal = data;
 	  
-	  this.goal.lastUpdated = new Date(this.goal.updated_at * 1000),
-	  this.goal.integration = this.user.getIntergration(this.goal),
-      this.goal.icon = this.goal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.goal.integration + ".png",
-	  this.goal.color = this.sanitizer.bypassSecurityTrustStyle(this.goal.roadstatuscolor)
-    });
+	  this.goal.lastUpdated = new Date(this.goal.updated_at * 1000);
+	  this.goal.integration = this.user.getIntergration(this.goal);
+      this.goal.icon = this.goal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.goal.integration + ".png";
+	  this.goal.color = this.sanitizer.bypassSecurityTrustStyle(this.goal.roadstatuscolor);
+    }, err => {
+		if(err){
+		  console.error(err);
+		}
+	});
 
   }
   
@@ -126,11 +135,15 @@ export class GoalDetailsPage {
 	this.user.getGoal(this.goal.slug).subscribe((data) => {
       this.goal = data;
 	  
-	  this.goal.lastUpdated = new Date(this.goal.updated_at * 1000),
-	  this.goal.integration = this.user.getIntergration(this.goal),
-      this.goal.icon = this.goal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.goal.integration + ".png",
-	  this.goal.color = this.sanitizer.bypassSecurityTrustStyle(this.goal.roadstatuscolor)
-    });
+	  this.goal.lastUpdated = new Date(this.goal.updated_at * 1000);
+	  this.goal.integration = this.user.getIntergration(this.goal);
+      this.goal.icon = this.goal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.goal.integration + ".png";
+	  this.goal.color = this.sanitizer.bypassSecurityTrustStyle(this.goal.roadstatuscolor);
+    }, err => {
+		if(err){
+		  console.error(err);
+		}
+	});
 
   }
 

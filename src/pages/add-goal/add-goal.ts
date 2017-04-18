@@ -32,10 +32,11 @@ export class AddGoalPage {
   goToConnectIntegration(baseUrl) {
 	this.platform.ready()
 		.then(() => this.BeeminderLogin(baseUrl))
+		.then(() => this.navCtrl.push(ConnectIntegrationPage))
 		.catch(() => {
 			alert('You must login to Nectar before you can create a new goal.');
 			return;
-		}).then(() => this.navCtrl.push(ConnectIntegrationPage));
+		});
   }
   
   public BeeminderLogin(baseUrl): Promise<any> {

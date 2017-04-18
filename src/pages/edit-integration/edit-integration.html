@@ -28,7 +28,7 @@
         <ion-item>
           <ion-label stacked>Please select a goal:</ion-label>
           <ion-select [(ngModel)]="integrationgoal.slug" name="slug" required>
-            <ion-option *ngFor="let goal of goals" value="{{goal.slug}}">{{goal.slug}}</ion-option>
+            <ion-option *ngFor="let goal of goals" value="{{goal}}">{{goal}}</ion-option>
           </ion-select>
         </ion-item>
 		<ion-item>

@@ -37,9 +37,13 @@ export class SelectGoalPage {
 	this.integration = 'Integration: ' + this.integrationParam.title;
 	this.metric = 'Metric: ' + this.metricParam.title;
 	
-	user.getGoals().subscribe((goals) => {
-      this.goals = goals;
-    });
+	user.getUser().subscribe((auser) => {
+      this.goals = auser.goals;
+    }, err => {
+		if(err){
+		  console.error(err);
+		}
+	});
   }
 
   onSubmit(formData, baseUrl, secretKeyBase) {

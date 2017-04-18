@@ -65,7 +65,9 @@ export class ConnectIntegrationPage {
 
 
   ionViewWillEnter() {
-    this.providersbackend = this.user.getIntergrations();
+    this.user.setnectarUser();
+	
+	this.providersbackend = this.user.getIntergrations();
 	
 	let providers = [];
 	

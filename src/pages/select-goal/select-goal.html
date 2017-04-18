@@ -30,7 +30,7 @@
         <ion-item>
           <ion-label stacked>Goal</ion-label>
           <ion-select [(ngModel)]="slug" name="slug" required="true" placeholder="Select goal">
-            <ion-option *ngFor="let goal of goals" value="{{goal.slug}}">{{goal.slug}}</ion-option>
+            <ion-option *ngFor="let goal of goals" value="{{goal}}">{{goal}}</ion-option>
           </ion-select>
         </ion-item>
         <ion-item>

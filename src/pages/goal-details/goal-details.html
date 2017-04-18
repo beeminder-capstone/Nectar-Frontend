@@ -83,6 +83,12 @@
         <span item-left>Beeminder Link:</span>
         <span item-right><a target="_blank" href="https://www.beeminder.com/{{username}}/goals/{{goal.slug}}">{{goal.slug}}</a></span>
       </ion-item>
+	  <div *ngIf="goal.integration != null">
+        <ion-item>
+          <span item-left>Integration Link:</span>
+          <span item-right><a target="_blank" href="{{envVariables.DOMAIN_NAME}}/goals/{{goal.integration}}/{{integrationgoal.metric_key}}">{{metrictitle}}</a></span>
+        </ion-item>
+	  </div>
     </ion-list>
 
   </ion-card>

@@ -6,7 +6,6 @@
  */
 import { Component, Inject } from '@angular/core';
 import { NavController, Platform, MenuController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
 
 import { HomePage } from '../home/home';
 
@@ -21,17 +20,20 @@ declare var window: any;
 	templateUrl: 'login.html'
 })
 export class LoginPage {
-	private url;
+	private isLoggedIn: boolean;
 
 	public constructor(
 		public navCtrl: NavController,
 		private platform: Platform,
 		public menu: MenuController,
-		public storage: Storage,
 		public user: User,
 		@Inject(EnvVariables) public envVariables
 	) {
 		this.menu.swipeEnable(false);
+		
+		this.user.getLoginStatus().then(isLoggedIn  => {
+			this.isLoggedIn = isLoggedIn;
+		});
 	}
 
 	public getParameterByName(name, url) {
@@ -44,21 +46,21 @@ export class LoginPage {
 	}
 
 	public login(baseUrl, client_id) {
+		let url;
+		
 		this.platform.ready()
-			.then(() => this.BeeminderLogin(baseUrl, client_id))
-			.then(url => this.url = url)
-			//.then(() => this.user.setaccess_token(this.getParameterByName('code', this.url), baseUrl, client_id, client_secret))
-			.then(() => this.storage.set('username', this.getParameterByName('username', this.url)))
-			.then(() => this.storage.set('access_token', this.getParameterByName('access_token', this.url)))
-			.then(() => this.user.setLoginStatus())			
+			.then(() => this.BeeminderLogin(baseUrl, client_id, this.isLoggedIn))
+			.then(success => url = success)
+			//.then(() => this.user.setaccess_token(this.getParameterByName('code', url), baseUrl, client_id, client_secret))
+			.then(() => this.user.setLoginStatus(this.getParameterByName('username', url), this.getParameterByName('access_token', url)))			
 			.then(() => this.navCtrl.setRoot(HomePage))
-			.catch(error => console.error(error))
+			.catch(error => console.error(error));
 	}
 
-	public BeeminderLogin(baseUrl, client_id): Promise<any> {
+	public BeeminderLogin(baseUrl, client_id, isLoggedIn): Promise<any> {
 		return new Promise(function (resolve, reject) {
 			//var browserRef = window.cordova.InAppBrowser.open(baseUrl + '/signin', "_blank", "location=no,clearsessioncache=yes,clearcache=yes");
-			var browserRef = window.cordova.InAppBrowser.open('https://www.beeminder.com/apps/authorize?client_id=' + client_id + '&redirect_uri=http://localhost/callback&response_type=token', "_blank", "location=no,clearsessioncache=yes,clearcache=yes");
+			var browserRef = window.cordova.InAppBrowser.open('https://www.beeminder.com/apps/authorize?client_id=' + client_id + '&redirect_uri=http://localhost/callback&response_type=token', "_blank", isLoggedIn ? "location=no" : "location=no,clearsessioncache=yes,clearcache=yes");
 			browserRef.addEventListener("loadstart", (event) => {
 				//if ((event.url).indexOf(baseUrl + '/auth/beeminder/callback') === 0) {
 				if ((event.url).indexOf("http://localhost/callback") === 0) {

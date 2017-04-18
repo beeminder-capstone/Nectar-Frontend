@@ -24,17 +24,23 @@ let defaultSettings = {
 @Injectable()
 export class User {
   private userSettings;
+  private beeminderUser: any;
   public goals = [];
   private isLoggedIn: boolean;
   private nectarUser: any;
 
   constructor(public storage: Storage, public beeminder: BeeminderApi, public nectar: NectarApi, private toastCtrl: ToastController, @Inject(EnvVariables) public envVariables) {
-    storage.get('goals').then(goals => {
+    storage.get('beeminderUser').then(beeminderUser => {
+      if(beeminderUser == null) {
+        //this.setbeeminderUser();
+      } else {
+        this.beeminderUser = beeminderUser;
+      }
+    });
+	
+	storage.get('goals').then(goals => {
       if (goals == null) {
-        beeminder.fetchGoals().subscribe(userGoals => {
-          this.goals = userGoals;
-          storage.set('goals', this.goals);
-        });
+        this.setGoals();
       } else {
         this.goals = goals;
       }
@@ -42,10 +48,9 @@ export class User {
 
     storage.get('nectarUser').then(nectarUser => {
       if(nectarUser == null) {
-        nectar.getUserObject(this.envVariables.DOMAIN_NAME, this.envVariables.SECRET_KEY).subscribe(userObject => this.nectarUser = userObject);
+        this.setnectarUser();
       } else {
-        // Since we never refresh this leave it commented out
-        //this.nectarUser = nectarUser;
+        this.nectarUser = nectarUser;
       }
     });
 
@@ -71,12 +76,49 @@ export class User {
     return this.beeminder.fetchUser();
   }
   
+  setbeeminderUser() {
+    return this.beeminder.fetchUser().subscribe(userObject => {
+	  this.setbeeminderUserObject(userObject);
+	}, err => {
+		if(err){
+		  console.error(err);
+		}
+	});
+  }
+  
+  setbeeminderUserObject(userObject) {
+	this.beeminderUser = userObject;
+	this.storage.set('beeminderUser', this.beeminderUser);
+  }
+  
   getGoal(slug) {
     return this.beeminder.fetchGoal(slug);
   }
 
   getGoals() {
     return this.beeminder.fetchGoals();
+  }
+  
+  setGoals() {
+    return this.beeminder.fetchGoals().subscribe(userGoals => {
+	  this.goals = userGoals;
+	  this.storage.set('goals', this.goals);
+	}, err => {
+		if(err){
+		  console.error(err);
+		}
+	});
+  }
+  
+  setnectarUser() {
+    return this.nectar.getUserObject(this.envVariables.DOMAIN_NAME, this.envVariables.SECRET_KEY).subscribe(userObject => {
+	  this.nectarUser = userObject;
+	  this.storage.set('nectarUser', this.nectarUser);
+	}, err => {
+		if(err){
+		  console.error(err);
+		}
+	});
   }
 
   addbeeminderGoal(goal) {
@@ -210,11 +252,20 @@ export class User {
 	})
   }*/
 
-  setLoginStatus() {
-    this.storage.set('isLoggedIn', true);
+  setLoginStatus(username, access_token) {
+	return this.storage.set('username', username)
+	.then(() => this.nectar.username = username)
+	.then(() => this.storage.set('access_token', access_token))
+	.then(() => this.beeminder.access_token = access_token)
+	.then(() => this.setbeeminderUser())
+	.then(() => this.setGoals())
+	.then(() => this.setnectarUser())
+    .then(() => this.storage.set('isLoggedIn', true));
   }
 
   logout() {
+	this.beeminder.access_token = null;
+	this.nectar.username = null;
     this.storage.clear();
   }
 
@@ -250,13 +301,14 @@ export class User {
   }
   
   getIntergration(goal) {
-    let id;
+    if(!this.nectarUser)
+	  return null;
+	
     for (let g of this.nectarUser.goals) {
       if (g.slug == goal.slug) {
-        id = g.credential_id;
+        return this.getCredentialname(g.credential_id);
       }
     }
-    return this.getCredentialname(id);
   }
   
   getIntergrationGoal(goal) {
