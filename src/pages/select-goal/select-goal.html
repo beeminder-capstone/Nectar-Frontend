@@ -22,7 +22,8 @@
       {{metric}}
     </ion-list-header>
 
-    <ion-card>
+	<div *ngIf="goals.length > 0">
+      <ion-card>
 
       <p text-center>Please select an existing Beeminder goal:</p>
 
@@ -38,9 +39,14 @@
         </ion-item>
       </form>
 
-    </ion-card>
+      </ion-card>
 
-    <p text-center>Or</p>
+      <p text-center>Or</p>
+	</div>
+	
+	<div *ngIf="goals.length == 0">
+      <p text-center>Create a Beeminder goal first.</p>
+    </div>
 
     <ion-card>
       <ion-item>

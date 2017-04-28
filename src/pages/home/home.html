@@ -36,4 +36,8 @@
 	    </div>
     </button>
   </ion-list>
+  
+  <div *ngIf="goals.length == 0">
+    <p text-center>Create a Beeminder goal first.</p>
+  </div>
 </ion-content>
