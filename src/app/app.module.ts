@@ -14,6 +14,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
 import { EnvironmentsModule } from './environment-variables/environment-variables.module.ts';
+import { TimerComponent } from '../pages/timer/timer';
 
 import { HomePage } from '../pages/home/home';
 import { AddGoalPage } from '../pages/add-goal/add-goal';
@@ -47,7 +48,8 @@ import { NectarApi } from '../providers/nectar-api';
     SelectMetricPage,
     EditGoalPage,
     EditIntegrationPage,
-    PopoverPage
+    PopoverPage,
+	TimerComponent
   ],
   imports: [
     BrowserModule,

@@ -4,7 +4,7 @@
  * This code is available under the "MIT License".
  * Please see the file LICENSE in this distribution for license terms.
  */
-import { Component } from '@angular/core';
+import { Component, ViewChildren, QueryList } from '@angular/core';
 import { NavController, MenuController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
@@ -13,12 +13,16 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { GoalDetailsPage } from '../goal-details/goal-details';
 import { AddGoalPage } from '../add-goal/add-goal';
 import { User } from './../../providers/user';
+import { TimerComponent } from '../timer/timer';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+
+  @ViewChildren(TimerComponent) timer: QueryList<TimerComponent>;
+  
   icons: string[];
   public goals = [];
   username: string;
@@ -40,7 +44,10 @@ export class HomePage {
 	
 	loader.present().then(() => {
       this.user.getUser().subscribe((auser) => {
-		  this.goals = []
+		  this.goals = [];
+		  
+		  let d = new Date();
+		  let t = Math.floor(d.getTime() / 1000);
 		
 		  for (let goal of auser.goals) {
 			this.user.getGoal(goal).subscribe((agoal) => {
@@ -48,6 +55,8 @@ export class HomePage {
 			  agoal.integration = this.user.getIntergration(agoal);
 			  agoal.icon = agoal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + agoal.integration + ".png";
 			  agoal.color = this.sanitizer.bypassSecurityTrustStyle(agoal.roadstatuscolor);
+			  
+			  agoal.time = agoal.losedate - t;
 			  
 			  this.goals.push(agoal);
 			}, err => {

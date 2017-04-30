@@ -42,12 +42,13 @@
 
     <ion-card-content>
       <!--This will contain the d3 graph of the users datapoints-->
-      <div class='box' [style.background-color]="goal.color">
-		<ion-item [style.background-color]="goal.color" style="color: white;">
-		  <span item-left>Derailment:</span>
-          <span item-right>{{goal.losedate * 1000 | date:"MMM d, y h:mm a"}}</span>
-		</ion-item>
+	  <div class='box' [style.background-color]="goal.color">
+		<timer #timer [timeInSeconds]="goal.time" rectangle="true"></timer>
 	  </div>
+	  <ion-item>
+		<span item-left>Derailment:</span>
+        <span item-right>{{goal.losedate * 1000 | date:"MMM d, y h:mm a"}}</span>
+	  </ion-item>
 	  <img src="{{goal.graph_url}}" class="graph"/>
 	  <ion-item>
         <span item-left>Summary:</span>

@@ -4,7 +4,7 @@
  * This code is available under the "MIT License".
  * Please see the file LICENSE in this distribution for license terms.
  */
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
@@ -12,6 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { PopoverPage } from './popover'
 import { User } from '../../providers/user';
 import { EnvVariables } from '../../app/environment-variables/environment-variables.token';
+import { TimerComponent } from '../timer/timer';
 
 @Component({
   selector: 'page-goal-details',
@@ -19,6 +20,8 @@ import { EnvVariables } from '../../app/environment-variables/environment-variab
 })
 
 export class GoalDetailsPage {
+
+  @ViewChild(TimerComponent) timer: TimerComponent;
 
   goal: any;
   integrationgoal: any;
@@ -89,6 +92,10 @@ export class GoalDetailsPage {
 	this.integration = this.integrationgoal == null ? "Manual Goal" : 'Integration: ' + this.providersfrontend.find(p => p.name == this.goal.integration).title;
 	this.metrictitle = this.integrationgoal == null ? null : this.user.getMetric(this.goal.integration, this.integrationgoal.metric_key).title;
 	this.metric = this.integrationgoal == null ? null : 'Metric: ' + this.metrictitle;
+	
+	let d = new Date();
+    let t = Math.floor(d.getTime() / 1000);
+	this.goal.time = this.goal.losedate - t;
   }
 
   presentPopover(event: Event) {

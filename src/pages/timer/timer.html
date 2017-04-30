@@ -1,0 +1,11 @@
+<div *ngIf="timer && rectangle">
+	<span *ngIf="timeInSeconds && timeInSeconds > 0" style="text-align: center;">
+		<h2 style="color: white;">{{timer.displayTimetop}} {{timer.displayTimebottom}}</h2>
+	</span>
+</div> 
+<div *ngIf="timer && square" style="display: flex; justify-content: center; align-items: center; height: 100%;">
+	<span *ngIf="timeInSeconds && timeInSeconds > 0" style="font-size: xx-small;">
+		<h2>{{timer.displayTimetop}}</h2>
+		<p style="color: white;">{{timer.displayTimebottom}}</p>
+	</span>
+</div>  

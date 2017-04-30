@@ -16,10 +16,12 @@ page-home {
    
     div.box {
         width: 20%;
+		min-width: 75px;
 		max-width: 200px;
 		height: 80%;
 		max-height: 200px;
 		border-radius: 5px;
+		padding: 5px;
 		color: white;
 		text-align: center;
     }
