@@ -18,6 +18,7 @@ import { User } from '../../providers/user';
 
 export class EditGoalPage {
     goal: any;
+	oldslug: string;
 
    constructor( 
        public user: User,
@@ -27,15 +28,16 @@ export class EditGoalPage {
 
    ngOnInit() {
        this.goal = this.navParams.data.goal;
+	   this.oldslug = this.goal.slug;
    }
 
    confirm(){
     let beemindergoal = {
         slug: this.goal.slug,
-		title: this.goal.title,
-    }
+		title: this.goal.title
+    };
 
-    this.user.editbeeminderGoal(beemindergoal);
+    this.user.editbeeminderGoal(beemindergoal, this.oldslug);
     this.navcontroller.pop();
    }
 

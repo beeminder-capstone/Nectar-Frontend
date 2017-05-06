@@ -61,7 +61,7 @@ export class BeeminderApi {
       .catch(err => Observable.throw(err.json().errors));
   }
   
-  fetchGoal(slug) {
+  fetchGoal(slug: string) {
     let url = this.baseUrl + '/users/me/goals/' + slug + '.json?access_token=' + this.access_token + '&datapoints=true';
     return this.http.get(url)
       .map(res => res.json())
@@ -75,21 +75,21 @@ export class BeeminderApi {
       .catch(err => Observable.throw(err.json().errors));
   }
 
-  editGoal(goal) {
-    let url = `${this.baseUrl}/users/me/goals/${goal.slug}.json?access_token=${this.access_token}`;
+  editGoal(goal: any, oldslug: string) {
+    let url = `${this.baseUrl}/users/me/goals/${oldslug}.json?access_token=${this.access_token}`;
     return this.http.put(url, goal)
       .map(res => res.json())
 	  .catch(err => Observable.throw(err.json().errors));
   }
 
-  createGoal(goal) {
+  createGoal(goal: any) {
     let url = this.baseUrl + '/users/me/goals.json?access_token=' + this.access_token;
     return this.http.post(url, goal)
       .map(res => res.json())
 	  .catch(err => Observable.throw(err.json().errors));
   }
   
-  editDataPoint(goal, id, datapoint){
+  editDataPoint(goal: any, id: string, datapoint: any){
     let url = this.baseUrl + '/users/me/goals/' + goal.slug + '/datapoints/' + id + '.json?access_token=' + this.access_token;
 
     return this.http.put(url, datapoint)
@@ -97,7 +97,7 @@ export class BeeminderApi {
 	  .catch(err => Observable.throw(err.json().errors));
   }
 
-  addDataPoint(goal, datapoint){
+  addDataPoint(goal: any, datapoint: any){
     let url = this.baseUrl + '/users/me/goals/' + goal.slug + '/datapoints.json?access_token=' + this.access_token;
 
     return this.http.post(url, datapoint)
@@ -105,7 +105,7 @@ export class BeeminderApi {
 	  .catch(err => Observable.throw(err.json().errors));
   }
 
-  fetchDatapoints(goal) {
+  fetchDatapoints(goal: any) {
     let url = this.baseUrl + '/users/me/goals/' + goal.slug + '/datapoints.json?access_token=' + this.access_token;
     return this.http.get(url)
       .map(res => res.json())

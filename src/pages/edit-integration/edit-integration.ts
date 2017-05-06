@@ -6,7 +6,7 @@
  */
 import { Component, Inject } from '@angular/core';
 
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
@@ -21,17 +21,25 @@ import { EnvVariables } from '../../app/environment-variables/environment-variab
 export class EditIntegrationPage {
 	integration: string;
 	metric: string;
-	public goals: {};
+	public goals: any = [];
 	goal: any;
 	integrationgoal: any;
 
-	constructor(public navCtrl: NavController, public storage: Storage, private params: NavParams, public user: User, @Inject(EnvVariables) public envVariables) {
-	user.getUser().subscribe((auser) => {
-      this.goals = auser.goals;
-    }, err => {
+	constructor(public navCtrl: NavController, public loading: LoadingController, public storage: Storage, private params: NavParams, public user: User, @Inject(EnvVariables) public envVariables) {
+	let loader = this.loading.create({
+      content: 'Loading&hellip;',
+    });
+	
+	loader.present().then(() => {
+	  user.getUser().subscribe((auser) => {
+        this.goals = auser.goals;
+      }, err => {
 		if(err){
 		  console.error(err);
 		}
+	  }, () => {
+		loader.dismiss();
+	  });
 	});
   }
   

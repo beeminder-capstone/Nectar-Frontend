@@ -10,6 +10,8 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { Network } from '@ionic-native/network';
+import { Diagnostic } from '@ionic-native/diagnostic';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
@@ -33,6 +35,7 @@ import { EditIntegrationPage } from '../pages/edit-integration/edit-integration'
 import { User } from '../providers/user';
 import { BeeminderApi } from '../providers/beeminder-api';
 import { NectarApi } from '../providers/nectar-api';
+import { NetworkService } from '../providers/network-service';
 
 @NgModule({
   declarations: [
@@ -79,9 +82,12 @@ import { NectarApi } from '../providers/nectar-api';
     StatusBar,
     SplashScreen,
     SocialSharing,
+	Network,
+	Diagnostic,
     BeeminderApi,
     NectarApi,
     User,
+	NetworkService
   ]
 })
 export class AppModule { }

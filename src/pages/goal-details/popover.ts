@@ -9,6 +9,7 @@ import { ViewController, NavController, NavParams } from 'ionic-angular';
 
 import { EditGoalPage } from '../edit-goal/edit-goal';
 import { EditIntegrationPage } from '../edit-integration/edit-integration';
+import { NetworkService } from '../../providers/network-service';
 
 @Component({
     template: `
@@ -28,6 +29,7 @@ export class PopoverPage {
         public viewCtrl: ViewController,
         public navParams: NavParams,
         public navCtrl: NavController,
+		private networkService: NetworkService
     ) { }
 
     ngOnInit() {
@@ -37,14 +39,20 @@ export class PopoverPage {
     }
 
     editbeeminderTapped(event) {
+		if(this.networkService.noConnection())
+          this.networkService.showNetworkAlert();
+		
 		this.navCtrl.push(EditGoalPage, { goal: this.goal });
+		
+		this.viewCtrl.dismiss();
     }
 	
 	editIntegrationTapped(event) {
+		if(this.networkService.noConnection())
+          this.networkService.showNetworkAlert();
+		
 		this.navCtrl.push(EditIntegrationPage, { goal: this.goal, integration: this.integration, metric: this.metric });
-    }
-
-    close() {
-        this.viewCtrl.dismiss();
+		
+		this.viewCtrl.dismiss();
     }
 }

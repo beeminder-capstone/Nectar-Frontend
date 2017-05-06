@@ -22,7 +22,7 @@ export class SelectMetricPage {
   integration: any;
   metrics: any;
   metricKeys: any;
-  metricObject = [];
+  metricObject: any = [];
 
   constructor(public navCtrl: NavController, private params: NavParams, public nectar: NectarApi, public user: User) {
     this.integration = this.params.get('integration');

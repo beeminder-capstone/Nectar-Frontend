@@ -28,7 +28,7 @@ export class SelectGoalPage {
 	integrationParam: any;
 	metricParam: any;
     icon: string;
-	public goals = [];
+	public goals: any = [];
 
 	constructor(public navCtrl: NavController, public loading: LoadingController, public storage: Storage, private params: NavParams, public user: User, @Inject(EnvVariables) public envVariables) {
 	this.metricParam = params.get("metric");
@@ -56,7 +56,7 @@ export class SelectGoalPage {
 
   onSubmit(formData, baseUrl, secretKeyBase) {
 	let credentialId = this.user.getCredentialID(this.integrationParam.name);
-	let active = 1;
+	let active = true;
 	  
 	this.user.addnectarGoal(formData.slug, this.metricParam.key, credentialId, active, baseUrl, secretKeyBase);
 	

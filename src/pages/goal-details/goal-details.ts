@@ -13,6 +13,7 @@ import { PopoverPage } from './popover'
 import { User } from '../../providers/user';
 import { EnvVariables } from '../../app/environment-variables/environment-variables.token';
 import { TimerComponent } from '../timer/timer';
+import { NetworkService } from '../../providers/network-service';
 
 @Component({
   selector: 'page-goal-details',
@@ -25,8 +26,6 @@ export class GoalDetailsPage {
 
   goal: any;
   integrationgoal: any;
-  datapointValue;
-  showUpdateComponent: boolean = false;
   username: string;
   integration: string;
   metric: string;
@@ -78,7 +77,8 @@ export class GoalDetailsPage {
     private popoverCtrl: PopoverController,
     public alertCtrl: AlertController,
 	@Inject(EnvVariables) public envVariables,
-	private sanitizer: DomSanitizer
+	private sanitizer: DomSanitizer,
+	private networkService: NetworkService
   ) {
 	this.storage.get('username').then((value) => {
 		this.username = value;
@@ -156,7 +156,7 @@ export class GoalDetailsPage {
 
 
   addDatapointPrompt() {
-    let prompt = this.alertCtrl.create({
+	let prompt = this.alertCtrl.create({
       title: 'Add Datapoint',
       message: "Please enter the value of the datapoint:",
       inputs: [
@@ -189,10 +189,13 @@ export class GoalDetailsPage {
       ]
     });
     prompt.present();
+	
+	if(this.networkService.noConnection())
+      this.networkService.showNetworkAlert();
   }
   
   editDatapointPrompt(datapoint) {
-    let prompt = this.alertCtrl.create({
+	let prompt = this.alertCtrl.create({
       title: 'Update Datapoint',
       message: "Please enter the new value of the datapoint:",
       inputs: [
@@ -227,6 +230,9 @@ export class GoalDetailsPage {
       ]
     });
     prompt.present();
+	
+	if(this.networkService.noConnection())
+      this.networkService.showNetworkAlert();
   }
 
 }

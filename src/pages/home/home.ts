@@ -24,7 +24,7 @@ export class HomePage {
   @ViewChildren(TimerComponent) timer: QueryList<TimerComponent>;
   
   icons: string[];
-  public goals = [];
+  public goals: any = [];
   username: string;
 
   constructor(public navCtrl: NavController, public menu: MenuController, public loading: LoadingController, public storage: Storage, private sanitizer: DomSanitizer, private user: User) {

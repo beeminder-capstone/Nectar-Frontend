@@ -13,8 +13,8 @@ import { Storage } from '@ionic/storage';
 import { User } from '../../providers/user';
 
 import { HomePage } from '../home/home'
-
 import { EnvVariables } from '../../app/environment-variables/environment-variables.token';
+import { NetworkService } from '../../providers/network-service';
 
 @Component({
 	selector: 'page-create-goal-settings',
@@ -31,7 +31,7 @@ export class CreateGoalSettingsPage {
 	manualGoalParam: boolean;
   icon: string;
 
-	constructor(public navCtrl: NavController, public storage: Storage, private params: NavParams, public user: User, @Inject(EnvVariables) public envVariables) {
+	constructor(public navCtrl: NavController, public storage: Storage, private params: NavParams, public user: User, @Inject(EnvVariables) public envVariables, private networkService: NetworkService) {
     this.manualGoalParam = params.get("manualGoal");
 	this.metricParam = this.manualGoalParam==true ? null : params.get("metric");
     this.integrationParam = this.manualGoalParam==true ? "Manual" : params.get("integration");
@@ -41,10 +41,13 @@ export class CreateGoalSettingsPage {
 	this.slug = this.manualGoalParam==true ? "nectar" : this.integrationParam.title.toLowerCase();
 	this.title = this.manualGoalParam==true ? "Nectar" : this.integrationParam.title + ' ' + this.metricParam.title;
   }
+  
+  ngOnInit() {
+    if(this.networkService.noConnection())
+      this.networkService.showNetworkAlert();
+  }
 
   onSubmit(formData, baseUrl, secretKeyBase) {
-	let datasource = this.manualGoalParam==true ? 'manual' : 'api';
-    let integration = this.manualGoalParam==true ? 'Manual' : this.integrationParam.title + 'Integration';
     let decade = 60 * 60 * 24 * 365 * 10;
     let d = new Date();
     let t = Math.floor(d.getTime() / 1000);
@@ -54,8 +57,7 @@ export class CreateGoalSettingsPage {
       slug: formData.slug,
       title: formData.title,
       goaldate: goaldate,
-      datasource: datasource,
-      description: integration,
+      datasource: 'manual',
       goal_type: "hustler",
       rate: formData.rate,
       gunit: formData.gunit,

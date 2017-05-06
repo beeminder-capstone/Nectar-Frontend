@@ -26,6 +26,8 @@
     "@angular/platform-browser-dynamic": "4.0.0",
     "@angular/router": "4.0.0",
     "@ionic-native/core": "3.4.2",
+    "@ionic-native/diagnostic": "3.4.2",
+    "@ionic-native/network": "3.4.2",
     "@ionic-native/social-sharing": "3.4.2",
     "@ionic-native/splash-screen": "3.4.2",
     "@ionic-native/status-bar": "3.4.2",

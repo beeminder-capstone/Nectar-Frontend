@@ -23,9 +23,9 @@ let defaultSettings = {
 
 @Injectable()
 export class User {
-  private userSettings;
+  private userSettings: any;
   private beeminderUser: any;
-  public goals = [];
+  public goals: any = [];
   private isLoggedIn: boolean;
   private nectarUser: any;
 
@@ -86,12 +86,12 @@ export class User {
 	});
   }
   
-  setbeeminderUserObject(userObject) {
+  setbeeminderUserObject(userObject: any) {
 	this.beeminderUser = userObject;
 	this.storage.set('beeminderUser', this.beeminderUser);
   }
   
-  getGoal(slug) {
+  getGoal(slug: string) {
     return this.beeminder.fetchGoal(slug);
   }
 
@@ -121,10 +121,10 @@ export class User {
 	});
   }
 
-  addbeeminderGoal(goal) {
+  addbeeminderGoal(goal: any) {
     this.beeminder.createGoal(goal).subscribe(newbeeminderGoal => {
 	  this.goals.push(newbeeminderGoal);
-	  this.presentToast('The Beeminder goal ' + goal.slug + ' was successfully created.');
+	  this.presentToast('The Beeminder goal ' + newbeeminderGoal.slug + ' was successfully created.');
 	}, err => {
 	    if(err){
 		  console.error(err);
@@ -133,7 +133,7 @@ export class User {
 	});
   }
   
-  addnectarGoal(slug, metricKey, credentialId, active, baseUrl, secretKeyBase) {
+  addnectarGoal(slug: string, metricKey: string, credentialId: number, active: boolean, baseUrl: string, secretKeyBase: string) {
 	let nectargoal = {
       credential_id: credentialId,
       metric_key: metricKey,
@@ -141,8 +141,21 @@ export class User {
 	  active: active
     };
 	
+	let beemindergoal = {
+	  datasource: 'api'
+    };
+	
     this.nectar.createGoal(nectargoal, baseUrl, secretKeyBase).subscribe(newnectarGoal => {
       this.nectarUser.goals.push(newnectarGoal);
+	  
+	  this.beeminder.editGoal(beemindergoal, slug).subscribe(newbeeminderGoal => {
+        this.goals[slug] = newbeeminderGoal;
+      }, err => {
+		if(err){
+		  console.error(err);
+		}
+	  });
+	  
 	  this.presentToast('The Nectar goal ' + slug + ' was successfully created.');
     }, err => {
 		if(err){
@@ -168,19 +181,19 @@ export class User {
     })
   }*/
 
-  editbeeminderGoal(goal) {
-    this.beeminder.editGoal(goal).subscribe(newnectarGoal => {
-      this.goals[goal.slug] = newnectarGoal;
-	  this.presentToast('The Beeminder goal ' + goal.slug + ' was successfully updated.');
+  editbeeminderGoal(goal: any, oldslug: string) {
+    this.beeminder.editGoal(goal, oldslug).subscribe(newbeeminderGoal => {
+      this.goals[oldslug] = newbeeminderGoal;
+	  this.presentToast('The Beeminder goal ' + newbeeminderGoal.slug + ' was successfully updated.');
     }, err => {
 		if(err){
 		  console.error(err);
-		  alert('An error occurred updating Beeminder goal ' + goal.slug + ': ' + err+ '.');
+		  alert('An error occurred updating Beeminder goal ' + oldslug + ': ' + err+ '.');
 		}
 	});
   }
   
-  updatenectarGoal(slug, id, metricKey, credentialId, active, baseUrl, secretKeyBase) {
+  updatenectarGoal(slug: string, id: number, metricKey: string, credentialId: number, active: boolean, baseUrl: string, secretKeyBase: string) {
 	let nectargoal = {
       credential_id: credentialId,
       id: id,
@@ -200,11 +213,11 @@ export class User {
 	});
   }
 
-  getDatapoints(goal){
+  getDatapoints(goal: any){
     return this.beeminder.fetchDatapoints(goal);
   }
 
-  addDataPoint(goal, datapoint){
+  addDataPoint(goal: any, datapoint: any){
     return this.beeminder.addDataPoint(goal, datapoint).subscribe(data => this.presentToast('The datapoint was successfully added to goal ' + goal.slug + '.'), err => {
 	    if(err){
 		  console.error(err);
@@ -213,7 +226,7 @@ export class User {
 	  }
   )}
   
-  editDataPoint(goal, id, datapoint){
+  editDataPoint(goal: any, id: string, datapoint: any){
     return this.beeminder.editDataPoint(goal, id, datapoint).subscribe(data => this.presentToast('The datapoint was successfully updated for goal ' + goal.slug + '.'), err => {
 	    if(err){
 		  console.error(err);
@@ -252,7 +265,7 @@ export class User {
 	})
   }*/
 
-  setLoginStatus(username, access_token) {
+  setLoginStatus(username: string, access_token: string) {
 	return this.storage.set('username', username)
 	.then(() => this.nectar.username = username)
 	.then(() => this.storage.set('access_token', access_token))
@@ -290,7 +303,7 @@ export class User {
     return providers;
   }
 
-  getIntergrationStatus(integration) {
+  getIntergrationStatus(integration: any) {
     let status = false;
     for (let provider of this.nectarUser.credentials) {
       if (provider.provider_name == integration.name) {
@@ -300,7 +313,7 @@ export class User {
     return status;
   }
   
-  getIntergration(goal) {
+  getIntergration(goal: any) {
     if(!this.nectarUser)
 	  return null;
 	
@@ -311,7 +324,7 @@ export class User {
     }
   }
   
-  getIntergrationGoal(goal) {
+  getIntergrationGoal(goal: any) {
     for (let g of this.nectarUser.goals) {
       if (g.slug == goal.slug) {
         return g;
@@ -364,7 +377,7 @@ export class User {
     }
   }
   
-  presentToast(message) {
+  presentToast(message: string) {
 		let toast = this.toastCtrl.create({
 			message: message,
 			duration: 3000,
