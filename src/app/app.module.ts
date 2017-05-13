@@ -30,6 +30,7 @@ import { SelectMetricPage } from  '../pages/select-metric/select-metric';
 import { PopoverPage } from '../pages/goal-details/popover';
 import { EditGoalPage } from "../pages/edit-goal/edit-goal";
 import { EditIntegrationPage } from '../pages/edit-integration/edit-integration';
+import { GoalFilterPage } from '../pages/goal-filter/goal-filter';
 
 
 import { User } from '../providers/user';
@@ -51,6 +52,7 @@ import { NetworkService } from '../providers/network-service';
     SelectMetricPage,
     EditGoalPage,
     EditIntegrationPage,
+	GoalFilterPage,
     PopoverPage,
 	TimerComponent
   ],
@@ -74,6 +76,7 @@ import { NetworkService } from '../providers/network-service';
     GoalDetailsPage,
     EditGoalPage,
     EditIntegrationPage,
+	GoalFilterPage,
     SelectMetricPage,
     PopoverPage
   ],

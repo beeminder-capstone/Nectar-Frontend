@@ -23,6 +23,7 @@ export class EditIntegrationPage {
 	metric: string;
 	public goals: any = [];
 	goal: any;
+	oldslug: string;
 	integrationgoal: any;
 
 	constructor(public navCtrl: NavController, public loading: LoadingController, public storage: Storage, private params: NavParams, public user: User, @Inject(EnvVariables) public envVariables) {
@@ -45,13 +46,14 @@ export class EditIntegrationPage {
   
   ngOnInit() {
     this.goal = this.params.data.goal;
+	this.oldslug = this.goal.slug;
     this.integration = this.params.data.integration;
     this.metric = this.params.data.metric;
 	this.integrationgoal = this.user.getIntergrationGoal(this.goal);
    }
 
   confirm(baseUrl, secretKeyBase) {
-	this.user.updatenectarGoal(this.integrationgoal.slug, this.integrationgoal.id, this.integrationgoal.metric_key, this.integrationgoal.credential_id, this.integrationgoal.active, baseUrl, secretKeyBase);
+	this.user.updatenectarGoal(this.integrationgoal.slug, this.oldslug, this.integrationgoal.id, this.integrationgoal.metric_key, this.integrationgoal.credential_id, this.integrationgoal.active, baseUrl, secretKeyBase);
 	this.navCtrl.pop();
   }
   

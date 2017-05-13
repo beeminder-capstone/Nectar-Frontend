@@ -23,6 +23,7 @@ declare var window: any;
 export class ConnectIntegrationPage {
   constructor(public navCtrl: NavController, public user: User, @Inject(EnvVariables) public envVariables) {}
   providers: any;
+  searchproviders: any;
   providersbackend: any;
   providersfrontend: Array<{ url: string, title: string, name: string }> = [
 		{ url: "https://www.beeminder.com", title: "Beeminder", name: "beeminder" },
@@ -69,7 +70,7 @@ export class ConnectIntegrationPage {
 	
 	this.providersbackend = this.user.getIntergrations();
 	
-	let providers = [];
+	this.providers = [];
 	
 	for (let provider of this.providersbackend) {
 	  let temp = this.providersfrontend.find(p => p.name == provider.name);
@@ -84,10 +85,10 @@ export class ConnectIntegrationPage {
 		style: style
       };
 
-      providers.push(aprovider);
+      this.providers.push(aprovider);
     }
 	
-	this.providers = providers;
+	this.searchproviders = this.providers;
   }
 
   selectIntegration(baseUrl, integration) {
@@ -126,6 +127,20 @@ export class ConnectIntegrationPage {
             reject();
           });
 		});
+  }
+  
+  getItems(ev: any) {
+    this.searchproviders = this.providers;
+
+    // set val to the value of the searchbar
+    let val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if(val && val.trim() != '') {
+      this.searchproviders = this.searchproviders.filter((item) => {
+        return (item.title.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
   }
 
 }

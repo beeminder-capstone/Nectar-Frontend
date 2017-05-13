@@ -56,9 +56,8 @@ export class SelectGoalPage {
 
   onSubmit(formData, baseUrl, secretKeyBase) {
 	let credentialId = this.user.getCredentialID(this.integrationParam.name);
-	let active = true;
 	  
-	this.user.addnectarGoal(formData.slug, this.metricParam.key, credentialId, active, baseUrl, secretKeyBase);
+	this.user.addnectarGoal(formData.slug, this.metricParam.key, credentialId, formData.active, baseUrl, secretKeyBase);
 	
 	this.navCtrl.popToRoot();
     this.navCtrl.setRoot(HomePage);

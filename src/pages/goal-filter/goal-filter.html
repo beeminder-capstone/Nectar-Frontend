@@ -1,0 +1,42 @@
+<!--
+ * Created by PSU Beeminder Capstone Team on 3/12/2017.
+ * Copyright (c) 2017 PSU Beeminder Capstone Team
+ * This code is available under the "MIT License".
+ * Please see the file LICENSE in this distribution for license terms
+  -->
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">Cancel</button>
+    </ion-buttons>
+
+    <ion-title>
+      Filter Beeminder Goals
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button (click)="applyFilters()" strong>Done</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-list-header>Select which Goals to show:</ion-list-header>
+
+    <ion-item *ngFor="let filter of filters">
+      <ion-label>{{filter.title}}</ion-label>
+      <ion-toggle [(ngModel)]="filter.isChecked" color="secondary"></ion-toggle>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-list>
+    <button ion-item (click)="resetFilters()" detail-none class="reset-filters">
+      Reset All Filters
+    </button>
+  </ion-list>
+
+</ion-content>
+

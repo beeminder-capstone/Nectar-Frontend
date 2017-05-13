@@ -29,11 +29,15 @@
 
       <form #formData='ngForm' (ngSubmit)="onSubmit(formData.value, envVariables.DOMAIN_NAME, envVariables.SECRET_KEY)">
         <ion-item>
-          <ion-label stacked>Goal</ion-label>
-          <ion-select [(ngModel)]="slug" name="slug" required="true" placeholder="Select goal">
+          <ion-label stacked>Please select a goal:</ion-label>
+          <ion-select [(ngModel)]="slug" name="slug" placeholder="Select goal" required>
             <ion-option *ngFor="let goal of goals" value="{{goal}}">{{goal}}</ion-option>
           </ion-select>
         </ion-item>
+		<ion-item>
+		  <ion-label stacked>Enabled:</ion-label>
+		  <ion-checkbox [(ngModel)]="active" name="active" checked="true"></ion-checkbox>
+		</ion-item>
         <ion-item>
           <button ion-button block type="onSubmit()">Add integration to existing goal</button>
         </ion-item>

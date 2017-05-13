@@ -13,7 +13,15 @@
       <ion-icon name="home"></ion-icon>
       Home - Beeminder Goals
     </ion-title>
+	<ion-buttons end>
+      <button ion-button icon-only (click)="presentFilter()">
+        <ion-icon name="options"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
+  <ion-toolbar>
+    <ion-searchbar color="primary" (ionInput)="getItems($event)" placeholder="Search Beeminder Goals"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-fab bottom right>
@@ -26,7 +34,7 @@
   </div>
 
   <ion-list>
-    <button ion-item *ngFor="let goal of goals" (click)="itemTapped(goal)">
+    <button ion-item *ngFor="let goal of searchgoals" (click)="itemTapped(goal)">
 		<img item-left src="{{goal.thumb_url}}" class="thumb"/>
         <h1>{{goal.slug}}</h1>
         <p>Rate: {{goal.rate}}/{{goal.runits}}</p>

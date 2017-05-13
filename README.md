@@ -51,9 +51,6 @@ This app allows the user to do the following things for their Beeminder account
      * Manual
      * Using Integration
  * View a Goal
- * Delete a Goal
- 
-In addition, app notifications are supported, so the user has a choice between the Beeminder emails and regualar app notifications.
 
 ## Build
 The following instructions will enable you to download and compile the source into a working Android and/or iOS application:

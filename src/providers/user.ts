@@ -193,22 +193,48 @@ export class User {
 	});
   }
   
-  updatenectarGoal(slug: string, id: number, metricKey: string, credentialId: number, active: boolean, baseUrl: string, secretKeyBase: string) {
+  updatenectarGoal(slug: string, oldslug: string, id: number, metricKey: string, credentialId: number, active: boolean, baseUrl: string, secretKeyBase: string) {
 	let nectargoal = {
       credential_id: credentialId,
-      id: id,
       metric_key: metricKey,
       slug: slug,
 	  active: active
     };
 	
-    this.nectar.updateGoal(nectargoal, baseUrl, secretKeyBase).subscribe(newnectarGoal => {
-      this.nectarUser.goals[slug] = newnectarGoal;
+    this.nectar.updateGoal(nectargoal, id, baseUrl, secretKeyBase).subscribe(newnectarGoal => {
+      this.nectarUser.goals[oldslug] = newnectarGoal;
+	  
+	  if(slug != oldslug){
+	    let oldbeemindergoal = {
+		  datasource: 'manual'
+		};
+		
+		let beemindergoal = {
+		  datasource: 'api'
+		};
+		
+		this.beeminder.editGoal(oldbeemindergoal, oldslug).subscribe(newbeeminderGoal => {
+          this.goals[oldslug] = newbeeminderGoal;
+        }, err => {
+		  if(err){
+		    console.error(err);
+		  }
+	    });
+		
+		this.beeminder.editGoal(beemindergoal, slug).subscribe(newbeeminderGoal => {
+          this.goals[slug] = newbeeminderGoal;
+        }, err => {
+		  if(err){
+		    console.error(err);
+		  }
+	    });
+	  }
+	  
 	  this.presentToast('The Nectar goal ' + slug + ' was successfully updated.');
     }, err => {
 		if(err){
 		  console.error(err);
-		  alert('An error occurred updating Nectar goal ' + slug + ': ' + err + '.');
+		  alert('An error occurred updating Nectar goal ' + oldslug + ': ' + err + '.');
 		}
 	});
   }
