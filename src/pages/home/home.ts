@@ -5,7 +5,7 @@
  * Please see the file LICENSE in this distribution for license terms.
  */
 import { Component, ViewChildren, QueryList } from '@angular/core';
-import { NavController, MenuController, LoadingController, ModalController } from 'ionic-angular';
+import { NavController, MenuController, LoadingController, ModalController, ActionSheetController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -13,7 +13,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { GoalDetailsPage } from '../goal-details/goal-details';
 import { GoalFilterPage } from '../goal-filter/goal-filter';
 import { AddGoalPage } from '../add-goal/add-goal';
+import { EditGoalPage } from '../edit-goal/edit-goal';
+import { EditIntegrationPage } from '../edit-integration/edit-integration';
 import { User } from './../../providers/user';
+import { NetworkService } from '../../providers/network-service';
 import { TimerComponent } from '../timer/timer';
 
 @Component({
@@ -36,7 +39,7 @@ export class HomePage {
 	{title: "Integration Goals", name: "integration", isChecked: true}
   ];
 
-  constructor(public navCtrl: NavController, public menu: MenuController, public loading: LoadingController, public modalCtrl: ModalController, public storage: Storage, private sanitizer: DomSanitizer, private user: User) {
+  constructor(public navCtrl: NavController, public menu: MenuController, public loading: LoadingController, public modalCtrl: ModalController, public actionSheetCtrl: ActionSheetController, public storage: Storage, private sanitizer: DomSanitizer, private user: User, private networkService: NetworkService) {
     this.menu.swipeEnable(true);
 	
 	this.storage.get('username').then((value) => {
@@ -89,6 +92,71 @@ export class HomePage {
 
   itemTapped(goal) {
     this.navCtrl.push(GoalDetailsPage, { goal: goal });
+  }
+  
+  itemPressed(goal) {
+    if(goal.integration == null){
+    let actionSheet = this.actionSheetCtrl.create({
+     title: goal.slug,
+     buttons: [
+       {
+         text: 'Edit Beeminder Goal',
+         handler: () => {
+           if(this.networkService.noConnection())
+             this.networkService.showNetworkAlert();
+		    
+		    this.navCtrl.push(EditGoalPage, { goal: goal });
+         }
+       },
+       {
+         text: 'Cancel',
+         role: 'cancel',
+         handler: () => {
+           //console.log('Cancel clicked');
+         }
+       }
+     ]
+   });
+
+   actionSheet.present();
+   }else{
+   let integrationgoal = this.user.getIntergrationGoal(goal);
+   let integration = 'Integration: ' + this.user.getProvider(goal.integration).title;
+   let metric = 'Metric: ' + this.user.getMetric(goal.integration, integrationgoal.metric_key).title;
+   
+   let actionSheet = this.actionSheetCtrl.create({
+     title: goal.slug,
+     buttons: [
+       {
+         text: 'Edit Beeminder Goal',
+         handler: () => {
+           if(this.networkService.noConnection())
+             this.networkService.showNetworkAlert();
+		    
+		    this.navCtrl.push(EditGoalPage, { goal: goal });
+         }
+       },
+	   {
+         text: 'Edit Integration',
+         handler: () => {
+           if(this.networkService.noConnection())
+             this.networkService.showNetworkAlert();
+		
+		   this.navCtrl.push(EditIntegrationPage, { goal: goal, integration: integration, metric: metric });
+         }
+       },
+       {
+         text: 'Cancel',
+         role: 'cancel',
+         handler: () => {
+           //console.log('Cancel clicked');
+         }
+       }
+     ]
+   });
+
+   actionSheet.present();
+   }
   }
   
   presentFilter() {

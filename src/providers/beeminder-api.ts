@@ -74,6 +74,13 @@ export class BeeminderApi {
       .map(res => res.json())
       .catch(err => Observable.throw(err.json().errors));
   }
+  
+  refreshGoal(slug: string) {
+    let url = this.baseUrl + '/users/me/goals/' + slug + '/refresh_graph.json?access_token=' + this.access_token;
+    return this.http.get(url)
+      .map(res => res.json())
+      .catch(err => Observable.throw(err.json().errors));
+  }
 
   editGoal(goal: any, oldslug: string) {
     let url = `${this.baseUrl}/users/me/goals/${oldslug}.json?access_token=${this.access_token}`;

@@ -34,7 +34,7 @@
   </div>
 
   <ion-list>
-    <button ion-item *ngFor="let goal of searchgoals" (click)="itemTapped(goal)">
+    <button ion-item *ngFor="let goal of searchgoals" (click)="itemTapped(goal)" (press)="itemPressed(goal)">
 		<img item-left src="{{goal.thumb_url}}" class="thumb"/>
         <h1>{{goal.slug}}</h1>
         <p>Rate: {{goal.rate}}/{{goal.runits}}</p>

@@ -28,6 +28,44 @@ export class User {
   public goals: any = [];
   private isLoggedIn: boolean;
   private nectarUser: any;
+  providersfrontend: Array<{ url: string, title: string, name: string }> = [
+		{ url: "https://www.beeminder.com", title: "Beeminder", name: "beeminder" },
+		{ url: "https://austin.bcycle.com", title: "Austin Bcycle", name: "bcycle" },
+		{ url: "https://bitbucket.org/", title: "Bitbucket", name: "bitbucket" },
+		{ url: "https://www.blogger.com", title: "Blogger", name: "blogger" },
+		{ url: "https://www.dropbox.com/", title: "Dropbox", name: "dropbox_oauth2" },
+		{ url: "https://evernote.com/", title: "Evernote", name: "evernote" },
+		{ url: "https://www.facebook.com/", title: "Facebook", name: "facebook" },
+		{ url: "https://www.fitbit.com/", title: "Fitbit", name: "fitbit" },
+		{ url: "https://www.flickr.com/", title: "Flickr", name: "flickr" },
+		{ url: "https://github.com/", title: "GitHub", name: "github" },
+		{ url: "https://www.google.com/gmail", title: "Gmail", name: "gmail" },
+		{ url: "https://www.google.com/calendar", title: "Google Calendar", name: "googlecalendar" },
+		{ url: "https://www.google.com/drive/", title: "Google Drive", name: "googledrive" },
+		{ url: "https://www.google.com/fit/", title: "Google Fit", name: "googlefit" },
+		{ url: "https://plus.google.com", title: "Google+", name: "googleplus" },
+		{ url: "https://mail.google.com/tasks", title: "Google Tasks", name: "googletasks" },
+		{ url: "https://www.instagram.com/", title: "Instagram", name: "instagram" },
+		{ url: "https://www.khanacademy.org/", title: "KhanAcademy", name: "khan_academy" },
+		{ url: "https://www.linkedin.com/", title: "LinkedIn", name: "linkedin" },
+		{ url: "https://products.office.com/en-US/", title: "Microsoft Office365", name: "microsoft_office365" },
+		{ url: "https://moves-app.com/", title: "Moves", name: "moves" },
+		{ url: "https://getpocket.com", title: "Pocket", name: "pocket" },
+		{ url: "https://quizlet.com", title: "Quizlet", name: "quizlet" },
+		{ url: "https://www.rememberthemilk.com/", title: "Remember The Milk", name: "rtm" },
+		{ url: "https://runkeeper.com/", title: "RunKeeper", name: "runkeeper" },
+		{ url: "https://slack.com/", title: "Slack", name: "slack" },
+		{ url: "https://stackoverflow.com/", title: "Stack Overflow", name: "stackoverflow" },
+		{ url: "https://www.strava.com/", title: "Strava", name: "strava" },
+		{ url: "https://trello.com", title: "Trello", name: "trello" },
+		{ url: "https://www.tumblr.com/", title: "Tumblr", name: "tumblr" },
+		{ url: "https://twitter.com/", title: "Twitter", name: "twitter" },
+		{ url: "http://typeracer.com", title: "Typeracer", name: "typeracer" },
+		{ url: "https://en.wikipedia.org/wiki/Main_Page", title: "Wikipedia", name: "wikipedia" },
+		{ url: "https://join.worldcommunitygrid.org?recruiterId=734146", title: "World Community Grid", name: "worldcommunitygrid" },
+		{ url: "https://www.wunderlist.com/", title: "Wunderlist", name: "wunderlist" },
+		{ url: "https://www.youtube.com/", title: "Youtube", name: "youtube" }
+	];
 
   constructor(public storage: Storage, public beeminder: BeeminderApi, public nectar: NectarApi, private toastCtrl: ToastController, @Inject(EnvVariables) public envVariables) {
     storage.get('beeminderUser').then(beeminderUser => {
@@ -97,6 +135,17 @@ export class User {
 
   getGoals() {
     return this.beeminder.fetchGoals();
+  }
+  
+  refreshGoal(slug: string) {
+    return this.beeminder.refreshGoal(slug).subscribe(value => {
+	  this.presentToast('The Beeminder goal ' + slug + ' was successfully refreshed.');
+	}, err => {
+	    if(err){
+		  console.error(err);
+		  alert('An error occurred refreshing Beeminder goal ' + slug + ': ' + JSON.stringify(err) + '.');
+		}
+	});
   }
   
   setGoals() {
@@ -330,13 +379,7 @@ export class User {
   }
 
   getIntergrationStatus(integration: any) {
-    let status = false;
-    for (let provider of this.nectarUser.credentials) {
-      if (provider.provider_name == integration.name) {
-        status = true;
-      }
-    }
-    return status;
+	return this.nectarUser.credentials.some(p => p.provider_name == integration.name);
   }
   
   getIntergration(goal: any) {
@@ -351,11 +394,11 @@ export class User {
   }
   
   getIntergrationGoal(goal: any) {
-    for (let g of this.nectarUser.goals) {
-      if (g.slug == goal.slug) {
-        return g;
-      }
-    }
+	return this.nectarUser.goals.find(g => g.slug == goal.slug);
+  }
+  
+  getProvider(name: string) {
+    return this.providersfrontend.find(p => p.name == name);
   }
 
   //Returns list of all integrations that the user is logged into

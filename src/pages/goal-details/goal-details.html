@@ -99,6 +99,10 @@
     <ion-card-header>
       <h2>Datapoints</h2>
     </ion-card-header>
+	
+	<div text-center *ngIf="goal.autodata != null">
+      <button ion-button (click)="refresh()">Fetch New Data</button>
+    </div>
 
     <div text-center>
       <button ion-button (click)="addDatapointPrompt()">Add Datapoint</button>
