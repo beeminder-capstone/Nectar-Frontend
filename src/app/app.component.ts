@@ -23,8 +23,8 @@ import { User } from '../providers/user';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage;
-  activePage : any;
+  rootPage: any;
+  activePage: any;
 
   pages: Array<{title: string, component: any, icon: string}>;
 

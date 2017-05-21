@@ -309,6 +309,10 @@ export class User {
 		}
 	  }
   )}
+  
+  redirect(){
+	return this.beeminder.redirect();
+  }
 
   getSettings() {
     return this.userSettings;

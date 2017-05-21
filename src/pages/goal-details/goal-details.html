@@ -24,7 +24,7 @@
   <ion-card>
     <ion-item text-wrap>
 	  <ion-thumbnail item-left>
-        <img src="{{goal.icon}}">
+        <img src="{{goal.icon}}"/>
       </ion-thumbnail>
 	  <h2>
 	  {{integration}}
@@ -37,8 +37,6 @@
     <ion-card-header>
       <h1>{{goal.title}}</h1>
     </ion-card-header>
-
-
 
     <ion-card-content>
       <!--This will contain the d3 graph of the users datapoints-->
@@ -63,6 +61,7 @@
       <h2>Settings</h2>
     </ion-card-header>
 
+    <ion-card-content>
     <ion-list>
       <ion-item>
         <span item-left>Rate:</span>
@@ -82,7 +81,7 @@
       </ion-item>
 	  <ion-item>
         <span item-left>Beeminder Link:</span>
-        <span item-right><a target="_blank" href="https://www.beeminder.com/{{username}}/goals/{{goal.slug}}">{{goal.slug}}</a></span>
+        <span item-right><a target="_blank" href="{{link}}/{{username}}/{{goal.slug}}">{{goal.slug}}</a></span>
       </ion-item>
 	  <div *ngIf="goal.integration != null">
         <ion-item>
@@ -91,46 +90,46 @@
         </ion-item>
 	  </div>
     </ion-list>
+	</ion-card-content>
 
   </ion-card>
 
   <ion-card>
+  
+    <div style="position: relative">
+	  <ion-fab right top>
+        <button ion-fab (click)="addDatapointPrompt()" color="light">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </ion-fab>
+	</div>
 
     <ion-card-header>
       <h2>Datapoints</h2>
     </ion-card-header>
 	
+	<ion-card-content>
 	<div text-center *ngIf="goal.autodata != null">
       <button ion-button (click)="refresh()">Fetch New Data</button>
     </div>
 
-    <div text-center>
-      <button ion-button (click)="addDatapointPrompt()">Add Datapoint</button>
-    </div>
-
     <ion-list text-wrap>
-      <ion-list-header>
-        <span item-left>Value</span>
-        <span item-right>Updated</span>
-      </ion-list-header>
-
       <button ion-item *ngFor="let datapoint of goal.datapoints" (click)="editDatapointPrompt(datapoint)">
-		<ion-row>
-		  <ion-col col-4>
-		    <span>{{datapoint.value  |  number:0}}</span>
-		  </ion-col>
-		  <ion-col col-8>
-		    <span style="float: right; font-style: italic">{{datapoint.timestamp*1000  |  date:"MMM d, y h:mm a"}} </span>
-		  </ion-col>
-	    </ion-row>
-		<ion-row>
-		  <ion-col>
-		    <span>{{datapoint.comment}}</span>
-		  </ion-col>
-	    </ion-row>
+		<div>
+		  <span>{{datapoint.value  |  number:0}}</span>
+		  <span style="float: right; font-style: italic;">{{datapoint.timestamp*1000  |  date:"MMM d, y h:mm a"}}</span>
+		</div>
+		<div>
+		  <span>{{datapoint.comment}}</span>
+		</div>
       </button>
     </ion-list>
+	</ion-card-content>
 
   </ion-card>
+  
+  <ion-fab bottom right>
+    <button ion-fab (click)="share()" color="secondary"><ion-icon name="share"></ion-icon></button>
+  </ion-fab>
 
 </ion-content>

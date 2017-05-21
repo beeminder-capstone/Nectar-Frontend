@@ -6,7 +6,7 @@
  */
 import { Component, Inject } from '@angular/core';
 
-import { AlertController, ToastController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { SocialSharing } from '@ionic-native/social-sharing';
 
@@ -30,7 +30,6 @@ export class SettingsPage {
     public storage: Storage,
 	private socialSharing: SocialSharing,
     public alertCtrl: AlertController,
-    public toastCtrl: ToastController,
     public user: User,
 	@Inject(EnvVariables) public envVariables
   ) {
@@ -96,23 +95,15 @@ export class SettingsPage {
           handler: data => {
             this.socialSharing.canShareViaEmail().then(() => {
               this.socialSharing.shareViaEmail("", 'User Feedback: ' + this.username, ['nectarapp.feedback@gmail.com'])
-                .then(() => { this.createToast('Thank you for your feedback!'); })
-                .catch(() => { this.createToast('Failed to send message!'); });
+                .then(() => { this.user.presentToast('Thank you for your feedback!'); })
+                .catch(() => { alert('An error occurred sending feedback.'); });
             }).catch(() => {
-              this.createToast('Error connecting to e-mail app');
+              alert('Sending feedback via email is not possible.');
             });
           }
         }
       ]
     });
     prompt.present();
-  }
-
-  createToast(message: string) {
-    let toast = this.toastCtrl.create({
-      message: message,
-      duration: 4000
-    });
-    toast.present();
   }
 }

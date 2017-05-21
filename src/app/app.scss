@@ -21,6 +21,5 @@
 // automatically applied to the <body> element in the app.
 
 .activeHighlight {
-    background-color: map-get($colors, primary);
-
+    background-color: map-get($colors, light);
 }

@@ -10,6 +10,7 @@ import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PopoverPage } from './popover'
+import { SocialSharing } from '@ionic-native/social-sharing';
 import { User } from '../../providers/user';
 import { EnvVariables } from '../../app/environment-variables/environment-variables.token';
 import { TimerComponent } from '../timer/timer';
@@ -30,11 +31,13 @@ export class GoalDetailsPage {
   integration: string;
   metric: string;
   metrictitle: string;
+  link: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
 	public storage: Storage,
+	private socialSharing: SocialSharing,
     private user: User,
     private popoverCtrl: PopoverController,
     public alertCtrl: AlertController,
@@ -58,6 +61,8 @@ export class GoalDetailsPage {
 	let d = new Date();
     let t = Math.floor(d.getTime() / 1000);
 	this.goal.time = this.goal.losedate - t;
+	
+	this.link = this.user.redirect();
   }
 
   presentPopover(event: Event) {
@@ -65,7 +70,7 @@ export class GoalDetailsPage {
     popover.present({ ev: event });
   }
 
-  addDataPoint(value:number, comment:string){
+  addDataPoint(value: number, comment: string){
     //create timestamp for goal
 		let d = new Date();
 		let goaldate = Math.floor(d.getTime() / 1000);
@@ -93,7 +98,7 @@ export class GoalDetailsPage {
 
   }
   
-  editDataPoint(id:string, value:number, comment:string){
+  editDataPoint(id: string, value: number, comment: string){
 	let datapoint = {
       value: value,
 	  comment: comment
@@ -175,7 +180,7 @@ export class GoalDetailsPage {
       this.networkService.showNetworkAlert();
   }
   
-  editDatapointPrompt(datapoint) {
+  editDatapointPrompt(datapoint: any) {
 	let prompt = this.alertCtrl.create({
       title: 'Update Datapoint',
       message: "Please enter the new value of the datapoint:",
@@ -214,6 +219,16 @@ export class GoalDetailsPage {
 	
 	if(this.networkService.noConnection())
       this.networkService.showNetworkAlert();
+  }
+  
+  share() {
+    let link = 'https://www.beeminder.com/' + this.username + '/' + this.goal.slug;
+  
+    this.socialSharing.share('Beeminder Goal ' + this.goal.slug, this.goal.slug, null, link).then(() => {
+	  this.user.presentToast('The Beeminder goal ' + this.goal.slug + ' was successfully shared.');
+	}).catch(() => {
+	  alert('An error occurred sharing Beeminder goal ' + this.goal.slug + '.');
+	});
   }
 
 }

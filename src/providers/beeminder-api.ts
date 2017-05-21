@@ -118,5 +118,9 @@ export class BeeminderApi {
       .map(res => res.json())
 	  .catch(err => Observable.throw(err.json().errors));
   }
+  
+  redirect(){
+    return this.baseUrl + '/users/me.json?access_token=' + this.access_token + '&redirect_to_url=https://www.beeminder.com';
+  }
 
 }

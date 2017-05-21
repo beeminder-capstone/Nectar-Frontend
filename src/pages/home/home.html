@@ -24,10 +24,6 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-fab bottom right>
-  <button ion-fab (click)="addGoal()" color="light"><ion-icon name="add"></ion-icon></button>
-</ion-fab>
-
 <ion-content padding>
   <div class='user'>
     <p>{{username}}</p>
@@ -49,4 +45,8 @@
   <div *ngIf="goals.length == 0">
     <p text-center>Create a Beeminder goal first.</p>
   </div>
+  
+  <ion-fab bottom right>
+    <button ion-fab (click)="addGoal()" color="light"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>
