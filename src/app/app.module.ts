@@ -12,10 +12,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Network } from '@ionic-native/network';
 import { Diagnostic } from '@ionic-native/diagnostic';
+import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
-import { EnvironmentsModule } from './environment-variables/environment-variables.module.ts';
+import { EnvironmentsModule } from './environment-variables/environment-variables.module';
 import { TimerComponent } from '../pages/timer/timer';
 
 import { HomePage } from '../pages/home/home';
@@ -87,6 +88,7 @@ import { NetworkService } from '../providers/network-service';
     SocialSharing,
 	Network,
 	Diagnostic,
+	SpeechRecognition,
     BeeminderApi,
     NectarApi,
     User,

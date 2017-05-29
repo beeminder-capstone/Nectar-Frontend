@@ -18,7 +18,7 @@
         <form (ngSubmit)="confirm()">
             <ion-item>
                 <ion-label floating>Goal Slug:</ion-label>
-                <ion-input type="text" [(ngModel)]="goal.slug" name="slug" value="{{goal.slug}}" required></ion-input>
+                <ion-input type="text" [(ngModel)]="goal.slug" name="slug" value="{{goal.slug}}" pattern="[a-z0-9\-]+" required></ion-input>
             </ion-item>
 
             <ion-item>

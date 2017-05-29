@@ -9,6 +9,7 @@ import { NavController, MenuController, LoadingController, ModalController, Acti
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import { DomSanitizer } from '@angular/platform-browser';
+import { SpeechRecognition } from '@ionic-native/speech-recognition';
 
 import { GoalDetailsPage } from '../goal-details/goal-details';
 import { GoalFilterPage } from '../goal-filter/goal-filter';
@@ -39,7 +40,7 @@ export class HomePage {
 	{title: "Integration Goals", name: "integration", isChecked: true}
   ];
 
-  constructor(public navCtrl: NavController, public menu: MenuController, public loading: LoadingController, public modalCtrl: ModalController, public actionSheetCtrl: ActionSheetController, public storage: Storage, private sanitizer: DomSanitizer, private user: User, private networkService: NetworkService) {
+  constructor(public navCtrl: NavController, public menu: MenuController, public loading: LoadingController, public modalCtrl: ModalController, public actionSheetCtrl: ActionSheetController, public storage: Storage, private sanitizer: DomSanitizer, private speechRecognition: SpeechRecognition, private user: User, private networkService: NetworkService) {
     this.menu.swipeEnable(true);
 	
 	this.storage.get('username').then((value) => {
@@ -58,8 +59,7 @@ export class HomePage {
       this.user.getUser().subscribe((auser) => {
 		  this.goals = [];
 		  
-		  let d = new Date();
-		  let t = Math.floor(d.getTime() / 1000);
+		  let t = Math.floor(new Date().getTime() / 1000);
 		
 		  for (let goal of auser.goals) {
 			this.user.getGoal(goal).subscribe((agoal) => {
@@ -67,7 +67,6 @@ export class HomePage {
 			  agoal.integration = this.user.getIntergration(agoal);
 			  agoal.icon = agoal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + agoal.integration + ".png";
 			  agoal.color = this.sanitizer.bypassSecurityTrustStyle(agoal.roadstatuscolor);
-			  
 			  agoal.time = agoal.losedate - t;
 			  
 			  this.goals.push(agoal);
@@ -205,6 +204,96 @@ export class HomePage {
         return (item.slug.toLowerCase().indexOf(val.toLowerCase()) > -1 || item.title.toLowerCase().indexOf(val.toLowerCase()) > -1);
       });
     }
+  }
+  
+  reload(goal: any) {
+    this.user.getGoal(goal.slug).subscribe((data) => {
+	  goal = data;
+	  
+	  let t = Math.floor(new Date().getTime() / 1000);
+	  
+	  goal.lastUpdated = new Date(goal.updated_at * 1000);
+	  goal.integration = this.user.getIntergration(goal);
+      goal.icon = goal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + goal.integration + ".png";
+	  goal.color = this.sanitizer.bypassSecurityTrustStyle(goal.roadstatuscolor);
+	  goal.time = goal.losedate - t;
+	  
+	  let index = this.filtergoals.findIndex(g => g.slug == goal.slug);
+	  this.goals[index] = goal;
+	  
+	  let filter = this.filtergoals.findIndex(g => g.slug == goal.slug);
+	  
+	  if(filter > -1)
+		this.filtergoals[filter] = goal;
+	  
+	  let search = this.searchgoals.findIndex(g => g.slug == goal.slug);
+	  
+	  if(search  > -1)
+		this.searchgoals[search] = goal;
+    }, err => {
+		if(err){
+		  console.error(err);
+		}
+	});
+  }
+  
+  voiceCommand() {
+	// Check feature available
+	this.speechRecognition.isRecognitionAvailable().then((available: boolean) => {
+		if(!available){
+			alert('Voice commands are not available.');
+			return;
+		}
+			
+		// Check permission
+		this.speechRecognition.hasPermission().then((hasPermission: boolean) => {
+			if(hasPermission){
+				this.startRecognition();
+			}else{
+				// Request permissions
+				this.speechRecognition.requestPermission().then(() => {
+					this.startRecognition();
+				}, () => {
+					alert('Speech recognition permission is required.');
+				});
+			}
+		});
+	});
+  }
+  
+  startRecognition() {
+	// Start the recognition process
+	this.speechRecognition.startListening().subscribe((matches: Array<string>) => {
+		for (let match of matches) {
+			if(match && match.trim() != '') {
+				match = match.toLowerCase();
+				
+				if('create goal' == match){
+					this.addGoal();
+					return;
+				}else if(RegExp(/^add [0-9]+(\.[0-9]+)? to [a-z0-9\-]+$/i).test(match)){
+					let split = match.split(" ");
+					
+					let goal = this.goals.find(g => g.slug == split[3]);
+					
+					if(goal){
+						let value = parseFloat(split[1]).toString();
+
+						this.user.addDatapointPromptConfirm(goal, value, this.reload.bind(this));
+					}else{
+						alert('The Beeminder goal ' + split[3] + ' does not exist.');
+					}
+					
+					return;
+				}
+			}
+		}
+		
+		alert('The voice command is not valid.');
+	}, (onerror) => {
+		//alert('An error occurred during speech recognition: ' + onerror);
+		console.error(onerror);
+	});
   }
 
   addGoal() {

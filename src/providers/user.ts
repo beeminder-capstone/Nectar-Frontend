@@ -5,11 +5,12 @@
  * Please see the file LICENSE in this distribution for license terms.
  */
 import { Injectable } from '@angular/core';
-import { ToastController } from 'ionic-angular';
+import { ToastController, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { BeeminderApi } from './beeminder-api';
 import { NectarApi } from './nectar-api';
+import { NetworkService } from './network-service';
 import { Inject } from '@angular/core';
 import { EnvVariables } from '../app/environment-variables/environment-variables.token';
 
@@ -67,7 +68,7 @@ export class User {
 		{ url: "https://www.youtube.com/", title: "Youtube", name: "youtube" }
 	];
 
-  constructor(public storage: Storage, public beeminder: BeeminderApi, public nectar: NectarApi, private toastCtrl: ToastController, @Inject(EnvVariables) public envVariables) {
+  constructor(public storage: Storage, public beeminder: BeeminderApi, public nectar: NectarApi, private networkService: NetworkService, private toastCtrl: ToastController, public alertCtrl: AlertController, @Inject(EnvVariables) public envVariables) {
     storage.get('beeminderUser').then(beeminderUser => {
       if(beeminderUser == null) {
         //this.setbeeminderUser();
@@ -137,9 +138,11 @@ export class User {
     return this.beeminder.fetchGoals();
   }
   
-  refreshGoal(slug: string) {
+  refreshGoal(slug: string, callback: Function) {
     return this.beeminder.refreshGoal(slug).subscribe(value => {
 	  this.presentToast('The Beeminder goal ' + slug + ' was successfully refreshed.');
+	  
+	  callback();
 	}, err => {
 	    if(err){
 		  console.error(err);
@@ -292,8 +295,16 @@ export class User {
     return this.beeminder.fetchDatapoints(goal);
   }
 
-  addDataPoint(goal: any, datapoint: any){
-    return this.beeminder.addDataPoint(goal, datapoint).subscribe(data => this.presentToast('The datapoint was successfully added to goal ' + goal.slug + '.'), err => {
+  addDataPoint(goal: any, value: number, comment: string){
+    let goaldate = Math.floor(new Date().getTime() / 1000);
+
+	let datapoint = {
+	  timestamp: goaldate,
+	  value: value,
+	  comment: comment
+	};
+	
+	return this.beeminder.addDataPoint(goal, datapoint).subscribe(data => this.presentToast('The datapoint was successfully added to goal ' + goal.slug + '.'), err => {
 	    if(err){
 		  console.error(err);
 		  alert('An error occurred adding the datapoint to goal ' + goal.slug + ': ' + JSON.stringify(err) + '.');
@@ -301,8 +312,13 @@ export class User {
 	  }
   )}
   
-  editDataPoint(goal: any, id: string, datapoint: any){
-    return this.beeminder.editDataPoint(goal, id, datapoint).subscribe(data => this.presentToast('The datapoint was successfully updated for goal ' + goal.slug + '.'), err => {
+  editDataPoint(goal: any, id: string, value: number, comment: string){
+    let datapoint = {
+	  value: value,
+	  comment: comment
+	};
+	
+	return this.beeminder.editDataPoint(goal, id, datapoint).subscribe(data => this.presentToast('The datapoint was successfully updated for goal ' + goal.slug + '.'), err => {
 	    if(err){
 		  console.error(err);
 		  alert('An error occurred updating the datapoint for goal ' + goal.slug + ': ' + JSON.stringify(err) + '.');
@@ -312,6 +328,135 @@ export class User {
   
   redirect(){
 	return this.beeminder.redirect();
+  }
+
+  addDatapointPrompt(goal: any, callback: Function) {
+	let prompt = this.alertCtrl.create({
+      title: 'Add Datapoint',
+      message: "Please enter the value of the datapoint:",
+      inputs: [
+        {
+          type: 'number',
+		  name: 'value',
+          placeholder: 'Value (e.g. 1 or 5)'
+        },
+		{
+          type: 'text',
+		  name: 'comment',
+		  placeholder: 'Comment'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+		  role: 'cancel',
+          handler: data => {
+            //console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Add Datapoint',
+          handler: data => {
+            //console.log(data);
+
+			this.addDataPoint(goal, data.value, data.comment);
+			
+			callback();
+          }
+        }
+      ]
+    });
+    prompt.present();
+	
+	if(this.networkService.noConnection())
+      this.networkService.showNetworkAlert();
+  }
+  
+  addDatapointPromptConfirm(goal: any, value: string, callback: Function) {
+	let prompt = this.alertCtrl.create({
+      title: 'Add Datapoint',
+      message: "Please confirm the value of the datapoint:",
+      inputs: [
+        {
+          type: 'number',
+		  name: 'value',
+          placeholder: 'Value (e.g. 1 or 5)',
+		  value: value
+        },
+		{
+          type: 'text',
+		  name: 'comment',
+		  placeholder: 'Comment'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+		  role: 'cancel',
+          handler: data => {
+            //console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Add Datapoint',
+          handler: data => {
+            //console.log(data);
+
+			this.addDataPoint(goal, data.value, data.comment);
+			
+			callback(goal);
+          }
+        }
+      ]
+    });
+    prompt.present();
+	
+	if(this.networkService.noConnection())
+      this.networkService.showNetworkAlert();
+  }
+  
+  editDatapointPrompt(goal: any, datapoint: any, callback: Function) {
+	let prompt = this.alertCtrl.create({
+      title: 'Update Datapoint',
+      message: "Please enter the new value of the datapoint:",
+      inputs: [
+        {
+          type: 'number',
+		  name: 'value',
+		  placeholder: 'Value (e.g. 1 or 5)',
+		  value: datapoint.value
+        },
+		{
+          type: 'text',
+		  name: 'comment',
+		  placeholder: 'Comment',
+		  value: datapoint.comment
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+		  role: 'cancel',
+          handler: data => {
+            //console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Submit',
+          handler: data => {
+            //console.log(data);
+
+			this.editDataPoint(goal, datapoint.id, data.value, data.comment);
+			
+			callback();
+          }
+        }
+      ]
+    });
+    prompt.present();
+	
+	if(this.networkService.noConnection())
+      this.networkService.showNetworkAlert();
   }
 
   getSettings() {

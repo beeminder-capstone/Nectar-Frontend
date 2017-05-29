@@ -6,7 +6,6 @@
  */
 import { Component, Inject, ViewChild } from '@angular/core';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PopoverPage } from './popover'
@@ -40,7 +39,6 @@ export class GoalDetailsPage {
 	private socialSharing: SocialSharing,
     private user: User,
     private popoverCtrl: PopoverController,
-    public alertCtrl: AlertController,
 	@Inject(EnvVariables) public envVariables,
 	private sanitizer: DomSanitizer,
 	private networkService: NetworkService
@@ -58,8 +56,7 @@ export class GoalDetailsPage {
 	this.metrictitle = this.integrationgoal == null ? null : this.user.getMetric(this.goal.integration, this.integrationgoal.metric_key).title;
 	this.metric = this.integrationgoal == null ? null : 'Metric: ' + this.metrictitle;
 	
-	let d = new Date();
-    let t = Math.floor(d.getTime() / 1000);
+    let t = Math.floor(new Date().getTime() / 1000);
 	this.goal.time = this.goal.losedate - t;
 	
 	this.link = this.user.redirect();
@@ -69,156 +66,38 @@ export class GoalDetailsPage {
     let popover = this.popoverCtrl.create(PopoverPage, { goal: this.goal, integration: this.integration, metric: this.metric });
     popover.present({ ev: event });
   }
-
-  addDataPoint(value: number, comment: string){
-    //create timestamp for goal
-		let d = new Date();
-		let goaldate = Math.floor(d.getTime() / 1000);
-
-	let datapoint = {
-      timestamp: goaldate,
-      value: value,
-	  comment: comment
-    };
-
-    this.user.addDataPoint(this.goal, datapoint);
-	
-	this.user.getGoal(this.goal.slug).subscribe((data) => {
-      this.goal = data;
-	  
-	  this.goal.lastUpdated = new Date(this.goal.updated_at * 1000);
-	  this.goal.integration = this.user.getIntergration(this.goal);
-      this.goal.icon = this.goal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.goal.integration + ".png";
-	  this.goal.color = this.sanitizer.bypassSecurityTrustStyle(this.goal.roadstatuscolor);
-    }, err => {
-		if(err){
-		  console.error(err);
-		}
-	});
-
-  }
   
-  editDataPoint(id: string, value: number, comment: string){
-	let datapoint = {
-      value: value,
-	  comment: comment
-    };
-
-    this.user.editDataPoint(this.goal, id, datapoint);
-	
-	this.user.getGoal(this.goal.slug).subscribe((data) => {
+  reload() {
+    this.user.getGoal(this.goal.slug).subscribe((data) => {
       this.goal = data;
+	  
+	  let t = Math.floor(new Date().getTime() / 1000);
 	  
 	  this.goal.lastUpdated = new Date(this.goal.updated_at * 1000);
 	  this.goal.integration = this.user.getIntergration(this.goal);
       this.goal.icon = this.goal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.goal.integration + ".png";
 	  this.goal.color = this.sanitizer.bypassSecurityTrustStyle(this.goal.roadstatuscolor);
+	  this.goal.time = this.goal.losedate - t;
     }, err => {
 		if(err){
 		  console.error(err);
 		}
 	});
-
   }
   
   refresh() {
 	if(this.networkService.noConnection())
       this.networkService.showNetworkAlert();
 	
-	this.user.refreshGoal(this.goal.slug);
-	
-	this.user.getGoal(this.goal.slug).subscribe((data) => {
-      this.goal = data;
-	  
-	  this.goal.lastUpdated = new Date(this.goal.updated_at * 1000);
-	  this.goal.integration = this.user.getIntergration(this.goal);
-      this.goal.icon = this.goal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.goal.integration + ".png";
-	  this.goal.color = this.sanitizer.bypassSecurityTrustStyle(this.goal.roadstatuscolor);
-    }, err => {
-		if(err){
-		  console.error(err);
-		}
-	});
+	this.user.refreshGoal(this.goal.slug, this.reload.bind(this));
   }
 
   addDatapointPrompt() {
-	let prompt = this.alertCtrl.create({
-      title: 'Add Datapoint',
-      message: "Please enter the value of the datapoint:",
-      inputs: [
-        {
-          type: 'number',
-		  name: 'value',
-          placeholder: 'Value (e.g. 1 or 5)'
-        },
-		{
-          type: 'text',
-		  name: 'comment',
-		  placeholder: 'Comment'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-		  role: 'cancel',
-          handler: data => {
-            //console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Add Datapoint',
-          handler: data => {
-            //console.log(data);
-            this.addDataPoint(data.value, data.comment);
-          }
-        }
-      ]
-    });
-    prompt.present();
-	
-	if(this.networkService.noConnection())
-      this.networkService.showNetworkAlert();
+	this.user.addDatapointPrompt(this.goal, this.reload.bind(this));
   }
   
   editDatapointPrompt(datapoint: any) {
-	let prompt = this.alertCtrl.create({
-      title: 'Update Datapoint',
-      message: "Please enter the new value of the datapoint:",
-      inputs: [
-        {
-          type: 'number',
-		  name: 'value',
-		  placeholder: 'Value (e.g. 1 or 5)',
-		  value: datapoint.value
-        },
-		{
-          type: 'text',
-		  name: 'comment',
-		  placeholder: 'Comment',
-		  value: datapoint.comment
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-		  role: 'cancel',
-          handler: data => {
-            //console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Submit',
-          handler: data => {
-            //console.log(data);
-            this.editDataPoint(datapoint.id, data.value, data.comment);
-          }
-        }
-      ]
-    });
-    prompt.present();
-	
-	if(this.networkService.noConnection())
-      this.networkService.showNetworkAlert();
+	this.user.editDatapointPrompt(this.goal, datapoint, this.reload.bind(this));
   }
   
   share() {

@@ -98,7 +98,7 @@ export class SettingsPage {
                 .then(() => { this.user.presentToast('Thank you for your feedback!'); })
                 .catch(() => { alert('An error occurred sending feedback.'); });
             }).catch(() => {
-              alert('Sending feedback via email is not possible.');
+              alert('Sending feedback via email is not available.');
             });
           }
         }

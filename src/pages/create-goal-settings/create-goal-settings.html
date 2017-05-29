@@ -26,30 +26,30 @@
 
 			<ion-item>
 				<ion-label floating>Goal Slug:</ion-label>
-				<ion-input type="text" [(ngModel)]="slug" name="slug" required="true" value="Name of Goal" placeholder="{{slug}}"></ion-input>
+				<ion-input type="text" [(ngModel)]="slug" name="slug" value="Name of Goal" placeholder="{{slug}}" autocapitalize="off" pattern="[a-z0-9\-]+" required></ion-input>
 			</ion-item>
 
 			<ion-item>
 				<ion-label floating>Goal Name:</ion-label>
-				<ion-input type="text" [(ngModel)]="title" name="title" required="true" value="Name of Goal" placeholder="{{title}}"></ion-input>
+				<ion-input type="text" [(ngModel)]="title" name="title" value="Name of Goal" placeholder="{{title}}" required></ion-input>
 			</ion-item>
 
 			<ion-item>
 				<ion-label stacked>Pledge Value:</ion-label>
-				<ion-input type="number" [(ngModel)]="rate" name="rate" required="true" value="2, 5, etc"></ion-input>
+				<ion-input type="number" [(ngModel)]="rate" name="rate" value="2, 5, etc" required></ion-input>
 			</ion-item>
 
 			<ion-item>
 				<ion-label stacked>Pledge Units:</ion-label>
-				<ion-input type="text" [(ngModel)]="gunit" name="gunit" required="true" value="steps, post, etc" placeholder="steps"></ion-input>
+				<ion-input type="text" [(ngModel)]="gunit" name="gunit" value="steps, post, etc" placeholder="steps" required></ion-input>
 			</ion-item>
 
 
 			<ion-item>
 				<ion-label stacked>Select one of the Pledge Rates:</ion-label>
-				<ion-select [(ngModel)]="runit" name="runit">
+				<ion-select [(ngModel)]="runit" name="runit" required>
 				<ion-option value="h">Hourly</ion-option>
-				<ion-option value="d" selected="true">Daily</ion-option>
+				<ion-option value="d" selected>Daily</ion-option>
 				<ion-option value="w">Weekly</ion-option>
 				<ion-option value="m">Monthly</ion-option>
 				<ion-option value="y">Yearly</ion-option>
