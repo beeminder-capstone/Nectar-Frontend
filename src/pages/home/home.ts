@@ -58,16 +58,12 @@ export class HomePage {
 	loader.present().then(() => {
       this.user.getUser().subscribe((auser) => {
 		  this.goals = [];
-		  
-		  let t = Math.floor(new Date().getTime() / 1000);
 		
 		  for (let goal of auser.goals) {
 			this.user.getGoal(goal).subscribe((agoal) => {
-			  agoal.lastUpdated = new Date(agoal.updated_at * 1000);
 			  agoal.integration = this.user.getIntergration(agoal);
 			  agoal.icon = agoal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + agoal.integration + ".png";
 			  agoal.color = this.sanitizer.bypassSecurityTrustStyle(agoal.roadstatuscolor);
-			  agoal.time = agoal.losedate - t;
 			  
 			  this.goals.push(agoal);
 			}, err => {
@@ -210,13 +206,9 @@ export class HomePage {
     this.user.getGoal(goal.slug).subscribe((data) => {
 	  goal = data;
 	  
-	  let t = Math.floor(new Date().getTime() / 1000);
-	  
-	  goal.lastUpdated = new Date(goal.updated_at * 1000);
 	  goal.integration = this.user.getIntergration(goal);
       goal.icon = goal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + goal.integration + ".png";
 	  goal.color = this.sanitizer.bypassSecurityTrustStyle(goal.roadstatuscolor);
-	  goal.time = goal.losedate - t;
 	  
 	  let index = this.filtergoals.findIndex(g => g.slug == goal.slug);
 	  this.goals[index] = goal;

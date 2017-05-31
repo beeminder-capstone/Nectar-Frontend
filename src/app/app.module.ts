@@ -18,6 +18,7 @@ import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
 import { EnvironmentsModule } from './environment-variables/environment-variables.module';
 import { TimerComponent } from '../pages/timer/timer';
+import { StopwatchPage } from '../pages/stopwatch/stopwatch';
 
 import { HomePage } from '../pages/home/home';
 import { AddGoalPage } from '../pages/add-goal/add-goal';
@@ -55,7 +56,8 @@ import { NetworkService } from '../providers/network-service';
     EditIntegrationPage,
 	GoalFilterPage,
     PopoverPage,
-	TimerComponent
+	TimerComponent,
+	StopwatchPage
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,8 @@ import { NetworkService } from '../providers/network-service';
     EditIntegrationPage,
 	GoalFilterPage,
     SelectMetricPage,
-    PopoverPage
+    PopoverPage,
+	StopwatchPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

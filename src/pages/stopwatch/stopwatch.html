@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">Cancel</button>
+    </ion-buttons>
+
+    <ion-title>
+      Timer
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button (click)="confirm()" strong>Next</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+<ion-card *ngIf="stopwatch">
+	<ion-item>
+		<button ion-button large full clear (click)="pauseStopwatch()" *ngIf="stopwatch.runTimer"><h1>{{stopwatch.displayTime}}</h1></button>
+		<button ion-button large full clear (click)="resumeStopwatch()" *ngIf="!stopwatch.runTimer"><h1>{{stopwatch.displayTime}}</h1></button>
+	</ion-item>
+	<ion-item>
+		<button ion-button icon-left clear color="danger" small (click)="initStopwatch()" item-left *ngIf="!stopwatch.runTimer && (stopwatch.hasStarted || stopwatch.hasFinished) || stopwatch.hasFinished">
+			<ion-icon name="refresh"></ion-icon>
+			Reset
+		</button>
+		<button ion-button icon-left clear small color="primary" (click)="pauseStopwatch()" item-right *ngIf="stopwatch.runTimer && stopwatch.hasStarted && !stopwatch.hasFinished">
+			<ion-icon name="pause"></ion-icon>
+			Pause
+		</button>      
+		<button ion-button icon-left clear small color="primary" (click)="resumeStopwatch()" item-right *ngIf="!stopwatch.runTimer && stopwatch.hasStarted && !stopwatch.hasFinished">
+			<ion-icon name="play"></ion-icon>
+			Resume
+		</button>      
+		<button ion-button icon-left clear small color="primary" (click)="startStopwatch()" item-right *ngIf="!stopwatch.hasStarted">
+			<ion-icon name="play"></ion-icon>
+			Start
+		</button>            
+	</ion-item>
+</ion-card>
+
+</ion-content>

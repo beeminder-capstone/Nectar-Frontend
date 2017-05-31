@@ -40,7 +40,7 @@
         <p>{{goal.limsum}}</p>
 		<img item-right border="0" src="{{goal.icon}}" width="50px"/>
         <div item-right class='box' [style.background-color]="goal.color">
-		  <timer #timer [timeInSeconds]="goal.time" square="true"></timer>
+		  <timer #timer [timeInSeconds]="goal.losedate" square="true"></timer>
 	    </div>
     </button>
   </ion-list>

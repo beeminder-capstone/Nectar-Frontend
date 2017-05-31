@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {ITimer} from './itimer';
+import { Component, Input } from '@angular/core';
+import { ITimer } from './itimer';
  
  
 @Component({
@@ -59,19 +59,15 @@ export class TimerComponent {
 	timerTick() {
 		setTimeout(() => {
 			if (!this.timer.runTimer) { return; }
-			this.timer.secondsRemaining--;
 			this.getSecondsAsDigitalClock(this.timer.secondsRemaining);
-			if (this.timer.secondsRemaining > 0) {
-				this.timerTick();
-			}
-			else {
-				this.timer.hasFinished = true;
-			}
+			this.timerTick();
 		}, 1000);
 	}
  
 	getSecondsAsDigitalClock(inputSeconds: number) {
-		var sec_num = parseInt(inputSeconds.toString(), 10); // don't forget the second param
+		let t = Math.floor(new Date().getTime() / 1000);
+		
+		var sec_num = parseInt(inputSeconds.toString(), 10) - t; // don't forget the second param
 		var days = Math.floor(sec_num / 86400);
 		var hours = Math.floor((sec_num % 86400) / 3600);
 		var minutes = Math.floor((sec_num % 86400 % 3600) / 60);

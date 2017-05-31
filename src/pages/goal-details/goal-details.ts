@@ -5,7 +5,7 @@
  * Please see the file LICENSE in this distribution for license terms.
  */
 import { Component, Inject, ViewChild } from '@angular/core';
-import { NavController, NavParams, PopoverController } from 'ionic-angular';
+import { NavController, NavParams, PopoverController, ModalController, ActionSheetController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PopoverPage } from './popover'
@@ -13,6 +13,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { User } from '../../providers/user';
 import { EnvVariables } from '../../app/environment-variables/environment-variables.token';
 import { TimerComponent } from '../timer/timer';
+import { StopwatchPage } from '../stopwatch/stopwatch';
 import { NetworkService } from '../../providers/network-service';
 
 @Component({
@@ -39,6 +40,8 @@ export class GoalDetailsPage {
 	private socialSharing: SocialSharing,
     private user: User,
     private popoverCtrl: PopoverController,
+	public modalCtrl: ModalController,
+	public actionSheetCtrl: ActionSheetController,
 	@Inject(EnvVariables) public envVariables,
 	private sanitizer: DomSanitizer,
 	private networkService: NetworkService
@@ -56,9 +59,6 @@ export class GoalDetailsPage {
 	this.metrictitle = this.integrationgoal == null ? null : this.user.getMetric(this.goal.integration, this.integrationgoal.metric_key).title;
 	this.metric = this.integrationgoal == null ? null : 'Metric: ' + this.metrictitle;
 	
-    let t = Math.floor(new Date().getTime() / 1000);
-	this.goal.time = this.goal.losedate - t;
-	
 	this.link = this.user.redirect();
   }
 
@@ -71,13 +71,9 @@ export class GoalDetailsPage {
     this.user.getGoal(this.goal.slug).subscribe((data) => {
       this.goal = data;
 	  
-	  let t = Math.floor(new Date().getTime() / 1000);
-	  
-	  this.goal.lastUpdated = new Date(this.goal.updated_at * 1000);
 	  this.goal.integration = this.user.getIntergration(this.goal);
       this.goal.icon = this.goal.integration == null ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.goal.integration + ".png";
 	  this.goal.color = this.sanitizer.bypassSecurityTrustStyle(this.goal.roadstatuscolor);
-	  this.goal.time = this.goal.losedate - t;
     }, err => {
 		if(err){
 		  console.error(err);
@@ -93,7 +89,39 @@ export class GoalDetailsPage {
   }
 
   addDatapointPrompt() {
-	this.user.addDatapointPrompt(this.goal, this.reload.bind(this));
+	let actionSheet = this.actionSheetCtrl.create({
+     title: 'Add Datapoint',
+     buttons: [
+       {
+         text: 'Direct',
+         handler: () => {
+           this.user.addDatapointPrompt(this.goal, this.reload.bind(this));
+         }
+       },
+	   {
+         text: 'Timer',
+         handler: () => {
+			let modal = this.modalCtrl.create(StopwatchPage, this.goal);
+			modal.present();
+
+			modal.onWillDismiss((data: any) => {
+			  if (data) {
+				this.reload();
+			  }
+			});
+         }
+       },
+       {
+         text: 'Cancel',
+         role: 'cancel',
+         handler: () => {
+           //console.log('Cancel clicked');
+         }
+       }
+     ]
+   });
+
+   actionSheet.present();
   }
   
   editDatapointPrompt(datapoint: any) {

@@ -41,7 +41,7 @@
     <ion-card-content>
       <!--This will contain the d3 graph of the users datapoints-->
 	  <div class='box' [style.background-color]="goal.color">
-		<timer #timer [timeInSeconds]="goal.time" rectangle="true"></timer>
+		<timer #timer [timeInSeconds]="goal.losedate" rectangle="true"></timer>
 	  </div>
 	  <ion-item>
 		<span item-left>Derailment:</span>
@@ -77,7 +77,7 @@
       </ion-item>
       <ion-item>
         <span item-left>Last Updated:</span>
-        <span item-right>{{goal.lastUpdated | date:"MMM d, y h:mm a"}}</span>
+        <span item-right>{{goal.updated_at * 1000 | date:"MMM d, y h:mm a"}}</span>
       </ion-item>
 	  <ion-item>
         <span item-left>Beeminder Link:</span>
