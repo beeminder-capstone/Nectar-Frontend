@@ -12,11 +12,12 @@
 
 <ion-content padding>
   <div *ngIf="metricObject.length > 0">
+  <h3>
+	<img border="0" src="assets/logos/{{integration.name}}.png" width="50">
+    {{integration.title}}
+  </h3>
   <ion-list text-wrap>
-    <ion-list-header>
-	  <img border="0" src="assets/logos/{{integration.name}}.png" width="50px">
-      Please select a metric for {{integration.title}}:
-    </ion-list-header>
+	<ion-list-header>Please select a metric:</ion-list-header>
     <button ion-item style="text-align: center" *ngFor="let m of metricObject" (click)="selectMetric(m)">
       <h3>{{m.title}}</h3>
 	  <p>{{m.description}}</p>

@@ -16,10 +16,12 @@
 <ion-content>
   <ion-list>
     <ion-list-header>
-      <img border="0" src="{{goal.icon}}" width="50px" item-left>
+      <img border="0" src="{{goal.icon}}" width="50" item-left>
       {{integration}}
       <br>
-      {{metric}}
+      Metric: {{metric.title}}
+	  <br>
+      Description: {{metric.description}}
     </ion-list-header>
 
     <ion-card>

@@ -20,7 +20,7 @@ import { EnvVariables } from '../../app/environment-variables/environment-variab
 })
 export class EditIntegrationPage {
 	integration: string;
-	metric: string;
+	metric: any;
 	public goals: any = [];
 	goal: any;
 	oldslug: string;

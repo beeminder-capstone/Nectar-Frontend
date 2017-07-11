@@ -23,19 +23,13 @@ import { EnvVariables } from '../../app/environment-variables/environment-variab
 	templateUrl: 'select-goal.html'
 })
 export class SelectGoalPage {
-	integration: string;
-	metric: string;
 	integrationParam: any;
 	metricParam: any;
-    icon: string;
 	public goals: any = [];
 
 	constructor(public navCtrl: NavController, public loading: LoadingController, public storage: Storage, private params: NavParams, public user: User, @Inject(EnvVariables) public envVariables) {
 	this.metricParam = params.get("metric");
     this.integrationParam = params.get("integration");
-    this.icon = "assets/logos/" + this.integrationParam.name + ".png";
-	this.integration = 'Integration: ' + this.integrationParam.title;
-	this.metric = 'Metric: ' + this.metricParam.title;
 	
 	let loader = this.loading.create({
       content: 'Loading&hellip;',

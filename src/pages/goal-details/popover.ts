@@ -24,7 +24,7 @@ import { NetworkService } from '../../providers/network-service';
 export class PopoverPage {
 	goal: any;
 	integration: string;
-    metric: string;
+    metric: any;
     constructor(
         public viewCtrl: ViewController,
         public navParams: NavParams,

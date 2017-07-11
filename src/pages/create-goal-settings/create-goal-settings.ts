@@ -24,6 +24,7 @@ export class CreateGoalSettingsPage {
 	access_token: string;
 	integration: string;
 	metric: string;
+	description: string;
 	slug: string;
 	title: string;
 	integrationParam: any;
@@ -38,6 +39,7 @@ export class CreateGoalSettingsPage {
     this.icon = this.manualGoalParam==true ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.integrationParam.name + ".png"
 	this.integration = this.manualGoalParam==true ? "Manual Goal" : 'Integration: ' + this.integrationParam.title;
 	this.metric = this.manualGoalParam==true ? null : 'Metric: ' + this.metricParam.title;
+	this.description = this.manualGoalParam==true ? null : 'Description: ' + this.metricParam.description;
 	this.slug = this.manualGoalParam==true ? "nectar" : this.integrationParam.title.toLowerCase();
 	this.title = this.manualGoalParam==true ? "Nectar" : this.integrationParam.title + ' ' + this.metricParam.title;
   }

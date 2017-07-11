@@ -30,7 +30,8 @@ export class GoalDetailsPage {
   username: string;
   integration: string;
   metric: string;
-  metrictitle: string;
+  description: string;
+  metrictitle: any;
   link: string;
 
   constructor(
@@ -56,14 +57,15 @@ export class GoalDetailsPage {
 	this.integrationgoal = this.user.getIntergrationGoal(this.goal);
 	
 	this.integration = this.integrationgoal == null ? "Manual Goal" : 'Integration: ' + this.user.getProvider(this.goal.integration).title;
-	this.metrictitle = this.integrationgoal == null ? null : this.user.getMetric(this.goal.integration, this.integrationgoal.metric_key).title;
-	this.metric = this.integrationgoal == null ? null : 'Metric: ' + this.metrictitle;
+	this.metrictitle = this.integrationgoal == null ? null : this.user.getMetric(this.goal.integration, this.integrationgoal.metric_key);
+	this.metric = this.integrationgoal == null ? null : 'Metric: ' + this.metrictitle.title;
+	this.description = this.integrationgoal == null ? null : 'Description: ' + this.metrictitle.description;
 	
 	this.link = this.user.redirect();
   }
 
   presentPopover(event: Event) {
-    let popover = this.popoverCtrl.create(PopoverPage, { goal: this.goal, integration: this.integration, metric: this.metric });
+    let popover = this.popoverCtrl.create(PopoverPage, { goal: this.goal, integration: this.integration, metric: this.metrictitle });
     popover.present({ ev: event });
   }
   

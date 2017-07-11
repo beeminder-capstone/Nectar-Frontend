@@ -67,7 +67,7 @@ The following instructions will enable you to download and compile the source in
         6. Open the directory where you created the app. Remove the `node_modules`, `resources` and `src` folders.
         7. Complete steps 7, 8 and 9.
         8. Open Visual Studio and the project.
-        9. Select the “Tools” menu, “Options…”, expand the “Projects and Solutions” section, select “Web Package Management” and “$(PATH)”. Click the up arrow “↑” to move in to the top of the list and click “OK”.
+        9. Select the “Tools” menu, “Options…”, expand the “Projects and Solutions” section, select “Web Package Management” and “$(PATH)”. Click the up arrow “↑” to move it to the top of the list and click “OK”.
         10. Select a target platform in the toolbar, a target device and press the green arrow to run the app.
 2. Install Cordova and Ionic ([http://ionicframework.com/getting-started/](http://ionicframework.com/getting-started/)): `npm install -g cordova ionic`.
 3. If installing the Android app, install the Java Development Kit (JDK): [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
@@ -87,7 +87,7 @@ The following instructions will enable you to download and compile the source in
     1. Run: `ionic cordova platform add android`.
     2. Open Android Studio, click “Import project” and select the `Nectar-Frontend\platforms\android` folder.
         1. Note: Do NOT update the Android Gradle Plugin.
-    3. If you have an physical Android device (phone/tablet), plug it into your computer using a USB cable and enable “USB debugging” from “Developer options”: [https://developer.android.com/studio/run/device.html](https://developer.android.com/studio/run/device.html).
+    3. If you have a physical Android device (phone/tablet), plug it into your computer using a USB cable and enable “USB debugging” from “Developer options”: [https://developer.android.com/studio/run/device.html](https://developer.android.com/studio/run/device.html).
     4. Otherwise, open Android Studio and click the Android Virtual Device Manager icon to setup an emulator.
     5. Run: `ionic cordova run android`.
 11. If installing the iOS app:
@@ -95,7 +95,7 @@ The following instructions will enable you to download and compile the source in
 12. If installing the Windows app:
     1. Run: `ionic cordova platform add windows`.
     2. Open Visual Studio, click “Open Project/Solution” and select the `Nectar-Frontend\platforms\windows\CordovaApp.sln` file.
-    3. In the “Solution Explorer” right click the platform you want to run and select “Build”.
+    3. In the “Solution Explorer”, right click the platform you want to run and select “Build”.
     4. Press the green arrow in the toolbar to run the app on the Local Machine.
     5. Otherwise, select the dropdown arrow to run it in a Simulator.
 

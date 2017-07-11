@@ -16,10 +16,12 @@
 <ion-content>
   <ion-list>
     <ion-list-header>
-      <img border="0" src="{{icon}}" width="50px" item-left>
-      {{integration}}
+      <img border="0" src="assets/logos/{{integrationParam.name}}.png" width="50" item-left>
+      Integration: {{integrationParam.title}}
       <br>
-      {{metric}}
+      Metric: {{metricParam.title}}
+	  <br>
+      Description: {{metricParam.description}}
     </ion-list-header>
 
 	<div *ngIf="goals.length > 0">

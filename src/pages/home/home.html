@@ -38,7 +38,7 @@
         <h1>{{goal.slug}}</h1>
         <p>Rate: {{goal.rate}}/{{goal.runits}}</p>
         <p>{{goal.limsum}}</p>
-		<img item-right border="0" src="{{goal.icon}}" width="50px"/>
+		<img item-right border="0" src="{{goal.icon}}" width="50"/>
         <div item-right class='box' [style.background-color]="goal.color">
 		  <timer #timer [timeInSeconds]="goal.losedate" square="true"></timer>
 	    </div>
