@@ -59,6 +59,14 @@ export class NectarApi {
       .map(res => res.json())
 	  .catch(err => Observable.throw(err.json().error));
   }
+  
+  deleteGoal(id: number, baseUrl: string, secretKeyBase: string){
+    // https://beemindernectar.herokuapp.com/api/v1/goals/[goal_id]?username=[beeminder_username]&secret_key=[heroku_secret_key_base]
+    let url = baseUrl + '/api/v1/goals/' + id + '?username=' + this.username + '&secret_key=' + secretKeyBase;
+    return this.http.delete(url)
+      .map(res => res.json())
+	  .catch(err => Observable.throw(err.json().error));
+  }
 
 
 }

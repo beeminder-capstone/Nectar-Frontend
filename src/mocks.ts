@@ -11,20 +11,31 @@ import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Rx';
 
 
+
+// from
+// https://github.com/stonelasley/ionic-mocks/
+// should the package be incorporated?
+
+declare var jasmine: any;
+
 export class AlertMock {
+	public static instance(): any {
+		let instance = jasmine.createSpyObj('Alert', ['present', 'dismiss']);
+		instance.present.and.returnValue(Promise.resolve());
+		instance.dismiss.and.returnValue(Promise.resolve());
 
-  public create(): any {
-    let rtn: Object = {};
-    rtn['present'] = (() => true);
-    return rtn;
-  }
+		return instance;
+	}
+}
 
-  // function actually on the AlertClass (not AlertController), but using these interchangably for now
-  public dismiss(): Promise<{}> {
-    return new Promise(function (resolve: Function): void {
-      resolve();
-    });
-  }
+export class AlertControllerMock {
+	public static instance(alertMock?: AlertMock): any {
+
+		let instance = jasmine.createSpyObj('AlertController', ['create']);
+		instance.create.and.returnValue(alertMock || AlertMock.instance());
+
+		return instance;
+	}
 }
 
 export class ToastMock {
@@ -173,37 +184,6 @@ export class NavParamsMock {
 
   get(param) {
     return this.data[param];
-  }
-}
-
-export class StorageMock {
-
-  public get(key: string): Promise<{}> {
-    return new Promise((resolve: Function) => {
-      resolve({});
-    });
-  }
-
-  public set(key: string, value: string): Promise<{}> {
-    return new Promise((resolve: Function) => {
-      resolve({ key: key, value: value });
-    });
-  }
-
-  public remove(key: string): Promise<{}> {
-    return new Promise((resolve: Function) => {
-      resolve({ key: key });
-    });
-  }
-
-  public query(): Promise<{ res: { rows: Array<{}> } }> {
-    return new Promise((resolve) => {
-      resolve({
-        res: {
-          rows: [{}]
-        }
-      });
-    });
   }
 }
 
