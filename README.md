@@ -5,16 +5,7 @@ Frontend for Nectar app
 
 Copyright © 2017 The [PSU](https://www.pdx.edu/) [CS](https://www.pdx.edu/computer-science/) Beeminder [Capstone](http://wiki.cs.pdx.edu/capstone/fall_2016/fall_2016.html) Team
 
-Maintained by: [Teal Dulcet](https://github.com/tdulcet)
-
-Made by:
-* [Rachael Johnson](https://github.com/rhatchet)
-* [Kevin Bui](https://github.com/kevbui)
-* Teal Dulcet
-* [Nathan Axt](https://github.com/naxt25)
-* [Tim Sweeney](https://github.com/sweeney6)
-* [Nida Imran](https://github.com/nidaimran)
-* [Tuan Lam](https://github.com/t-lam)
+Remade and maintained by: [Teal Dulcet](https://github.com/tdulcet)
 
 Nectar adds support for more integrations on [Beeminder](https://www.beeminder.com/). Automatically gets data from supported integrations and adds it to Beeminder goals.
 
@@ -22,13 +13,13 @@ This frontend compiles an Android, iOS (iPhone/iPad) and Windows version of the 
 
 Incorporates the [Nectar Backend](https://github.com/beeminder-capstone/Nectar-Backend).
 
-Requires [Cordova and Ionic 2](https://ionicframework.com/getting-started/).
+Requires [Cordova and Ionic](https://ionicframework.com/getting-started/).
 
-To use Android app - download the APK found in the APK folder from your Android device. 
+To install the Android app - download the APK found in the APK folder from your Android device. 
 [Download](./apk/Nectar.apk)
 
-Allow installation of apps from “Unknown sources” in your Android device settings.
-Install the APK and enjoy!
+Allow installation of apps from “Unknown sources” in ⚙️ Settings > Security.
+Install the app by opening the `.apk` file and enjoy!
 
 ---
 
@@ -78,11 +69,13 @@ The following instructions will enable you to download and compile the source in
         4. Under “System variables”, select the `Path` Variable, click “Edit…” > “New”. Type `%JAVA_HOME%\bin`.
  	2. Install Android Studio: [https://developer.android.com/studio/install.html](https://developer.android.com/studio/install.html)
 4. If installing the iOS app, install Xcode: [https://developer.apple.com/xcode/](https://developer.apple.com/xcode/)
-5. If installing the Windows app, see install Visual Studio Community: [https://www.visualstudio.com/downloads/](https://www.visualstudio.com/downloads/) and select the "Mobile Development with JavaScript" feature: [https://docs.microsoft.com/en-us/visualstudio/cross-platform/tools-for-cordova/first-steps/installation](https://docs.microsoft.com/en-us/visualstudio/cross-platform/tools-for-cordova/first-steps/installation).
+5. If installing the Windows app, install Visual Studio Community: [https://www.visualstudio.com/downloads/](https://www.visualstudio.com/downloads/) and select the "Mobile Development with JavaScript" feature: [https://docs.microsoft.com/en-us/visualstudio/cross-platform/tools-for-cordova/first-steps/installation](https://docs.microsoft.com/en-us/visualstudio/cross-platform/tools-for-cordova/first-steps/installation).
 6. CD into the directory where you want to create the app.
 7. Clone or Download the files: [https://github.com/beeminder-capstone/Nectar-Frontend](https://github.com/beeminder-capstone/Nectar-Frontend) into the directory.
 8. Run: `npm install`.
 9. Set all environment variables listed in: `src/app/environment-variables/development.ts`.
+    1. The `SECRET_KEY` must be the same value as the `SECRET_KEY_BASE` environment variable on the Nectar Backend.
+    2. The `DOMAIN_NAME` is the address that the Nectar Backend is running on.
 10. If installing the Android app:
     1. Run: `ionic cordova platform add android`.
     2. Open Android Studio, click “Import project” and select the `Nectar-Frontend\platforms\android` folder.
@@ -104,5 +97,13 @@ To contribute, simply fork and then create a pull request.
 
 ## License
 ##### Copyright © 2017 The [PSU](https://www.pdx.edu/) [CS](https://www.pdx.edu/computer-science/) Beeminder [Capstone](http://wiki.cs.pdx.edu/capstone/fall_2016/fall_2016.html) Team
+Originally made by:
+* [Rachael Johnson](https://github.com/rhatchet)
+* [Kevin Bui](https://github.com/kevbui)
+* [Teal Dulcet](https://github.com/tdulcet)
+* [Nathan Axt](https://github.com/naxt25)
+* [Tim Sweeney](https://github.com/sweeney6)
+* [Nida Imran](https://github.com/nidaimran)
+* [Tuan Lam](https://github.com/t-lam)
 This code is available under the "MIT License".
 Please see the file LICENSE in this distribution for license terms.
