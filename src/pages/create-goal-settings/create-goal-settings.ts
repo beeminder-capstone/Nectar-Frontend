@@ -33,9 +33,9 @@ export class CreateGoalSettingsPage {
   icon: string;
 
 	constructor(public navCtrl: NavController, public storage: Storage, private params: NavParams, public user: User, @Inject(EnvVariables) public envVariables, private networkService: NetworkService) {
-    this.manualGoalParam = params.get("manualGoal");
-	this.metricParam = this.manualGoalParam==true ? null : params.get("metric");
-    this.integrationParam = this.manualGoalParam==true ? "Manual" : params.get("integration");
+    this.manualGoalParam = this.params.get("manualGoal");
+	this.metricParam = this.manualGoalParam==true ? null : this.params.get("metric");
+    this.integrationParam = this.manualGoalParam==true ? "Manual" : this.params.get("integration");
     this.icon = this.manualGoalParam==true ? "assets/Nectar Logo/nectar.svg" : "assets/logos/" + this.integrationParam.name + ".png"
 	this.integration = this.manualGoalParam==true ? "Manual Goal" : 'Integration: ' + this.integrationParam.title;
 	this.metric = this.manualGoalParam==true ? null : 'Metric: ' + this.metricParam.title;

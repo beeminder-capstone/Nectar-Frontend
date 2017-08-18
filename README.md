@@ -105,5 +105,6 @@ Originally made by:
 * [Tim Sweeney](https://github.com/sweeney6)
 * [Nida Imran](https://github.com/nidaimran)
 * [Tuan Lam](https://github.com/t-lam)
+
 This code is available under the "MIT License".
 Please see the file LICENSE in this distribution for license terms.

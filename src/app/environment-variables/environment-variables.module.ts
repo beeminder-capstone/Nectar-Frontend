@@ -3,7 +3,7 @@ import { EnvVariables } from './environment-variables.token';
 import { devVariables } from './development';
 //import { prodVariables } from './production';
 
-declare const process: any; // Typescript compiler will complain without this
+//declare const process: any; // Typescript compiler will complain without this
 
 @NgModule({
   providers: [

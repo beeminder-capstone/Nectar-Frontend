@@ -28,8 +28,8 @@ export class SelectGoalPage {
 	public goals: any = [];
 
 	constructor(public navCtrl: NavController, public loading: LoadingController, public storage: Storage, private params: NavParams, public user: User, @Inject(EnvVariables) public envVariables) {
-	this.metricParam = params.get("metric");
-    this.integrationParam = params.get("integration");
+	this.metricParam = this.params.get("metric");
+    this.integrationParam = this.params.get("integration");
 	
 	let loader = this.loading.create({
       content: 'Loading&hellip;',
