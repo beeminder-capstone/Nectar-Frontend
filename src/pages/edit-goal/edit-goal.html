@@ -17,14 +17,19 @@
     <ion-list>
         <form (ngSubmit)="confirm()">
             <ion-item>
-                <ion-label floating>Goal Slug:</ion-label>
+                <ion-label floating>Goal Name (Slug):</ion-label>
                 <ion-input type="text" [(ngModel)]="goal.slug" name="slug" value="{{goal.slug}}" pattern="[a-z0-9\-]+" required></ion-input>
             </ion-item>
 
             <ion-item>
-                <ion-label floating>Goal Name:</ion-label>
+                <ion-label floating>Goal Description:</ion-label>
                 <ion-input type="text" [(ngModel)]="goal.title" name="title" value="{{goal.title}}" required></ion-input>
             </ion-item>
+			
+			<ion-item>
+				<ion-label stacked>Private:</ion-label>
+				<ion-checkbox [(ngModel)]="goal.secret" name="secret"></ion-checkbox>
+			</ion-item>
 
             <ion-row>
                 <ion-col width-50 style="text-align: right">

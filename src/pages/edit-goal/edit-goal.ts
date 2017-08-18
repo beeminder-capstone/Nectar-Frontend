@@ -34,7 +34,8 @@ export class EditGoalPage {
    confirm(){
     let beemindergoal = {
         slug: this.goal.slug,
-		title: this.goal.title
+		title: this.goal.title,
+		secret: this.goal.secret
     };
 
     this.user.editbeeminderGoal(beemindergoal, this.oldslug);

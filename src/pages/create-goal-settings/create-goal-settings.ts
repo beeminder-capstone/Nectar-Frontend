@@ -63,7 +63,8 @@ export class CreateGoalSettingsPage {
       goal_type: "hustler",
       rate: formData.rate,
       gunit: formData.gunit,
-      runit: formData.runit
+      runit: formData.runit,
+      secret: formData.secret
     };
 	
 	this.user.addbeeminderGoal(beemindergoal);

@@ -27,12 +27,12 @@
 			</ion-list-header>
 
 			<ion-item>
-				<ion-label floating>Goal Slug:</ion-label>
+				<ion-label floating>Goal Name (Slug):</ion-label>
 				<ion-input type="text" [(ngModel)]="slug" name="slug" value="Name of Goal" placeholder="{{slug}}" autocapitalize="off" pattern="[a-z0-9\-]+" required></ion-input>
 			</ion-item>
 
 			<ion-item>
-				<ion-label floating>Goal Name:</ion-label>
+				<ion-label floating>Goal Description:</ion-label>
 				<ion-input type="text" [(ngModel)]="title" name="title" value="Name of Goal" placeholder="{{title}}" required></ion-input>
 			</ion-item>
 
@@ -56,6 +56,11 @@
 				<ion-option value="m">Monthly</ion-option>
 				<ion-option value="y">Yearly</ion-option>
 				</ion-select>
+			</ion-item>
+			
+			<ion-item>
+				<ion-label stacked>Private:</ion-label>
+				<ion-checkbox [(ngModel)]="secret" name="secret"></ion-checkbox>
 			</ion-item>
 
 			<div padding>
