@@ -63,7 +63,7 @@ import { NetworkService } from '../providers/network-service';
     BrowserModule,
 	HttpModule,
 	IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
 	EnvironmentsModule
   ],
   bootstrap: [IonicApp],
