@@ -11,7 +11,7 @@
     </button>
     <ion-title>
       <ion-icon name="home"></ion-icon>
-      Home - Beeminder Goals
+      Beeminder Goals
     </ion-title>
 	<ion-buttons end>
       <button ion-button icon-only showWhen="android,ios" (click)="voiceCommand()">
@@ -35,10 +35,10 @@
   <ion-list>
     <button ion-item *ngFor="let goal of searchgoals" (click)="itemTapped(goal)" (press)="itemPressed(goal)">
 		<img item-left src="{{goal.thumb_url}}" class="thumb"/>
-        <h1>{{goal.slug}}</h1>
+        <h2>{{goal.slug}}</h2>
         <p>Rate: {{goal.rate}}/{{goal.runits}}</p>
         <p>{{goal.limsum}}</p>
-		<img item-right border="0" src="{{goal.icon}}" width="50"/>
+		<img item-right src="{{goal.icon}}" class="integration"/>
         <div item-right class='box' [style.background-color]="goal.color">
 		  <timer #timer [timeInSeconds]="goal.losedate" square="true"></timer>
 	    </div>

@@ -64,17 +64,33 @@
 
     <ion-card-content>
     <ion-list>
-      <ion-item>
+      <ion-item *ngIf="goal.rate != null">
         <span item-left>Rate:</span>
         <span item-right>{{goal.rate  | number:0}}/{{goal.runits}}</span>
       </ion-item>
       <ion-item>
+        <span item-left>Start Date:</span>
+        <span item-right>{{goal.initday * 1000 | date:"MMM d, y"}}</span>
+      </ion-item>
+      <ion-item>
+        <span item-left>Initial Value:</span>
+        <span item-right>{{goal.initval}}</span>
+      </ion-item>
+      <ion-item>
         <span item-left>Current Value:</span>
-        <span item-right>{{goal.curval  | number:0}}</span>
+        <span item-right>{{goal.curval}}</span>
+      </ion-item>
+      <ion-item *ngIf="goal.goalval != null">
+        <span item-left>Pledged Value:</span>
+        <span item-right>{{goal.goalval}}</span>
+      </ion-item>
+      <ion-item *ngIf="goal.goaldate != null">
+        <span item-left>Pledged Date:</span>
+        <span item-right>{{goal.goaldate * 1000 | date:"MMM d, y"}}</span>
       </ion-item>
       <ion-item>
         <span item-left>Amount Pledged:</span>
-        <span item-right>{{goal.pledge}}</span>
+        <span item-right>&#36;{{goal.pledge}}</span>
       </ion-item>
       <ion-item>
         <span item-left>Last Updated:</span>
@@ -84,12 +100,10 @@
         <span item-left>Beeminder Link:</span>
         <span item-right><a target="_blank" href="{{link}}/{{username}}/{{goal.slug}}">{{goal.slug}}</a></span>
       </ion-item>
-	  <div *ngIf="goal.integration != null">
-        <ion-item>
-          <span item-left>Integration Link:</span>
-          <span item-right><a target="_blank" href="{{envVariables.DOMAIN_NAME}}/goals/{{goal.integration}}/{{integrationgoal.metric_key}}/{{integrationgoal.id}}">{{metrictitle.title}}</a></span>
-        </ion-item>
-	  </div>
+      <ion-item *ngIf="goal.integration != null">
+        <span item-left>Integration Link:</span>
+        <span item-right><a target="_blank" href="{{envVariables.DOMAIN_NAME}}/goals/{{goal.integration}}/{{integrationgoal.metric_key}}/{{integrationgoal.id}}">{{metrictitle.title}}</a></span>
+      </ion-item>
     </ion-list>
 	</ion-card-content>
 

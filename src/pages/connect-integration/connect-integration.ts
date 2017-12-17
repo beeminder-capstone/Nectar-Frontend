@@ -58,7 +58,7 @@ export class ConnectIntegrationPage {
     if (!this.user.getIntergrationStatus(integration)) {
       //open oauth page
       this.IntegrationLogin(baseUrl, integration.name).catch(() => {
-		alert('You must login to ' + integration.title + ' before you can create a new goal.');
+		alert('You must login to ' + integration.title + ' before you can create a new goal. If you are having issues, try logging in at: ' + baseUrl + '/credentials/new?provider_name=' + integration.name + '.');
 		this.navCtrl.pop();
 		return;
 	  });
@@ -76,7 +76,7 @@ export class ConnectIntegrationPage {
 
   public IntegrationLogin(baseUrl, integrationTitle): Promise<any> {
 		return new Promise(function (resolve, reject) {
-		  let browserRef = window.cordova.InAppBrowser.open(baseUrl + '/credentials/new?provider_name=' + integrationTitle, "_self", "location=no");
+		  let browserRef = window.cordova.InAppBrowser.open(baseUrl + '/credentials/new?provider_name=' + integrationTitle, "_blank", "location=no");
 
 		  browserRef.addEventListener("loadstart", (event) => {
 			if ((event.url).indexOf(baseUrl + '/credentials/' + integrationTitle) === 0) {
