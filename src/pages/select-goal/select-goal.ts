@@ -28,40 +28,40 @@ export class SelectGoalPage {
 	public goals: any = [];
 
 	constructor(public navCtrl: NavController, public loading: LoadingController, public storage: Storage, private params: NavParams, public user: User, @Inject(EnvVariables) public envVariables) {
-	this.metricParam = this.params.get("metric");
-    this.integrationParam = this.params.get("integration");
-	
-	let loader = this.loading.create({
-      content: 'Loading&hellip;',
-    });
-	
-	loader.present().then(() => {
-	  user.getUser().subscribe((auser) => {
-        this.goals = auser.goals;
-      }, err => {
-		if(err){
-		  console.error(err);
-		}
-	  }, () => {
-		loader.dismiss();
-	  });
-	});
-  }
+		this.metricParam = this.params.get("metric");
+		this.integrationParam = this.params.get("integration");
 
-  onSubmit(formData, baseUrl, secretKeyBase) {
-	let credentialId = this.user.getCredentialID(this.integrationParam.name);
-	  
-	this.user.addnectarGoal(formData.slug, this.metricParam.key, credentialId, formData.active, baseUrl, secretKeyBase);
-	
-	this.navCtrl.popToRoot();
-    this.navCtrl.setRoot(HomePage);
-  }
-  
-  createGoal() {
-    this.navCtrl.push(CreateGoalSettingsPage, {
-      integration: this.integrationParam,
-      metric: this.metricParam,
-      manualGoal: false
-    });
-  }
+		let loader = this.loading.create({
+			content: 'Loading&hellip;',
+		});
+
+		loader.present().then(() => {
+			user.getUser().subscribe((auser) => {
+				this.goals = auser.goals;
+			}, err => {
+				if (err) {
+					console.error(err);
+				}
+			}, () => {
+				loader.dismiss();
+			});
+		});
+	}
+
+	onSubmit(formData, baseUrl, secretKeyBase) {
+		let credentialId = this.user.getCredentialID(this.integrationParam.name);
+
+		this.user.addnectarGoal(formData.slug, this.metricParam.key, credentialId, formData.active, baseUrl, secretKeyBase);
+
+		this.navCtrl.popToRoot();
+		this.navCtrl.setRoot(HomePage);
+	}
+
+	createGoal() {
+		this.navCtrl.push(CreateGoalSettingsPage, {
+			integration: this.integrationParam,
+			metric: this.metricParam,
+			manualGoal: false
+		});
+	}
 }

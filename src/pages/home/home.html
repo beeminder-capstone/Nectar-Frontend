@@ -5,51 +5,53 @@
  * Please see the file LICENSE in this distribution for license terms
   -->
 <ion-header>
-  <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>
-      <ion-icon name="home"></ion-icon>
-      Beeminder Goals
-    </ion-title>
-	<ion-buttons end>
-      <button ion-button icon-only showWhen="android,ios" (click)="voiceCommand()">
-        <ion-icon name="mic"></ion-icon>
-      </button>
-      <button ion-button icon-only (click)="presentFilter()">
-        <ion-icon name="options"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-  <ion-toolbar>
-    <ion-searchbar color="primary" (ionInput)="getItems($event)" placeholder="Search Beeminder Goals"></ion-searchbar>
-  </ion-toolbar>
+	<ion-navbar color="primary">
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>
+			<ion-icon name="home"></ion-icon>
+			Beeminder Goals
+		</ion-title>
+		<ion-buttons end>
+			<button ion-button icon-only showWhen="android,ios" (click)="voiceCommand()">
+				<ion-icon name="mic"></ion-icon>
+			</button>
+			<button ion-button icon-only (click)="presentFilter()">
+				<ion-icon name="options"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+	<ion-toolbar>
+		<ion-searchbar color="primary" (ionInput)="getItems($event)" placeholder="Search Beeminder Goals"></ion-searchbar>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <div class='user'>
-    <p>{{username}}</p>
-  </div>
+	<div class='user'>
+		<p>{{username}}</p>
+	</div>
 
-  <ion-list>
-    <button ion-item *ngFor="let goal of searchgoals" (click)="itemTapped(goal)" (press)="itemPressed(goal)">
-		<img item-left src="{{goal.thumb_url}}" class="thumb"/>
-        <h2>{{goal.slug}}</h2>
-        <p>Rate: {{goal.rate}}/{{goal.runits}}</p>
-        <p>{{goal.limsum}}</p>
-		<img item-right src="{{goal.icon}}" class="integration"/>
-        <div item-right class='box' [style.background-color]="goal.color">
-		  <timer #timer [timeInSeconds]="goal.losedate" square="true"></timer>
-	    </div>
-    </button>
-  </ion-list>
-  
-  <div *ngIf="goals.length == 0">
-    <p text-center>Create a Beeminder goal first.</p>
-  </div>
-  
-  <ion-fab bottom right>
-    <button ion-fab (click)="addGoal()" color="light"><ion-icon name="add"></ion-icon></button>
-  </ion-fab>
+	<ion-list>
+		<button ion-item *ngFor="let goal of searchgoals" (click)="itemTapped(goal)" (press)="itemPressed(goal)">
+			<img item-left src="{{goal.thumb_url}}" class="thumb" />
+			<h2>{{goal.slug}}</h2>
+			<p *ngIf="goal.rate != null">Rate: {{goal.rate}}/{{goal.runits}}</p>
+			<p>{{goal.limsum}}</p>
+			<img item-right src="{{goal.icon}}" class="integration" />
+			<div item-right class='box' [style.background-color]="goal.roadstatuscolor">
+				<timer #timer [timeInSeconds]="goal.losedate" square="true"></timer>
+			</div>
+		</button>
+	</ion-list>
+
+	<div *ngIf="goals.length == 0">
+		<p text-center>Create a Beeminder goal first.</p>
+	</div>
+
+	<ion-fab bottom right>
+		<button ion-fab (click)="addGoal()" color="light">
+			<ion-icon name="add"></ion-icon>
+		</button>
+	</ion-fab>
 </ion-content>

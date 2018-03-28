@@ -7,59 +7,56 @@
 <ion-header>
 	<ion-navbar color="primary">
 		<button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
+			<ion-icon name="menu"></ion-icon>
+		</button>
 		<ion-title>Select Beeminder Goal</ion-title>
 	</ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>
-      <img border="0" src="assets/logos/{{integrationParam.name}}.png" width="50" item-left>
-      Integration: {{integrationParam.title}}
-      <br>
-      Metric: {{metricParam.title}}
-	  <br>
-      Description: {{metricParam.description}}
-    </ion-list-header>
+	<ion-list>
+		<ion-list-header>
+			<img border="0" src="assets/logos/{{integrationParam.name}}.png" width="50" item-left> Integration: {{integrationParam.title}}
+			<br> Metric: {{metricParam.title}}
+			<br> Description: {{metricParam.description}}
+		</ion-list-header>
 
-	<div *ngIf="goals.length > 0">
-      <ion-card>
+		<div *ngIf="goals.length > 0">
+			<ion-card>
 
-      <p text-center>Please select an existing Beeminder goal:</p>
+				<p text-center>Please select an existing Beeminder goal:</p>
 
-      <form #formData='ngForm' (ngSubmit)="onSubmit(formData.value, envVariables.DOMAIN_NAME, envVariables.SECRET_KEY)">
-        <ion-item>
-          <ion-label stacked>Please select a goal:</ion-label>
-          <ion-select [(ngModel)]="slug" name="slug" placeholder="Select goal" required>
-            <ion-option *ngFor="let goal of goals" value="{{goal}}">{{goal}}</ion-option>
-          </ion-select>
-        </ion-item>
-		<ion-item>
-		  <ion-label stacked>Enabled:</ion-label>
-		  <ion-checkbox [(ngModel)]="active" name="active" checked></ion-checkbox>
-		</ion-item>
-        <ion-item>
-          <button ion-button block type="onSubmit()">Add integration to existing goal</button>
-        </ion-item>
-      </form>
+				<form #formData='ngForm' (ngSubmit)="onSubmit(formData.value, envVariables.DOMAIN_NAME, envVariables.SECRET_KEY)">
+					<ion-item>
+						<ion-label stacked>Please select a goal:</ion-label>
+						<ion-select [(ngModel)]="slug" name="slug" placeholder="Select goal" required>
+							<ion-option *ngFor="let goal of goals" value="{{goal}}">{{goal}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>Enabled:</ion-label>
+						<ion-checkbox [(ngModel)]="active" name="active" checked></ion-checkbox>
+					</ion-item>
+					<ion-item>
+						<button ion-button block type="onSubmit()">Add integration to existing goal</button>
+					</ion-item>
+				</form>
 
-      </ion-card>
+			</ion-card>
 
-      <p text-center>Or</p>
-	</div>
-	
-	<div *ngIf="goals.length == 0">
-      <p text-center>Create a Beeminder goal first.</p>
-    </div>
+			<p text-center>Or</p>
+		</div>
 
-    <ion-card>
-      <ion-item>
-        <button ion-button block (click)="createGoal()">Create New Beeminder Goal</button>
-      </ion-item>
-    </ion-card>
+		<div *ngIf="goals.length == 0">
+			<p text-center>Create a Beeminder goal first.</p>
+		</div>
 
-  </ion-list>
+		<ion-card>
+			<ion-item>
+				<button ion-button block (click)="createGoal()">Create New Beeminder Goal</button>
+			</ion-item>
+		</ion-card>
+
+	</ion-list>
 
 </ion-content>

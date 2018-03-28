@@ -23,23 +23,23 @@ declare var window: any;
 
 export class AddGoalPage {
 
-	constructor(public navCtrl: NavController, private platform: Platform, @Inject(EnvVariables) public envVariables) {}
+	constructor(public navCtrl: NavController, private platform: Platform, @Inject(EnvVariables) public envVariables) { }
 
 	goToCreateManualGoal() {
-    this.navCtrl.push(CreateGoalSettingsPage, {manualGoal: true});
-  }
+		this.navCtrl.push(CreateGoalSettingsPage, { manualGoal: true });
+	}
 
-  goToConnectIntegration(baseUrl) {
-	this.platform.ready()
-		.then(() => this.BeeminderLogin(baseUrl))
-		.then(() => this.navCtrl.push(ConnectIntegrationPage))
-		.catch(() => {
-			alert('You must login to Nectar before you can create a new goal.');
-			return;
-		});
-  }
-  
-  public BeeminderLogin(baseUrl): Promise<any> {
+	goToConnectIntegration(baseUrl) {
+		this.platform.ready()
+			.then(() => this.BeeminderLogin(baseUrl))
+			.then(() => this.navCtrl.push(ConnectIntegrationPage))
+			.catch(() => {
+				alert('You must login to Nectar before you can create a new goal.');
+				return;
+			});
+	}
+
+	public BeeminderLogin(baseUrl): Promise<any> {
 		return new Promise(function (resolve, reject) {
 			var browserRef = window.cordova.InAppBrowser.open(baseUrl + '/signin', "_blank", "location=no");
 			browserRef.addEventListener("loadstart", (event) => {
@@ -48,8 +48,8 @@ export class AddGoalPage {
 					resolve();
 				}
 			});
-			
-			browserRef.addEventListener("exit", function(event) {
+
+			browserRef.addEventListener("exit", function (event) {
 				reject();
 			});
 		});

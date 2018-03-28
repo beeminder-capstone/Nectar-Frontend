@@ -12,7 +12,7 @@ import { EditIntegrationPage } from '../edit-integration/edit-integration';
 import { NetworkService } from '../../providers/network-service';
 
 @Component({
-    template: `
+	template: `
     <ion-list> 
       <button ion-item (click)="editbeeminderTapped($event)">Edit Beeminder Goal</button> 
 	  <div *ngIf="goal.integration != null">
@@ -24,35 +24,35 @@ import { NetworkService } from '../../providers/network-service';
 export class PopoverPage {
 	goal: any;
 	integration: string;
-    metric: any;
-    constructor(
-        public viewCtrl: ViewController,
-        public navParams: NavParams,
-        public navCtrl: NavController,
+	metric: any;
+	constructor(
+		public viewCtrl: ViewController,
+		public navParams: NavParams,
+		public navCtrl: NavController,
 		private networkService: NetworkService
-    ) { }
+	) { }
 
-    ngOnInit() {
-        this.goal = this.navParams.data.goal;
-        this.integration = this.navParams.data.integration;
-        this.metric = this.navParams.data.metric;
-    }
+	ngOnInit() {
+		this.goal = this.navParams.data.goal;
+		this.integration = this.navParams.data.integration;
+		this.metric = this.navParams.data.metric;
+	}
 
-    editbeeminderTapped(event) {
-		if(this.networkService.noConnection())
-          this.networkService.showNetworkAlert();
-		
+	editbeeminderTapped(event) {
+		if (this.networkService.noConnection())
+			this.networkService.showNetworkAlert();
+
 		this.navCtrl.push(EditGoalPage, { goal: this.goal });
-		
+
 		this.viewCtrl.dismiss();
-    }
-	
+	}
+
 	editIntegrationTapped(event) {
-		if(this.networkService.noConnection())
-          this.networkService.showNetworkAlert();
-		
+		if (this.networkService.noConnection())
+			this.networkService.showNetworkAlert();
+
 		this.navCtrl.push(EditIntegrationPage, { goal: this.goal, integration: this.integration, metric: this.metric });
-		
+
 		this.viewCtrl.dismiss();
-    }
+	}
 }

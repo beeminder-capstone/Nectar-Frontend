@@ -30,8 +30,8 @@ export class LoginPage {
 		@Inject(EnvVariables) public envVariables
 	) {
 		this.menu.swipeEnable(false);
-		
-		this.user.getLoginStatus().then(isLoggedIn  => {
+
+		this.user.getLoginStatus().then(isLoggedIn => {
 			this.isLoggedIn = isLoggedIn;
 		});
 	}
@@ -47,12 +47,12 @@ export class LoginPage {
 
 	public login(baseUrl, client_id) {
 		let url;
-		
+
 		this.platform.ready()
 			.then(() => this.BeeminderLogin(baseUrl, client_id, this.isLoggedIn))
 			.then(success => url = success)
 			//.then(() => this.user.setaccess_token(this.getParameterByName('code', url), baseUrl, client_id, client_secret))
-			.then(() => this.user.setLoginStatus(this.getParameterByName('username', url), this.getParameterByName('access_token', url)))			
+			.then(() => this.user.setLoginStatus(this.getParameterByName('username', url), this.getParameterByName('access_token', url)))
 			.then(() => this.navCtrl.setRoot(HomePage))
 			.catch(error => console.error(error));
 	}

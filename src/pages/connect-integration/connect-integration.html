@@ -5,28 +5,29 @@
  * Please see the file LICENSE in this distribution for license terms
   -->
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>Integration</ion-title>
-  </ion-navbar>
-  <ion-toolbar>
-    <ion-searchbar color="primary" (ionInput)="getItems($event)" placeholder="Search Integrations"></ion-searchbar>
-  </ion-toolbar>
+	<ion-navbar color="primary">
+		<ion-title>Integration</ion-title>
+	</ion-navbar>
+	<ion-toolbar>
+		<ion-searchbar color="primary" (ionInput)="getItems($event)" placeholder="Search Integrations"></ion-searchbar>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-  <ion-list-header>Please select an integration:</ion-list-header>
-  <ion-row>
-    <ion-col col-4 col-xs-4 col-sm-4 col-lg-2 *ngFor="let provider of searchproviders">
+	<ion-list>
+		<ion-list-header>Please select an integration:</ion-list-header>
+		<ion-row>
+			<ion-col col-4 col-xs-4 col-sm-4 col-lg-2 *ngFor="let provider of searchproviders">
 
-      <div class='integration-list'>
-        <a target="_blank" href="{{provider.url}}">
-          <h3>{{provider.title}}</h3>
-        </a>
-        <img alt="{{provider.title}} Logo" class="{{provider.style}}" src="assets/logos/{{provider.name}}.png" (click)="selectIntegration(envVariables.DOMAIN_NAME, provider)"/>
-      </div>
+				<div class='integration-list'>
+					<a target="_blank" href="{{provider.url}}">
+						<h3>{{provider.title}}</h3>
+					</a>
+					<img alt="{{provider.title}} Logo" class="{{provider.style}}" src="assets/logos/{{provider.name}}.png" (click)="selectIntegration(envVariables.DOMAIN_NAME, provider)"
+					/>
+				</div>
 
-    </ion-col>
-  </ion-row>
-  </ion-list>
+			</ion-col>
+		</ion-row>
+	</ion-list>
 </ion-content>

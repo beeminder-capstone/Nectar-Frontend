@@ -5,53 +5,66 @@
  * Please see the file LICENSE in this distribution for license terms
   -->
 <ion-header>
-  <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>
-	  <ion-icon name="settings"></ion-icon>
-	  Settings
-	</ion-title>
-  </ion-navbar>
+	<ion-navbar color="primary">
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>
+			<ion-icon name="settings"></ion-icon>
+			Settings
+		</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item>
-      <ion-label floating>Username</ion-label>
-      <ion-input type="text" value="{{username}}" readonly></ion-input>
-    </ion-item>
+	<ion-list>
+		<ion-item>
+			<ion-label floating>Username</ion-label>
+			<ion-input type="text" value="{{username}}" readonly></ion-input>
+		</ion-item>
 
-	<ion-item>
-      <ion-label floating>access token</ion-label>
-      <ion-input type="text" value="{{access_token}}" readonly></ion-input>
-    </ion-item>
-  </ion-list>
+		<ion-item>
+			<ion-label floating>access token</ion-label>
+			<ion-input type="text" value="{{access_token}}" readonly></ion-input>
+		</ion-item>
+	</ion-list>
 
-  <ion-list>
-    <ion-list-header>Notification</ion-list-header>
-    <ion-item>
-      <ion-label>Enable</ion-label>
-      <ion-toggle [(ngModel)] = "notification_toggle" name="notification_toggle" value="notification_toggle" (ionChange)="toggleNotification()"></ion-toggle>
-    </ion-item>
+	<ion-list>
+		<ion-list-header>Notification</ion-list-header>
+		<ion-item>
+			<ion-label>Enable</ion-label>
+			<ion-toggle [(ngModel)]="notification_toggle" name="notification_toggle" value="notification_toggle" (ionChange)="toggleNotification()"></ion-toggle>
+		</ion-item>
 
-    <ion-item>
-      <ion-label>Sound</ion-label>
-      <ion-toggle [(ngModel)] = "sound_toggle" name="sound_toggle" value="sound_toggle" (ionChange)="toggleSound()" [disabled]="!notification_toggle"></ion-toggle>
-    </ion-item>
+		<ion-item>
+			<ion-label>Sound</ion-label>
+			<ion-toggle [(ngModel)]="sound_toggle" name="sound_toggle" value="sound_toggle" (ionChange)="toggleSound()" [disabled]="!notification_toggle"></ion-toggle>
+		</ion-item>
 
-    <ion-item>
-      <ion-label>Vibration</ion-label>
-      <ion-toggle [(ngModel)]="vibration_toggle" name="vibration_toggle" value="vibration_toggle" (ionChange)="toggleVibration()" [disabled]="!notification_toggle"></ion-toggle>
-    </ion-item>
-  </ion-list>
+		<ion-item>
+			<ion-label>Vibration</ion-label>
+			<ion-toggle [(ngModel)]="vibration_toggle" name="vibration_toggle" value="vibration_toggle" (ionChange)="toggleVibration()"
+			 [disabled]="!notification_toggle"></ion-toggle>
+		</ion-item>
+	</ion-list>
 
-  <ion-list>
-    <ion-list-header>Nectar App</ion-list-header>
-    <button ion-item (click)="showAbout(envVariables.DOMAIN_NAME)">About Nectar</button>
-    <button ion-item (click)="showOpenSource()">License</button>
-    <button ion-item (click)="showFeedback()">Send Feedback</button>
-  </ion-list>
+	<ion-list>
+		<ion-list-header>Nectar App</ion-list-header>
+		<button ion-item (click)="showAbout(envVariables.DOMAIN_NAME)">
+			<ion-icon name="information"></ion-icon>
+			About Nectar
+		</button>
+		<button ion-item (click)="showOpenSource()">
+			<ion-icon name="code"></ion-icon>
+			License
+		</button>
+		<button ion-item (click)="showFeedback()">
+			<ion-icon name="thumbs-up"></ion-icon>
+			Submit Feedback
+		</button>
+		<button ion-item (click)="showSupport()">
+			<ion-icon name="logo-usd"></ion-icon>
+			Support Nectar
+		</button>
+	</ion-list>
 </ion-content>
-

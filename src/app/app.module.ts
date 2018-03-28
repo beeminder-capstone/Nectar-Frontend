@@ -24,11 +24,11 @@ import { HomePage } from '../pages/home/home';
 import { AddGoalPage } from '../pages/add-goal/add-goal';
 import { ConnectIntegrationPage } from '../pages/connect-integration/connect-integration';
 import { GoalDetailsPage } from '../pages/goal-details/goal-details';
-import { LoginPage} from '../pages/login/login';
-import { SettingsPage} from '../pages/settings/settings';
+import { LoginPage } from '../pages/login/login';
+import { SettingsPage } from '../pages/settings/settings';
 import { SelectGoalPage } from '../pages/select-goal/select-goal';
 import { CreateGoalSettingsPage } from '../pages/create-goal-settings/create-goal-settings';
-import { SelectMetricPage } from  '../pages/select-metric/select-metric';
+import { SelectMetricPage } from '../pages/select-metric/select-metric';
 import { PopoverPage } from '../pages/goal-details/popover';
 import { EditGoalPage } from "../pages/edit-goal/edit-goal";
 import { EditIntegrationPage } from '../pages/edit-integration/edit-integration';
@@ -41,61 +41,61 @@ import { NectarApi } from '../providers/nectar-api';
 import { NetworkService } from '../providers/network-service';
 
 @NgModule({
-  declarations: [
-    MyApp,
-    HomePage,
-    AddGoalPage,
-    ConnectIntegrationPage,
-    CreateGoalSettingsPage,
-    SelectGoalPage,
-    GoalDetailsPage,
-    LoginPage,
-    SettingsPage,
-    SelectMetricPage,
-    EditGoalPage,
-    EditIntegrationPage,
-	GoalFilterPage,
-    PopoverPage,
-	TimerComponent,
-	StopwatchPage
-  ],
-  imports: [
-    BrowserModule,
-	HttpModule,
-	IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot(),
-	EnvironmentsModule
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    HomePage,
-    AddGoalPage,
-    ConnectIntegrationPage,
-    CreateGoalSettingsPage,
-    SelectGoalPage,
-    LoginPage,
-    SettingsPage,
-    GoalDetailsPage,
-    EditGoalPage,
-    EditIntegrationPage,
-	GoalFilterPage,
-    SelectMetricPage,
-    PopoverPage,
-	StopwatchPage
-  ],
-  providers: [
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
-    StatusBar,
-    SplashScreen,
-    SocialSharing,
-	Network,
-	Diagnostic,
-	SpeechRecognition,
-    BeeminderApi,
-    NectarApi,
-    User,
-	NetworkService
-  ]
+	declarations: [
+		MyApp,
+		HomePage,
+		AddGoalPage,
+		ConnectIntegrationPage,
+		CreateGoalSettingsPage,
+		SelectGoalPage,
+		GoalDetailsPage,
+		LoginPage,
+		SettingsPage,
+		SelectMetricPage,
+		EditGoalPage,
+		EditIntegrationPage,
+		GoalFilterPage,
+		PopoverPage,
+		TimerComponent,
+		StopwatchPage
+	],
+	imports: [
+		BrowserModule,
+		HttpModule,
+		IonicModule.forRoot(MyApp),
+		IonicStorageModule.forRoot(),
+		EnvironmentsModule
+	],
+	bootstrap: [IonicApp],
+	entryComponents: [
+		MyApp,
+		HomePage,
+		AddGoalPage,
+		ConnectIntegrationPage,
+		CreateGoalSettingsPage,
+		SelectGoalPage,
+		LoginPage,
+		SettingsPage,
+		GoalDetailsPage,
+		EditGoalPage,
+		EditIntegrationPage,
+		GoalFilterPage,
+		SelectMetricPage,
+		PopoverPage,
+		StopwatchPage
+	],
+	providers: [
+		{ provide: ErrorHandler, useClass: IonicErrorHandler },
+		StatusBar,
+		SplashScreen,
+		SocialSharing,
+		Network,
+		Diagnostic,
+		SpeechRecognition,
+		BeeminderApi,
+		NectarApi,
+		User,
+		NetworkService
+	]
 })
 export class AppModule { }

@@ -6,12 +6,12 @@ import { devVariables } from './development';
 //declare const process: any; // Typescript compiler will complain without this
 
 @NgModule({
-  providers: [
-    {
-      provide: EnvVariables,
-      //useValue: process.env.IONIC_ENV === 'prod' ? prodVariables : devVariables
-      useValue: devVariables
-    }
-  ]
+	providers: [
+		{
+			provide: EnvVariables,
+			//useValue: process.env.IONIC_ENV === 'prod' ? prodVariables : devVariables
+			useValue: devVariables
+		}
+	]
 })
-export class EnvironmentsModule {}
+export class EnvironmentsModule { }

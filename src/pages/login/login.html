@@ -5,24 +5,26 @@
  * Please see the file LICENSE in this distribution for license terms
   -->
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>
-      <ion-icon name="log-in"></ion-icon>
-	  Log in - Nectar
-    </ion-title>
-  </ion-navbar>
+	<ion-navbar color="primary">
+		<ion-title>
+			<ion-icon name="log-in"></ion-icon>
+			Log in - Nectar
+		</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <img alt="Nectar Logo" border="0" src="assets/Nectar Logo/nectar.svg" class="logo"/>
-  <div class='provider'>
-  <h3>Nectar</h3>
-  </div>
-  <p text-center>Log in with your Beeminder account</p>
-  <div text-center>
-    <button ion-button (click)="login(envVariables.DOMAIN_NAME, envVariables.BEEMINDER_PROVIDER_KEY)">Log in with Beeminder</button>
-  </div>
-  <p text-center>If you do not yet have an account, we recommend you sign up at <a target="_blank" href="https://www.beeminder.com/users/sign_up">beeminder.com/users/sign_up</a> first.</p>
-  <br>
-  <p text-center>Visit <a target="_blank" href="{{envVariables.DOMAIN_NAME}}">{{envVariables.DOMAIN_NAME}}</a> for more information.</p>
+	<img alt="Nectar Logo" border="0" src="assets/Nectar Logo/nectar.svg" class="logo" />
+	<div class='provider'>
+		<h3>Nectar</h3>
+	</div>
+	<p text-center>Log in with your Beeminder account</p>
+	<div text-center>
+		<button ion-button (click)="login(envVariables.DOMAIN_NAME, envVariables.BEEMINDER_PROVIDER_KEY)">Log in with Beeminder</button>
+	</div>
+	<p text-center>If you do not yet have an account, we recommend you sign up at
+		<a target="_blank" href="https://www.beeminder.com/users/sign_up">beeminder.com/users/sign_up</a> first.</p>
+	<br>
+	<p text-center>Visit
+		<a target="_blank" href="{{envVariables.DOMAIN_NAME}}">{{envVariables.DOMAIN_NAME}}</a> for more information.</p>
 </ion-content>

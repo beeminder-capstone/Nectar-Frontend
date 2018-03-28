@@ -8,34 +8,34 @@ import { Component } from '@angular/core';
 import { NavParams, ViewController } from 'ionic-angular';
 
 @Component({
-  selector: 'page-goal-filter',
-  templateUrl: 'goal-filter.html'
+	selector: 'page-goal-filter',
+	templateUrl: 'goal-filter.html'
 })
 export class GoalFilterPage {
-  filters: Array<{name: string, isChecked: boolean}> = [];
+	filters: Array<{ name: string, isChecked: boolean }> = [];
 
-  constructor(
-    public navParams: NavParams,
-    public viewCtrl: ViewController
-  ) {
-    this.filters = this.navParams.data;
-  }
+	constructor(
+		public navParams: NavParams,
+		public viewCtrl: ViewController
+	) {
+		this.filters = this.navParams.data;
+	}
 
-  resetFilters() {
-    // reset all of the toggles to be checked
-    this.filters.forEach(track => {
-      track.isChecked = true;
-    });
-  }
+	resetFilters() {
+		// reset all of the toggles to be checked
+		this.filters.forEach(track => {
+			track.isChecked = true;
+		});
+	}
 
-  applyFilters() {
-    this.dismiss(this.filters);
-  }
+	applyFilters() {
+		this.dismiss(this.filters);
+	}
 
-  dismiss(data?: any) {
-    // using the injected ViewController this page
-    // can "dismiss" itself and pass back data
-    this.viewCtrl.dismiss(data);
-  }
+	dismiss(data?: any) {
+		// using the injected ViewController this page
+		// can "dismiss" itself and pass back data
+		this.viewCtrl.dismiss(data);
+	}
 }
 

@@ -27,37 +27,37 @@ export class EditIntegrationPage {
 	integrationgoal: any;
 
 	constructor(public navCtrl: NavController, public loading: LoadingController, public storage: Storage, private params: NavParams, public user: User, @Inject(EnvVariables) public envVariables) {
-	let loader = this.loading.create({
-      content: 'Loading&hellip;',
-    });
-	
-	loader.present().then(() => {
-	  user.getUser().subscribe((auser) => {
-        this.goals = auser.goals;
-      }, err => {
-		if(err){
-		  console.error(err);
-		}
-	  }, () => {
-		loader.dismiss();
-	  });
-	});
-  }
-  
-  ngOnInit() {
-    this.goal = this.params.data.goal;
-	this.oldslug = this.goal.slug;
-    this.integration = this.params.data.integration;
-    this.metric = this.params.data.metric;
-	this.integrationgoal = this.user.getIntergrationGoal(this.goal);
-   }
+		let loader = this.loading.create({
+			content: 'Loading&hellip;',
+		});
 
-  confirm(baseUrl, secretKeyBase) {
-	this.user.updatenectarGoal(this.integrationgoal.slug, this.oldslug, this.integrationgoal.id, this.integrationgoal.metric_key, this.integrationgoal.credential_id, this.integrationgoal.active, baseUrl, secretKeyBase);
-	this.navCtrl.pop();
-  }
-  
-  cancel(){
-    this.navCtrl.pop();
-   }
+		loader.present().then(() => {
+			user.getUser().subscribe((auser) => {
+				this.goals = auser.goals;
+			}, err => {
+				if (err) {
+					console.error(err);
+				}
+			}, () => {
+				loader.dismiss();
+			});
+		});
+	}
+
+	ngOnInit() {
+		this.goal = this.params.data.goal;
+		this.oldslug = this.goal.slug;
+		this.integration = this.params.data.integration;
+		this.metric = this.params.data.metric;
+		this.integrationgoal = this.user.getIntergrationGoal(this.goal);
+	}
+
+	confirm(baseUrl, secretKeyBase) {
+		this.user.updatenectarGoal(this.integrationgoal.slug, this.oldslug, this.integrationgoal.id, this.integrationgoal.metric_key, this.integrationgoal.credential_id, this.integrationgoal.active, baseUrl, secretKeyBase);
+		this.navCtrl.pop();
+	}
+
+	cancel() {
+		this.navCtrl.pop();
+	}
 }

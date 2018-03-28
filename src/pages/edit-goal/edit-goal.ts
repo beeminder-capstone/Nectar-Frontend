@@ -17,33 +17,33 @@ import { User } from '../../providers/user';
 })
 
 export class EditGoalPage {
-    goal: any;
+	goal: any;
 	oldslug: string;
 
-   constructor( 
-       public user: User,
-       public navParams: NavParams,
-       public navcontroller: NavController
-   ){}
+	constructor(
+		public user: User,
+		public navParams: NavParams,
+		public navcontroller: NavController
+	) { }
 
-   ngOnInit() {
-       this.goal = this.navParams.data.goal;
-	   this.oldslug = this.goal.slug;
-   }
+	ngOnInit() {
+		this.goal = this.navParams.data.goal;
+		this.oldslug = this.goal.slug;
+	}
 
-   confirm(){
-    let beemindergoal = {
-        slug: this.goal.slug,
-		title: this.goal.title,
-		secret: this.goal.secret
-    };
+	confirm() {
+		let beemindergoal = {
+			slug: this.goal.slug,
+			title: this.goal.title,
+			secret: this.goal.secret
+		};
 
-    this.user.editbeeminderGoal(beemindergoal, this.oldslug);
-    this.navcontroller.pop();
-   }
+		this.user.editbeeminderGoal(beemindergoal, this.oldslug);
+		this.navcontroller.pop();
+	}
 
-   cancel(){
-    this.navcontroller.pop();
-   }
+	cancel() {
+		this.navcontroller.pop();
+	}
 
 }

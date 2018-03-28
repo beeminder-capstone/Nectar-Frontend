@@ -7,49 +7,46 @@
 <ion-header>
 	<ion-navbar color="primary">
 		<button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
+			<ion-icon name="menu"></ion-icon>
+		</button>
 		<ion-title>Edit Integration</ion-title>
 	</ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>
-      <img border="0" src="{{goal.icon}}" width="50" item-left>
-      {{integration}}
-      <br>
-      Metric: {{metric.title}}
-	  <br>
-      Description: {{metric.description}}
-    </ion-list-header>
+	<ion-list>
+		<ion-list-header>
+			<img border="0" src="{{goal.icon}}" width="50" item-left> {{integration}}
+			<br> Metric: {{metric.title}}
+			<br> Description: {{metric.description}}
+		</ion-list-header>
 
-    <ion-card>
+		<ion-card>
 
-      <form (ngSubmit)="confirm(envVariables.DOMAIN_NAME, envVariables.SECRET_KEY)">
-        <ion-item>
-          <ion-label stacked>Please select a goal:</ion-label>
-          <ion-select [(ngModel)]="integrationgoal.slug" name="slug" required>
-            <ion-option *ngFor="let goal of goals" value="{{goal}}">{{goal}}</ion-option>
-          </ion-select>
-        </ion-item>
-		<ion-item>
-		  <ion-label stacked>Enabled:</ion-label>
-		  <ion-checkbox [(ngModel)]="integrationgoal.active" name="active"></ion-checkbox>
-		</ion-item>
-        <ion-row>
-			<ion-col width-50 style="text-align: right">
-				<button ion-button type="confirm()">Submit</button>
-			</ion-col>
+			<form (ngSubmit)="confirm(envVariables.DOMAIN_NAME, envVariables.SECRET_KEY)">
+				<ion-item>
+					<ion-label stacked>Please select a goal:</ion-label>
+					<ion-select [(ngModel)]="integrationgoal.slug" name="slug" required>
+						<ion-option *ngFor="let goal of goals" value="{{goal}}">{{goal}}</ion-option>
+					</ion-select>
+				</ion-item>
+				<ion-item>
+					<ion-label stacked>Enabled:</ion-label>
+					<ion-checkbox [(ngModel)]="integrationgoal.active" name="active"></ion-checkbox>
+				</ion-item>
+				<ion-row>
+					<ion-col width-50 style="text-align: right">
+						<button ion-button type="confirm()">Submit</button>
+					</ion-col>
 
-			<ion-col width-50 style="text-align: left">
-			  <button ion-button color="dark" type="button" (click)="cancel()">Cancel</button>
-			</ion-col>
-		</ion-row>
-      </form>
+					<ion-col width-50 style="text-align: left">
+						<button ion-button color="dark" type="button" (click)="cancel()">Cancel</button>
+					</ion-col>
+				</ion-row>
+			</form>
 
-    </ion-card>
+		</ion-card>
 
-  </ion-list>
+	</ion-list>
 
 </ion-content>

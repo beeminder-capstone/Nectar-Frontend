@@ -6,145 +6,150 @@
   -->
 <ion-header>
 
-  <ion-navbar color="primary">
-    <ion-title>Goal Details</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="presentPopover($event)">
-        <ion-icon name="more"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
+	<ion-navbar color="primary">
+		<ion-title>Goal Details</ion-title>
+		<ion-buttons end>
+			<button ion-button icon-only (click)="presentPopover($event)">
+				<ion-icon name="more"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
 </ion-header>
 
 <ion-content>
-  <div class='user'>
-    <p>{{username}}/{{goal.slug}}</p>
-  </div>
-  
-  <ion-card>
-    <ion-item text-wrap>
-	  <ion-thumbnail item-left>
-        <img src="{{goal.icon}}"/>
-      </ion-thumbnail>
-	  <h2>{{integration}}
-	  <br>
-	  {{metric}}
-	  <br>
-	  {{description}}</h2>
-	</ion-item>
-  </ion-card>
-  
-  <ion-card>
-    <ion-card-header>
-      <h1>{{goal.title}}</h1>
-    </ion-card-header>
-
-    <ion-card-content>
-      <!--This will contain the d3 graph of the users datapoints-->
-	  <div class='box' [style.background-color]="goal.color">
-		<timer #timer [timeInSeconds]="goal.losedate" rectangle="true"></timer>
-	  </div>
-	  <ion-item>
-		<span item-left>Derailment:</span>
-        <span item-right>{{goal.losedate * 1000 | date:"MMM d, y h:mm a"}}</span>
-	  </ion-item>
-	  <img src="{{goal.graph_url}}" class="graph"/>
-	  <ion-item>
-        <span item-left>Summary:</span>
-        <span item-right>{{goal.limsum}}</span>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-
-    <ion-card-header>
-      <h2>Settings</h2>
-    </ion-card-header>
-
-    <ion-card-content>
-    <ion-list>
-      <ion-item *ngIf="goal.rate != null">
-        <span item-left>Rate:</span>
-        <span item-right>{{goal.rate  | number:0}}/{{goal.runits}}</span>
-      </ion-item>
-      <ion-item>
-        <span item-left>Start Date:</span>
-        <span item-right>{{goal.initday * 1000 | date:"MMM d, y"}}</span>
-      </ion-item>
-      <ion-item>
-        <span item-left>Initial Value:</span>
-        <span item-right>{{goal.initval}}</span>
-      </ion-item>
-      <ion-item>
-        <span item-left>Current Value:</span>
-        <span item-right>{{goal.curval}}</span>
-      </ion-item>
-      <ion-item *ngIf="goal.goalval != null">
-        <span item-left>Pledged Value:</span>
-        <span item-right>{{goal.goalval}}</span>
-      </ion-item>
-      <ion-item *ngIf="goal.goaldate != null">
-        <span item-left>Pledged Date:</span>
-        <span item-right>{{goal.goaldate * 1000 | date:"MMM d, y"}}</span>
-      </ion-item>
-      <ion-item>
-        <span item-left>Amount Pledged:</span>
-        <span item-right>&#36;{{goal.pledge}}</span>
-      </ion-item>
-      <ion-item>
-        <span item-left>Last Updated:</span>
-        <span item-right>{{goal.updated_at * 1000 | date:"MMM d, y h:mm a"}}</span>
-      </ion-item>
-	  <ion-item>
-        <span item-left>Beeminder Link:</span>
-        <span item-right><a target="_blank" href="{{link}}/{{username}}/{{goal.slug}}">{{goal.slug}}</a></span>
-      </ion-item>
-      <ion-item *ngIf="goal.integration != null">
-        <span item-left>Integration Link:</span>
-        <span item-right><a target="_blank" href="{{envVariables.DOMAIN_NAME}}/goals/{{goal.integration}}/{{integrationgoal.metric_key}}/{{integrationgoal.id}}">{{metrictitle.title}}</a></span>
-      </ion-item>
-    </ion-list>
-	</ion-card-content>
-
-  </ion-card>
-
-  <ion-card>
-  
-    <div style="position: relative">
-	  <ion-fab right top>
-        <button ion-fab (click)="addDatapointPrompt()" color="light">
-          <ion-icon name="add"></ion-icon>
-        </button>
-      </ion-fab>
+	<div class='user'>
+		<p>{{username}}/{{goal.slug}}</p>
 	</div>
 
-    <ion-card-header>
-      <h2>Datapoints</h2>
-    </ion-card-header>
-	
-	<ion-card-content>
-	<div text-center *ngIf="goal.autodata != null">
-      <button ion-button (click)="refresh()">Fetch New Data</button>
-    </div>
+	<ion-card>
+		<ion-item text-wrap>
+			<ion-thumbnail item-left>
+				<img src="{{goal.icon}}" />
+			</ion-thumbnail>
+			<h2>{{integration}}
+				<br> {{metric}}
+				<br> {{description}}
+			</h2>
+		</ion-item>
+	</ion-card>
 
-    <ion-list text-wrap>
-      <button ion-item *ngFor="let datapoint of goal.datapoints" (click)="editDatapointPrompt(datapoint)">
-		<div>
-		  <span>{{datapoint.value  |  number:0}}</span>
-		  <span style="float: right; font-style: italic;">{{datapoint.timestamp*1000  |  date:"MMM d, y h:mm a"}}</span>
-		</div>
-		<div>
-		  <span>{{datapoint.comment}}</span>
-		</div>
-      </button>
-    </ion-list>
-	</ion-card-content>
+	<ion-card>
+		<ion-card-header>
+			<h1>{{goal.title}}</h1>
+		</ion-card-header>
 
-  </ion-card>
-  
-  <ion-fab bottom right>
-    <button ion-fab (click)="share()" color="secondary"><ion-icon name="share"></ion-icon></button>
-  </ion-fab>
+		<ion-card-content>
+			<!--This will contain the d3 graph of the users datapoints-->
+			<div class='box' [style.background-color]="goal.roadstatuscolor">
+				<timer #timer [timeInSeconds]="goal.losedate" rectangle="true"></timer>
+			</div>
+			<ion-item>
+				<span item-left>Derailment:</span>
+				<span item-right>{{goal.losedate * 1000 | date:"MMM d, y h:mm a"}}</span>
+			</ion-item>
+			<img src="{{goal.graph_url}}" class="graph" />
+			<ion-item>
+				<span item-left>Summary:</span>
+				<span item-right>{{goal.limsum}}</span>
+			</ion-item>
+		</ion-card-content>
+	</ion-card>
+
+	<ion-card>
+
+		<ion-card-header>
+			<h2>Settings</h2>
+		</ion-card-header>
+
+		<ion-card-content>
+			<ion-list>
+				<ion-item *ngIf="goal.rate != null">
+					<span item-left>Rate:</span>
+					<span item-right>{{goal.rate | number:0}}/{{goal.runits}}</span>
+				</ion-item>
+				<ion-item>
+					<span item-left>Start Date:</span>
+					<span item-right>{{goal.initday * 1000 | date:"MMM d, y"}}</span>
+				</ion-item>
+				<ion-item>
+					<span item-left>Initial Value:</span>
+					<span item-right>{{goal.initval}}</span>
+				</ion-item>
+				<ion-item>
+					<span item-left>Current Value:</span>
+					<span item-right>{{goal.curval}}</span>
+				</ion-item>
+				<ion-item *ngIf="goal.goalval != null">
+					<span item-left>Pledged Value:</span>
+					<span item-right>{{goal.goalval}}</span>
+				</ion-item>
+				<ion-item *ngIf="goal.goaldate != null">
+					<span item-left>Pledged Date:</span>
+					<span item-right>{{goal.goaldate * 1000 | date:"MMM d, y"}}</span>
+				</ion-item>
+				<ion-item>
+					<span item-left>Amount Pledged:</span>
+					<span item-right>&#36;{{goal.pledge}}</span>
+				</ion-item>
+				<ion-item>
+					<span item-left>Last Updated:</span>
+					<span item-right>{{goal.updated_at * 1000 | date:"MMM d, y h:mm a"}}</span>
+				</ion-item>
+				<ion-item>
+					<span item-left>Beeminder Link:</span>
+					<span item-right>
+						<a target="_blank" href="{{link}}/{{username}}/{{goal.slug}}">{{goal.slug}}</a>
+					</span>
+				</ion-item>
+				<ion-item *ngIf="goal.integration != null">
+					<span item-left>Integration Link:</span>
+					<span item-right>
+						<a target="_blank" href="{{envVariables.DOMAIN_NAME}}/goals/{{goal.integration}}/{{integrationgoal.metric_key}}/{{integrationgoal.id}}">{{metrictitle.title}}</a>
+					</span>
+				</ion-item>
+			</ion-list>
+		</ion-card-content>
+
+	</ion-card>
+
+	<ion-card>
+
+		<div style="position: relative">
+			<ion-fab right top>
+				<button ion-fab (click)="addDatapointPrompt()" color="light">
+					<ion-icon name="add"></ion-icon>
+				</button>
+			</ion-fab>
+		</div>
+
+		<ion-card-header>
+			<h2>Datapoints</h2>
+		</ion-card-header>
+
+		<ion-card-content>
+			<div text-center *ngIf="goal.autodata != null">
+				<button ion-button (click)="refresh()">Fetch New Data</button>
+			</div>
+
+			<ion-list text-wrap>
+				<button ion-item *ngFor="let datapoint of goal.datapoints" (click)="editDatapointPrompt(datapoint)">
+					<div>
+						<span>{{datapoint.value | number:0}}</span>
+						<span style="float: right; font-style: italic;">{{datapoint.timestamp*1000 | date:"MMM d, y h:mm a"}}</span>
+					</div>
+					<div>
+						<span>{{datapoint.comment}}</span>
+					</div>
+				</button>
+			</ion-list>
+		</ion-card-content>
+
+	</ion-card>
+
+	<ion-fab bottom right>
+		<button ion-fab (click)="share()" color="secondary">
+			<ion-icon name="share"></ion-icon>
+		</button>
+	</ion-fab>
 
 </ion-content>

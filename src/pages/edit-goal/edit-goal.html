@@ -5,43 +5,43 @@
  * Please see the file LICENSE in this distribution for license terms
   -->
 <ion-header>
-    <ion-navbar color="primary">
-        <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-        <ion-title>Edit Goal</ion-title>
-    </ion-navbar>
+	<ion-navbar color="primary">
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>Edit Goal</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <ion-content>
-    <ion-list>
-        <form (ngSubmit)="confirm()">
-            <ion-item>
-                <ion-label floating>Goal Name (Slug):</ion-label>
-                <ion-input type="text" [(ngModel)]="goal.slug" name="slug" value="{{goal.slug}}" pattern="[a-z0-9\-]+" required></ion-input>
-            </ion-item>
+	<ion-list>
+		<form (ngSubmit)="confirm()">
+			<ion-item>
+				<ion-label floating>Goal Name (Slug):</ion-label>
+				<ion-input type="text" [(ngModel)]="goal.slug" name="slug" value="{{goal.slug}}" pattern="[a-z0-9\-]+" required></ion-input>
+			</ion-item>
 
-            <ion-item>
-                <ion-label floating>Goal Description:</ion-label>
-                <ion-input type="text" [(ngModel)]="goal.title" name="title" value="{{goal.title}}" required></ion-input>
-            </ion-item>
-			
+			<ion-item>
+				<ion-label floating>Goal Description:</ion-label>
+				<ion-input type="text" [(ngModel)]="goal.title" name="title" value="{{goal.title}}" required></ion-input>
+			</ion-item>
+
 			<ion-item>
 				<ion-label stacked>Private:</ion-label>
 				<ion-checkbox [(ngModel)]="goal.secret" name="secret"></ion-checkbox>
 			</ion-item>
 
-            <ion-row>
-                <ion-col width-50 style="text-align: right">
-                    <button ion-button type="confirm()">Submit</button>
-                </ion-col>
+			<ion-row>
+				<ion-col width-50 style="text-align: right">
+					<button ion-button type="confirm()">Submit</button>
+				</ion-col>
 
-                <ion-col width-50 style="text-align: left">
-                  <button ion-button color="dark" type="button" (click)="cancel()">Cancel</button>
-                </ion-col>
-            </ion-row>
+				<ion-col width-50 style="text-align: left">
+					<button ion-button color="dark" type="button" (click)="cancel()">Cancel</button>
+				</ion-col>
+			</ion-row>
 
-        </form>
-    </ion-list>
+		</form>
+	</ion-list>
 
 </ion-content>

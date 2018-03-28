@@ -5,27 +5,28 @@
  * Please see the file LICENSE in this distribution for license terms
   -->
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>Metric</ion-title>
-  </ion-navbar>
+	<ion-navbar color="primary">
+		<ion-title>Metric</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <div *ngIf="metricObject.length > 0">
-  <h3>
-	<img border="0" src="assets/logos/{{integration.name}}.png" width="50">
-    {{integration.title}}
-  </h3>
-  <ion-list text-wrap>
-	<ion-list-header>Please select a metric:</ion-list-header>
-    <button ion-item style="text-align: center" *ngFor="let m of metricObject" (click)="selectMetric(m)">
-      <h3>{{m.title}}</h3>
-	  <p>{{m.description}}</p>
-    </button>
-  </ion-list>
-  </div>
-  
-  <div *ngIf="metricObject.length == 0">
-    <p text-center>There are no metrics yet for {{integration.title}}. If you are a developer, you can contribute metrics at: <a target="_blank" href="https://github.com/beeminder-capstone/Nectar-Backend">https://github.com/beeminder-capstone/Nectar-Backend</a>.</p>
-  </div>
+	<div *ngIf="metricObject.length > 0">
+		<h3>
+			<img border="0" src="assets/logos/{{integration.name}}.png" width="50"> {{integration.title}}
+		</h3>
+		<ion-list text-wrap>
+			<ion-list-header>Please select a metric:</ion-list-header>
+			<button ion-item style="text-align: center" *ngFor="let m of metricObject" (click)="selectMetric(m)">
+				<h3>{{m.title}}</h3>
+				<p>{{m.description}}</p>
+			</button>
+		</ion-list>
+	</div>
+
+	<div *ngIf="metricObject.length == 0">
+		<p text-center>There are no metrics yet for {{integration.title}}. If you are a developer, you can contribute metrics at:
+			<a target="_blank"
+			 href="https://github.com/beeminder-capstone/Nectar-Backend">https://github.com/beeminder-capstone/Nectar-Backend</a>.</p>
+	</div>
 </ion-content>

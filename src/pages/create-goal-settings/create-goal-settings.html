@@ -7,8 +7,8 @@
 <ion-header>
 	<ion-navbar color="primary">
 		<button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
+			<ion-icon name="menu"></ion-icon>
+		</button>
 		<ion-title>Create New Beeminder Goal</ion-title>
 	</ion-navbar>
 </ion-header>
@@ -18,17 +18,15 @@
 		<form #formData='ngForm' (ngSubmit)="onSubmit(formData.value, envVariables.DOMAIN_NAME, envVariables.SECRET_KEY)">
 
 			<ion-list-header>
-				<img item-left border="0" src="{{icon}}" width="50"/>
-				{{integration}}
-				<br>
-				{{metric}}
-				<br>
-				{{description}}
+				<img item-left border="0" src="{{icon}}" width="50" /> {{integration}}
+				<br> {{metric}}
+				<br> {{description}}
 			</ion-list-header>
 
 			<ion-item>
 				<ion-label floating>Goal Name (Slug):</ion-label>
-				<ion-input type="text" [(ngModel)]="slug" name="slug" value="Name of Goal" placeholder="{{slug}}" autocapitalize="off" pattern="[a-z0-9\-]+" required></ion-input>
+				<ion-input type="text" [(ngModel)]="slug" name="slug" value="Name of Goal" placeholder="{{slug}}" autocapitalize="off" pattern="[a-z0-9\-]+"
+				 required></ion-input>
 			</ion-item>
 
 			<ion-item>
@@ -50,14 +48,14 @@
 			<ion-item>
 				<ion-label stacked>Select one of the Pledge Rates:</ion-label>
 				<ion-select [(ngModel)]="runit" name="runit" required>
-				<ion-option value="h">Hourly</ion-option>
-				<ion-option value="d" selected>Daily</ion-option>
-				<ion-option value="w">Weekly</ion-option>
-				<ion-option value="m">Monthly</ion-option>
-				<ion-option value="y">Yearly</ion-option>
+					<ion-option value="h">Hourly</ion-option>
+					<ion-option value="d" selected>Daily</ion-option>
+					<ion-option value="w">Weekly</ion-option>
+					<ion-option value="m">Monthly</ion-option>
+					<ion-option value="y">Yearly</ion-option>
 				</ion-select>
 			</ion-item>
-			
+
 			<ion-item>
 				<ion-label stacked>Private:</ion-label>
 				<ion-checkbox [(ngModel)]="secret" name="secret"></ion-checkbox>
