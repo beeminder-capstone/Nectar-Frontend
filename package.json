@@ -37,7 +37,6 @@
     "cordova-android": "^7.0.0",
     "cordova-android-support-gradle-release": "^1.2.1",
     "cordova-ios": "^4.5.4",
-    "cordova-plugin-console": "1.0.5",
     "cordova-plugin-device": "^1.1.4",
     "cordova-plugin-inappbrowser": "~1.6.1",
     "cordova-plugin-ionic-webview": "^1.1.16",
@@ -87,7 +86,6 @@
       "android"
     ],
     "plugins": {
-      "cordova-plugin-console": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-statusbar": {},
