@@ -1,17 +1,24 @@
-sudo: required
-dist: trusty
-
+matrix:
+  include:
+  - os: linux
+    sudo: required
+    language: android
+    android:
+      components:
+        - tools
+        - platform-tools
+        - tools
+        - build-tools-27.0.3
+        - android-27
+      licenses:
+        - 'android-sdk-preview-license-.+'
+        - 'android-sdk-license-.+'
+        - 'google-gdk-license-.+'
+  - os: osx
+    language: objective-c
 cache:
   directories:
     - node_modules
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    - google-chrome
-    packages:
-    - lib32stdc++6
-    - lib32z1
 before_install:
   - nvm install node
   - nvm use node
@@ -19,16 +26,8 @@ before_install:
 install:
   - npm install
 before_script:
-  - wget http://dl.google.com/android/android-sdk_r24.2-linux.tgz
-  - tar -xvf android-sdk_r24.2-linux.tgz
-  - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter android-23,build-tools-23.0.1
-  - export ANDROID_HOME=$PWD/android-sdk-linux
-  - export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/23.0.2
-  - mkdir -p ${ANDROID_HOME}/licenses
-  - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "${ANDROID_HOME}/licenses/android-sdk-license"
-  - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "${ANDROID_HOME}/licenses/android-sdk-preview-license"
-
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ionic cordova platform add android; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ionic cordova platform add ios; fi
 script:
-  - ionic platform remove android
-  - ionic platform add android
-  - ionic build android
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ionic cordova build android; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ionic cordova build ios; fi
