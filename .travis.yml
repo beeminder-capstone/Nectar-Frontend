@@ -19,7 +19,7 @@ matrix:
   - os: windows
     language: node_js
     node_js: node
-    env: MSBUILD_PATH="c:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin"
+    env: MSBUILDDIR="c:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin"
 cache:
   directories:
     - node_modules
@@ -35,7 +35,7 @@ before_script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ionic cordova platform add android; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ionic cordova platform add ios; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
-    export PATH=$MSBUILD_PATH:$PATH;
+    export PATH=$MSBUILDDIR:$PATH;
     ionic cordova platform add windows;
     fi
 script:
