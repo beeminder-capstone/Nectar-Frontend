@@ -10,7 +10,6 @@ import 'zone.js/dist/fake-async-test';
 import { FormsModule, ReactiveFormsModule }                           from '@angular/forms';
 import { getTestBed, TestBed }                                        from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { TranslateModule, TranslateService }                          from '@ngx-translate/core';
 import {
   App,
   Config,
@@ -18,29 +17,25 @@ import {
   Form,
   IonicModule,
   Keyboard,
+  Haptic,
   DomController,
   MenuController,
   NavController,
   Platform,
+  GestureController,
+  ToastController,
+  NavParams,
+  AlertController,
 }                                   from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage'
 
-import { ConfigMock, PlatformMock, AlertMock, UserMock, StorageMock, NavParamsMock } from 'ionic-mocks';
-import { BeeminderApiMock } from './mocks';
+import { ConfigMock, PlatformMock, AlertMock, StorageMock, NavParamsMock } from 'ionic-mocks';
+import { BeeminderApiMock, UserMock } from './mocks';
 import { Storage } from '@ionic/storage';
 import { User } from './providers/user';
 import { BeeminderApi } from './providers/beeminder-api';
-import { TranslateServiceMock }     from './services/translate.mock';
-import { TranslatePipeMock }        from './pipes/translate.pipe.mock';
 
-// Unfortunately there's no typing for the `__karma__` variable. Just declare it as any.
-declare const __karma__: any;
 declare const require: any;
-
-// Prevent Karma from running prematurely.
-__karma__.loaded = function (): void {
-  // noop
-};
 
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
@@ -51,8 +46,6 @@ getTestBed().initTestEnvironment(
 const context: any = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.
 context.keys().map(context);
-// Finally, start Karma to run the tests.
-__karma__.start();
 
 export class TestUtils {
 
@@ -71,7 +64,6 @@ export class TestUtils {
     return TestBed.configureTestingModule({
       declarations: [
         ...components,
-        TranslatePipeMock,
       ],
       providers: [
         App, Form, Keyboard, Haptic, DomController, MenuController, NavController, GestureController, ToastController,
@@ -83,14 +75,12 @@ export class TestUtils {
         {provide: NavParams, useClass: NavParamsMock},
         {provide: BeeminderApi, useClass: BeeminderApiMock},
         {provide: User, useClass: UserMock},
-        {provide: TranslateService, useClass: TranslateServiceMock},
       ],
       imports: [
         FormsModule,
         IonicModule,
         ReactiveFormsModule,
         IonicStorageModule,
-        TranslateModule,
       ],
     });
   }

@@ -40,9 +40,11 @@ matrix:
     os: windows
     language: node_js
     node_js: node
+    env: VSINSTALLDIR=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\
     before_install:
       - npm install -g cordova ionic
     before_script:
+      - export PATH=$VSINSTALLDIR:$PATH;
       - ionic cordova platform add windows
     script:
       - ionic cordova build windows
@@ -58,11 +60,8 @@ matrix:
       - npm install karma-firefox-launcher --save-dev
     script:
       - npm run test -- --watch=false --progress=false
-      - sed -i 's/chrome/firefox/' src/karma.conf.js
-      - sed -i 's/Chrome/Firefox/' src/karma.conf.js
+      - sed -i 's/chrome/firefox/' karma.conf.js
+      - sed -i 's/Chrome/Firefox/' karma.conf.js
       - npm run test -- --watch=false --progress=false
-cache:
-  directories:
-    - node_modules
 install:
   - npm install
