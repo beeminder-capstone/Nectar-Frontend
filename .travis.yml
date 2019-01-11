@@ -1,6 +1,7 @@
 matrix:
   include:
-  - os: linux
+  - name: "Build Android"
+    os: linux
     sudo: required
     language: android
     android:
@@ -14,31 +15,54 @@ matrix:
         - 'android-sdk-preview-license-.+'
         - 'android-sdk-license-.+'
         - 'google-gdk-license-.+'
-  - os: osx
+    before_install:
+      - nvm install node;
+      - nvm use node;
+      - npm install -g cordova ionic
+    before_script:
+      - ionic cordova platform add android
+    script:
+      - ionic cordova build android
+      - ionic cordova build android --prod
+  - name: "Build iOS"
+    os: osx
     language: objective-c
-  - os: windows
+    before_install:
+      - nvm install node;
+      - nvm use node;
+      - npm install -g cordova ionic
+    before_script:
+      - ionic cordova platform add ios
+    script:
+      - ionic cordova build ios
+      - ionic cordova build ios --prod
+  - name: "Build Windows (UWP)"
+    os: windows
     language: node_js
     node_js: node
-    env: MSBUILDDIR="c:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin"
+    before_install:
+      - npm install -g cordova ionic
+    before_script:
+      - ionic cordova platform add windows
+    script:
+      - ionic cordova build windows
+      - ionic cordova build windows --prod
+  - name: "Test on Chrome and Firefox Quantum"
+    os: linux
+    language: node_js
+    node_js: node
+    addons:
+      chrome: stable
+      firefox: latest
+    before_install:
+      - npm install karma-firefox-launcher --save-dev
+    script:
+      - npm run test -- --watch=false --progress=false
+      - sed -i 's/chrome/firefox/' src/karma.conf.js
+      - sed -i 's/Chrome/Firefox/' src/karma.conf.js
+      - npm run test -- --watch=false --progress=false
 cache:
   directories:
     - node_modules
-before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" || "$TRAVIS_OS_NAME" == "osx" ]]; then
-    nvm install node;
-    nvm use node;
-    fi
-  - npm install -g cordova ionic
 install:
   - npm install
-before_script:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ionic cordova platform add android; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ionic cordova platform add ios; fi
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
-    export PATH=$MSBUILDDIR:$PATH;
-    ionic cordova platform add windows;
-    fi
-script:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ionic cordova build android; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ionic cordova build ios; fi
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then ionic cordova build windows; fi
